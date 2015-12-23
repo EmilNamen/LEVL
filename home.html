@@ -239,7 +239,7 @@ MAIN CONTENT
                     <td class="text">{{pmixPivot.plateName}}</td>
                     <td class="numeric">{{pmixPivot.quantity}}</td>
                     <td class="text"> {{pmixPivot.exists}}</td>
-                    <td><button class="btn btn-info btn-xs" ng-click="removeRow(pmixPivot.plateName)" ><i class="fa fa-check "></i></button></td>
+                    <td><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalProducto" ng-click="addPlate(pmixPivot.plateName)"><i class="fa fa-check "></i></button></td>
                 </tr>
 
 
@@ -249,6 +249,125 @@ MAIN CONTENT
             </table>
 
 
+            <!-- Modal -->
+            <div class="modal fade" id="modalProducto" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ingresar Producto a LEVL</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row">
+
+
+                                    <div class="col-md-6 ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Nombre Producto:</div>
+                                            <input type="text" class="form-control" ng-model="actualPlateName"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Descripción Producto:</div>
+                                            <input type="text" class="form-control"  ng-model="plate.description"/>
+                                        </div>
+                                    </div>
+
+
+
+                                    <!-- COMPLEX TO DO LIST -->
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
+                                            <br>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="task-content">
+
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+
+                                                        <div class="col-md-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon">Nombre insumo:</div>
+                                                                <div class="dropdown">
+                                                                    <select class="form-control" ng-model="plate.ingredients[iterator]" ng-value="item._id"
+                                                                            ng-options="item._id as item.name for item in items">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon">Cantidad:</div>
+                                                                <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]"/>
+                                                                <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-md-12">
+
+                                                            <div class="text-center">
+                                                                <button type="submit" class="btn btn-info btn-sm" ng-click="addRow()">(+) AGREGAR INGREDIENTE</button>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+
+
+                                                    <div class="col-md-12">
+
+                                                        <br></br>
+                                                        <table class="table table-bordered table-striped table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>NOMBRE INSUMO</th>
+                                                                <th>CANTIDAD</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            <tr ng-repeat="temp in platesTEMP.ingredients">
+                                                                <td class="text">{{getNameByID(temp)}}</td>
+                                                                <td class="numeric">{{platesTEMP.ingredientsQuantity[$index]}}</td>
+                                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRow(selectedPlate.name)" ><i class="fa fa-trash-o "></i></button></td>
+                                                            </tr>
+
+
+
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /col-md-12-->
+
+                                    </div>
+
+                            </div><!-- /row -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success pull-right " ng-click="sendFormModalWindow()">INGRESAR PRODUCTO</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- MODAL WINDOW -->
 
 
         </section><! --/wrapper UPLOAD PMIX -->

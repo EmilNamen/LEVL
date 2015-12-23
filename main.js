@@ -316,15 +316,13 @@ function retrieve3(Restangular, $scope){
     }
     $scope.deleteProduct = function(element){
 
-        //Restangular.one("/plates/delete",element._id).remove().then(function(){
+        Restangular.one("/plates/delete",element._id).remove().then(function(){
 
-        // var index = $scope.plates.indexOf(element);
-        // if (index > -1) $scope.plates.splice(index, 1);
-        // });
-
+            var index = $scope.plates.indexOf(element);
+            if (index > -1) $scope.plates.splice(index, 1);
+        });
+        alert("DELETED: "+element.name);
         $scope.selectedPlate = $scope.plates[0];
-        alert(JSON.stringify($scope.selectedPlate));
-        alert(JSON.stringify($scope.plates[0]));
     };
 
     $scope.getUnitsByID= function(element){
@@ -512,8 +510,8 @@ function retrieve7(Restangular, $scope){
 
         Restangular.all(uri+args)
             .getList().then(function(transactions) {
-                $scope.transactions = transactions;
-            });
+            $scope.transactions = transactions;
+        });
 
 
     };
@@ -524,18 +522,10 @@ function retrieve7(Restangular, $scope){
 
 
 
-
-
-
-
-
-
-
-
 // CONTROLLER SUBIR PMIX
 
 
-app.controller('MyCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
+app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function ($scope, Upload, $timeout, Restangular) {
     $scope.uploadFiles = function(file, errFiles) {
         $scope.f = file;
         $scope.errFile = errFiles && errFiles[0];
@@ -552,15 +542,94 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Uplo
                     file.result = response.data;
                 });
             }, function (response) {
-                    //$scope.responseData = JSON.stringify(response.data);
+                //$scope.responseData = JSON.stringify(response.data);
 
             }, function (evt) {
                 file.progress = Math.min(100, parseInt(100.0 *
-                evt.loaded / evt.total));
+                    evt.loaded / evt.total));
             });
         }
     }
+
+
+    Restangular.all('items').getList().then(function(items) {
+        $scope.items = items;
+    });
+
+    $scope.platesTEMP = {};
+    $scope.platesTEMP.ingredients = [];
+    $scope.platesTEMP.ingredientsQuantity = [];
+
+    $scope.plate = {};
+
+    $scope.actualPlateName = "";
+    $scope.addPlate = function(plateName){
+        $scope.actualPlateName = plateName;
+        $scope.plate.name = plateName;
+    }
+
+    $scope.plate.ingredients=[];
+    $scope.plate.ingredientsQuantity=[];
+    $scope.iterator = 0;
+
+
+    $scope.sendFormModalWindow = function() {
+
+        console.log('want to send');
+
+        Restangular.all('plates').post($scope.plate).then(function(data) {
+            //interprete save result
+            alert("saved");
+        });
+
+
+    };
+
+    $scope.getNameByID= function(id){
+        if (id) {
+            for (var k = 0; k < $scope.items.length; ++k) {
+                if ($scope.items[k]._id == id) {
+                    return $scope.items[k].name;
+                }
+            }
+        }
+    };
+
+    $scope.getUnitsByID= function(element){
+        if (element) {
+            for (var k = 0; k < $scope.items.length; ++k) {
+                if ($scope.items[k]._id == element) {
+                    return $scope.items[k].units;
+                }
+            }
+        }
+    };
+
+
+    $scope.addRow = function(){
+        $scope.platesTEMP.ingredients.push($scope.plate.ingredients[$scope.iterator]);
+        $scope.platesTEMP.ingredientsQuantity.push($scope.plate.ingredientsQuantity[$scope.iterator]);
+        $scope.iterator++;
+
+    };
+    $scope.removeRow = function(name){
+        var index = -1;
+        var comArr = eval( $scope.platesTEMP );
+        for( var i = 0; i < comArr.length; i++ ) {
+            if( comArr[i].name === name ) {
+                index = i;
+                break;
+            }
+        }
+        if( index === -1 ) {
+            alert( "Something gone wrong" );
+        }
+        $scope.platesTEMP.splice( index, 1 );
+    };
+
+
+
+
+
+
 }]);
-
-
-
