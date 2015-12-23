@@ -104,11 +104,12 @@ function createChart(data, nameChart){
 
 // CONTROLLER NUEVO INSUMO
 function put1(Restangular, $scope){
-    var resource = Restangular.all('items');
+    var resourceInsumo = Restangular.all('items');
     $scope.item = {};
     // calling our submit function.
     $scope.submitFormInsumo = function() {
-        resource.post($scope.item).then(function(data) {
+        alert(JSON.stringify($scope.item));
+        resourceInsumo.post($scope.item).then(function(data) {
             //interprete save result
             alert("saved");
         });
@@ -177,19 +178,9 @@ function retrieve2(Restangular, $scope){
 
         $scope.item = {};
 
-        $scope.revisarInventarioSubmitForm = function() {
-
-            // calling our submit function
-
-            items.putElement($scope.item).then(function(updatedCollection) {
-                // Here you have the updated collection
-                alert("updated");
-            });
-        };
-
     });
 
-    $scope.removeRow = function(element){
+    $scope.removeRowItem = function(element){
 
         Restangular.one("/items/delete",element._id).remove().then(function(){
 

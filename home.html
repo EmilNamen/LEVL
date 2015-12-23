@@ -655,7 +655,6 @@ MAIN CONTENT
         </section><! --/wrapper INGRESAR PRODUCTO-->
 
         <section class="wrapper" ng-controller="retrieve2" ng-show="isSet(7)">
-            <form class="form-horizontal style-form" name="compraForm" ng-submit="revisarInventarioSubmitForm()">
                 <h3><i class="fa fa-angle-right"></i> REVISAR INSUMOS:</h3>
 
 
@@ -682,7 +681,7 @@ MAIN CONTENT
                                     <td>{{item.name}}</td>
                                     <td class="numeric">{{item.minStockReq}}</td>
                                     <td class="numeric">{{item.currentStock}}</td>
-                                    <td><button class="btn btn-danger btn-xs" ng-click="removeRow(item)"><i class="fa fa-trash-o "></i></button></td>
+                                    <td><button class="btn btn-danger btn-xs" ng-click="removeRowItem(item)"><i class="fa fa-trash-o "></i></button></td>
                                     <!--<td><button class="btn btn-info btn-xs" ng-click="editRow(company.name)" ><i class="fa fa-pencil"></i></button></td>-->
 
                                 </tr>
@@ -692,7 +691,6 @@ MAIN CONTENT
                         </div>
                     </div>
                 </div><!-- /col-lg-4 -->
-            </form>
         </section><! --/wrapper REVISAR INVENTARIO-->
 
         <section class="wrapper" ng-controller="retrieve3" ng-show="isSet(8)">
@@ -1092,10 +1090,10 @@ MAIN CONTENT
                                         Dirección:
                                         <div class="btn-group btn-group-justified">
                                             <div class="btn-group">
-                                                <button id="buttonEntrantes"type="button" class="btn btn-theme04" onclick="disable1()"><i class="fa fa-chevron-down"></i> ENTRANTES</button>
+                                                <button id="buttonEntrantes"type="button" class="btn btn-theme04 disabled" onclick="disable1()"><i class="fa fa-chevron-down"></i> ENTRANTES</button>
                                             </div>
                                             <div class="btn-group">
-                                                <button id="buttonSalientes" type="button" class="btn btn-theme02" onclick="disable2()"><i class="fa fa-chevron-up"></i> SALIENTES</button>
+                                                <button id="buttonSalientes" type="button" class="btn btn-theme02 disabled" onclick="disable2()"><i class="fa fa-chevron-up"></i> SALIENTES</button>
                                             </div>
                                         </div>
 
@@ -1110,14 +1108,16 @@ MAIN CONTENT
 
                                                 buttonActive = 1;
                                                 if(v1 == ' active'){
+
                                                     document.getElementById("buttonEntrantes").className = 'btn btn-theme04';
+                                                    document.getElementById("buttonSalientes").className = 'btn btn-theme02';
                                                     v1 = ' disabled';
-                                                    document.getElementById("buttonEntrantes").className += v1;
+                                                    document.getElementById("buttonSalientes").className += v1;
                                                 }
                                                 else{
-                                                    document.getElementById("buttonEntrantes").className = 'btn btn-theme04';
+                                                    document.getElementById("buttonSalientes").className = 'btn btn-theme02';
                                                     v1 = ' active'
-                                                    document.getElementById("buttonEntrantes").className += v1;
+                                                    document.getElementById("buttonSalientes").className += v1;
                                                 }
 
                                             }
@@ -1128,11 +1128,13 @@ MAIN CONTENT
 
                                                 if(v2 == ' active'){
                                                     document.getElementById("buttonEntrantes").className = 'btn btn-theme04';
+                                                    document.getElementById("buttonSalientes").className = 'btn btn-theme02';
                                                     v2 = ' disabled';
                                                     document.getElementById("buttonEntrantes").className += v2;
                                                 }
                                                 else{
                                                     document.getElementById("buttonEntrantes").className = 'btn btn-theme04';
+                                                    document.getElementById("buttonSalientes").className = 'btn btn-theme02';
                                                     v2 = ' active'
                                                     document.getElementById("buttonEntrantes").className += v2;
                                                 }
