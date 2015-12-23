@@ -87,7 +87,7 @@ MAIN CONTENT
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                <p class="centered"><a href="#"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
                 <h5 class="centered">ANDREA</h5>
 
                 <li class="mt" ng-class="{ active:isSet(1) }">
@@ -1115,6 +1115,7 @@ MAIN CONTENT
                                                     document.getElementById("buttonSalientes").className += v1;
                                                 }
                                                 else{
+                                                    document.getElementById("buttonEntrantes").className = 'btn btn-theme04';
                                                     document.getElementById("buttonSalientes").className = 'btn btn-theme02';
                                                     v1 = ' active'
                                                     document.getElementById("buttonSalientes").className += v1;
