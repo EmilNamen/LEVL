@@ -390,7 +390,8 @@ MAIN CONTENT
                                         <div class="dropdown">
                                             <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
                                             </select>
-                                            <a href="nuevoInsumo.html">(+) Nuevo insumo</a>
+                                            <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">(+) Nuevo Insumo</a></li>
+
                                         </div>
                                     </div>
                                 </div>
@@ -433,7 +434,7 @@ MAIN CONTENT
 
         <section class="wrapper" ng-controller="put1" ng-show="isSet(4)">
             <h3><i class="fa fa-angle-right"></i> INGRESAR INSUMO</h3>
-            <form class="form-horizontal style-form" name="insumoForm" ng-submit="submitForm()" action="home.html">
+            <form class="form-horizontal style-form" name="insumoForm" ng-submit="submitFormInsumo()" action="home.html">
                 <!-- BASIC FORM ELELEMNTS -->
                 <div class="row">
                     <div class="col-md-7 col-md-offset-3">
@@ -467,7 +468,10 @@ MAIN CONTENT
                                         <div class="input-group-addon">Proveedor: </div>
                                         <select class="form-control" ng-model="item.provider" ng-options="provider._id as provider.name for provider in providers">
                                         </select>
-                                        <a href="nuevoProveedor.html">(+) Nuevo proveedor</a>
+
+                                        <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
+
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">

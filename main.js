@@ -107,7 +107,7 @@ function put1(Restangular, $scope){
     var resource = Restangular.all('items');
     $scope.item = {};
     // calling our submit function.
-    $scope.submitForm = function() {
+    $scope.submitFormInsumo = function() {
         resource.post($scope.item).then(function(data) {
             //interprete save result
             alert("saved");
