@@ -2,7 +2,7 @@
  * Created by emilnamen on 12/1/15.
  */
 
-var app = angular.module('LEVL',["restangular",'ngFileUpload']);
+var app = angular.module('LEVL',['restangular','ngFileUpload']);
 app.config(["RestangularProvider",function(RestangularProvider){
     RestangularProvider.setRestangularFields({
         id: "_id"
