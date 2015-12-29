@@ -400,7 +400,7 @@ MAIN CONTENT
                                 <div class="col-md-6 ">
                                     <div class="input-group">
                                         <div class="input-group-addon">Cantidad: </div>
-                                        <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity"/>
+                                        <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
                                         <div class="input-group-addon">{{getUnitsByID(transaction.item)}}</div>
                                     </div>
                                 </div>
@@ -415,7 +415,7 @@ MAIN CONTENT
                                 <div class="col-md-12 ">
                                     <div class="input-group">
                                         <div class="input-group-addon">Descripción:</div>
-                                        <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description"/>
+                                        <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description" placeholder='Ingresar Descripción'/>
                                     </div>
                                 </div>
                             </div>
@@ -445,7 +445,7 @@ MAIN CONTENT
                                 <div class="col-md-7">
                                     <div class="input-group">
                                         <div class="input-group-addon">Nombre insumo: </div>
-                                        <input type="text" class="form-control" id="inputPrice" ng-model="item.name">
+                                        <input type="text" class="form-control" id="inputPrice" ng-model="item.name" placeholder='Ingresar Nombre'>
 
                                     </div>
                                 </div>
@@ -454,13 +454,13 @@ MAIN CONTENT
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <div class="input-group-addon">Minimo de stock requerido: </div>
-                                        <input type="text" class="form-control" id="minStockReq" ng-model="item.minStockReq">
+                                        <input type="text" class="form-control" id="minStockReq" ng-model="item.minStockReq" placeholder='Min '>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <div class="input-group-addon">Unidades (Kg, Litros, ...): </div>
-                                        <input type="text" class="form-control" id="unidades" ng-model="item.units">
+                                        <input type="text" class="form-control" id="unidades" ng-model="item.units" placeholder='Unidades'>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -476,8 +476,8 @@ MAIN CONTENT
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
-                                        <div class="input-group-addon">Categoria: </div>
-                                        <input type="text" class="form-control" id="categoria" ng-model="item.category">
+                                        <div class="input-group-addon">Categoría: </div>
+                                        <input type="text" class="form-control" id="categoria" ng-model="item.category" placeholder='Ingresar Categoría'>
                                     </div>
                                 </div>
 
@@ -504,7 +504,7 @@ MAIN CONTENT
             <form class="form-horizontal style-form" name="proveedorForm" ng-submit="submitForm()" action="home.html">
                 <!-- BASIC FORM ELELEMNTS -->
                 <div class="row">
-                    <div class="col-md-7 col-md-offset-3">
+                    <div class="col-md-8 col-md-offset-3">
                         <div class="form-panel">
                             <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
 
@@ -512,7 +512,7 @@ MAIN CONTENT
                                 <div class="col-md-7">
                                     <div class="input-group">
                                         <div class="input-group-addon">Nombre proveedor: </div>
-                                        <input type="text" class="form-control" id="name" ng-model="provider.name">
+                                        <input type="text" class="form-control" id="name" ng-model="provider.name" placeholder='Ingresar Nombre '>
 
                                     </div>
                                 </div>
@@ -521,25 +521,25 @@ MAIN CONTENT
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <div class="input-group-addon">Identificador: </div>
-                                        <input type="text" class="form-control" id="idNumber" ng-model="provider.idNumber">
+                                        <input type="text" class="form-control" id="idNumber" ng-model="provider.idNumber" placeholder='Ingresar Identificador'>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <div class="input-group-addon">Dirección: </div>
-                                        <input type="text" class="form-control" id="address" ng-model="provider.address">
+                                        <input type="text" class="form-control" id="address" ng-model="provider.address " placeholder='Ingresar Dirección'>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <div class="input-group-addon">Telefono: </div>
-                                        <input type="text" class="form-control" id="phoneNumber" ng-model="provider.phoneNumber">
+                                        <input type="text" class="form-control" id="phoneNumber" ng-model="provider.phoneNumber" placeholder='Ingresar Teléfono'>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <div class="input-group-addon">Nombre Contacto: </div>
-                                        <input type="text" class="form-control" id="contactName" ng-model="provider.contactName">
+                                        <input type="text" class="form-control" id="contactName" ng-model="provider.contactName" placeholder='Ingresar Nombre '>
                                     </div>
                                 </div>
 
@@ -572,12 +572,12 @@ MAIN CONTENT
                     <div class="col-md-6 ">
                         <div class="input-group">
                             <div class="input-group-addon">Nombre Producto:</div>
-                            <input type="text" class="form-control" id="inputNameProduct" ng-model="plate.name"/>
+                            <input type="text" class="form-control" id="inputNameProduct" ng-model="plate.name" placeholder='Ingresar Nombre'/>
                         </div>
 
                         <div class="input-group">
                             <div class="input-group-addon">Descripción Producto:</div>
-                            <input type="text" class="form-control" id="inputDescriptionProduct" ng-model="plate.description"/>
+                            <input type="text" class="form-control" id="inputDescriptionProduct" ng-model="plate.description" placeholder='Ingresar Descripción'/>
                         </div>
                     </div>
 
@@ -604,7 +604,7 @@ MAIN CONTENT
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-addon">Cantidad:</div>
-                                            <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]"/>
+                                            <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]" placeholder='Ingresar Cantidad'/>
                                             <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
 
                                         </div>
@@ -744,7 +744,7 @@ MAIN CONTENT
                                                 <td class="text">{{getNameByID(iter)}}</td>
                                                 <td>{{getUnitsByID(iter)}}</td>
                                                 <td class="numeric">{{selectedPlate.ingredientsQuantity[$index]}}</td>
-                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRow(selectedPlate.name)" formaction="/home.html" ><i class="fa fa-trash-o "></i></button></td>
+                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRowProduct(iter)"><i class="fa fa-trash-o "></i></button></td>
                                             </tr>
 
 
@@ -896,9 +896,9 @@ MAIN CONTENT
                                     <div class="col-md-6">
 
                                         <div class="input-group input-daterange">
-                                            <input id="startDateInput" type="text" class="form-control"/>
+                                            <input id="startDateInput" type="text" class="form-control" placeholder='Fecha Inicio'/>
                                             <span class="input-group-addon">to</span>
-                                            <input id="endDateInput"  type="text" class="form-control"/>
+                                            <input id="endDateInput"  type="text" class="form-control" placeholder='Fecha Fin'/>
                                         </div>
                                     </div>
 
@@ -1081,9 +1081,9 @@ MAIN CONTENT
                                         Fechas:
                                         <div class="input-group input-daterange">
 
-                                            <input id="startDateInputFiltro" type="text" class="form-control"/>
+                                            <input id="startDateInputFiltro" type="text" class="form-control" placeholder='Fecha Inicio'/>
                                             <span class="input-group-addon">hasta</span>
-                                            <input id="endDateInputFiltro"  type="text" class="form-control"/>
+                                            <input id="endDateInputFiltro"  type="text" class="form-control" placeholder="Fecha Fin"/>
                                         </div>
 
 

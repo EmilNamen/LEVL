@@ -326,6 +326,10 @@ function retrieve3(Restangular, $scope){
         }
     };
 
+    $scope.removeRowProduct = function(element){
+        alert(JSON.stringify(element));
+    };
+
 }
 
 // CONTROLLER REVISAR PROVEEDORES
