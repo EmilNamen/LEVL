@@ -12,6 +12,8 @@
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
     <!--external css-->
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
@@ -61,15 +63,8 @@ MAIN CONTENT
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="home.html" class="logo"><b>PCN INVENTARIO</b></a>
+        <a href="home.html" class="logo"><b>LEVL</b></a>
         <!--logo end-->
-        <div class="nav notify-row" id="top_menu">
-            <!--  notification start -->
-            <ul class="nav top-menu">
-
-            </ul>
-            <!--  notification end -->
-        </div>
         <div class="top-menu">
             <ul class="nav pull-right top-menu">
                 <li><a class="logout" href="index.html">CERRAR SESIÓN</a></li>
@@ -91,7 +86,7 @@ MAIN CONTENT
                 <h5 class="centered">ANDREA</h5>
 
                 <li class="mt" ng-class="{ active:isSet(1) }">
-                    <a href="" ng-click="setTab(1)">
+                    <a  ng-click="setTab(1)">
                         <i class="fa fa-home"></i>
                         <span>INICIO</span>
                     </a>
@@ -99,56 +94,57 @@ MAIN CONTENT
 
 
                 <li class="sub-menu" ng-class="{ active:isSet(2) }">
-                    <a href="" ng-click="setTab(2)">
+                    <a ng-click="setTab(2)" >
                         <i class="fa fa-upload"></i>
                         <span>CARGAR PMIX</span>
                     </a>
                 </li>
 
 
-                <li class="sub-menu">
+                <li class="sub-menu" ng-class="{ active:isSet(3)||isSet(4) ||isSet(5) ||isSet(6)  }">
                     <a href="javascript:;" >
                         <i class="fa fa-file-o"></i>
                         <span>INGRESAR</span>
                     </a>
-                    <ul class="sub">
-                        <li  ng-class="{ active:isSet(3) }"><a  href="" ng-click="setTab(3)">INGRESAR COMPRA</a></li>
-                        <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">NUEVO INSUMO</a></li>
-                        <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">NUEVO PROVEEDOR</a></li>
-                        <li  ng-class="{ active:isSet(6) }"><a  href="" ng-click="setTab(6)">INGRESAR PRODUCTO</a></li>
+                    <ul class="sub-menu">
+                        <li><a   ng-click="setTab(3)">INGRESAR COMPRA</a></li>
+                        <li><a   ng-click="setTab(4)">NUEVO INSUMO</a></li>
+                        <li><a   ng-click="setTab(5)">NUEVO PROVEEDOR</a></li>
+                        <li><a   ng-click="setTab(6)">INGRESAR PRODUCTO</a></li>
                     </ul>
                 </li>
 
 
 
-                <li class="sub-menu">
+
+                <li class="sub-menu" ng-class="{ active:isSet(7) || isSet(8) || isSet(9) }">
                     <a href="javascript:;" >
                         <i class="fa fa-tasks"></i>
                         <span>VER REPORTES</span>
                     </a>
-                    <ul class="sub">
-                        <li ng-class="{ active:isSet(7) }"><a  href="" ng-click="setTab(7)">REVISAR INSUMOS</a></li>
-                        <li ng-class="{ active:isSet(8) }"><a  href="" ng-click="setTab(8)">REVISAR RECETAS</a></li>
-                        <li ng-class="{ active:isSet(8) }"><a  href="" ng-click="setTab(9)">REVISAR PROVEEDORES</a></li>
+                    <ul class="sub-menu">
+                        <li><a  ng-click="setTab(7)">REVISAR INSUMOS</a></li>
+                        <li><a  ng-click="setTab(8)">REVISAR RECETAS</a></li>
+                        <li><a  ng-click="setTab(9)">REVISAR PROVEEDORES</a></li>
                     </ul>
                 </li>
 
                 <li class="sub-menu" ng-class="{ active:isSet(10) }">
-                    <a href=""  ng-click="setTab(10)">
+                    <a  ng-click="setTab(10)">
                         <i class="fa fa-cutlery"></i>
                         <span>TABLA INVENTARIO</span>
                     </a>
                 </li>
 
                 <li class="sub-menu" ng-class="{ active:isSet(11) }">
-                    <a href=""  ng-click="setTab(11)">
+                    <a  ng-click="setTab(11)">
                         <i class="fa fa-scissors"></i>
                         <span>AJUSTAR TABLA INVENTARIO</span>
                     </a>
                 </li>
 
                 <li class="sub-menu" ng-class="{ active:isSet(12) }">
-                    <a href=""  ng-click="setTab(12)">
+                    <a   ng-click="setTab(12)">
                         <i class="fa fa-scissors"></i>
                         <span>REVISAR ACTIVIDADES FILTRO</span>
                     </a>
@@ -397,7 +393,7 @@ MAIN CONTENT
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-6 ">
+                                <div class="col-md-6">
                                     <div class="input-group">
                                         <div class="input-group-addon">Cantidad: </div>
                                         <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
@@ -412,7 +408,7 @@ MAIN CONTENT
                                 </div>-->
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12 ">
+                                <div class="col-md-12">
                                     <div class="input-group">
                                         <div class="input-group-addon">Descripción:</div>
                                         <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description" placeholder='Ingresar Descripción'/>
@@ -1237,9 +1233,6 @@ MAIN CONTENT
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
 
-<!--common script for all pages-->
-<script src="assets/js/common-scripts.js"></script>
-
 <!--script for this page-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
 
@@ -1282,6 +1275,8 @@ MAIN CONTENT
 
 
 
+
+
 </script>
 
 
@@ -1291,6 +1286,9 @@ MAIN CONTENT
 
 
 
+
+<!--common script for all pages-->
+<script src="assets/js/common-scripts.js"></script>
 
 </body>
 </html>
