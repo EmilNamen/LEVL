@@ -193,6 +193,24 @@ function retrieve2(Restangular, $scope){
 
 
 
+    $scope.actualItemEdit = "";
+
+   $scope.addItemEdit =  function (item){
+       $scope.actualItemEdit = item;
+   };
+
+    $scope.editItem =  function(){
+        alert(JSON.stringify($scope.actualItemEdit));
+
+        Restangular.one("/items/update",$scope.actualItemEdit._id).put().then(function(){
+
+            alert("edited");
+
+        });
+    }
+
+
+
 }
 
 
@@ -316,6 +334,7 @@ function retrieve3(Restangular, $scope){
         $scope.selectedPlate = $scope.plates[0];
     };
 
+
     $scope.getUnitsByID= function(element){
         if (element) {
             for (var k = 0; k < $scope.items.length; ++k) {
@@ -352,6 +371,25 @@ function retrieve4(Restangular, $scope){
         });
 
     };
+
+
+    $scope.actualProviderEdit = "";
+
+    $scope.addProviderEdit =  function (provider){
+        $scope.actualProviderEdit = provider;
+    };
+
+    $scope.editProvider =  function(){
+        alert(JSON.stringify($scope.actualProviderEdit));
+
+        Restangular.one("/providers/update",$scope.actualProviderEdit._id).put().then(function(){
+
+            alert("edited");
+
+        });
+    }
+
+
 }
 
 // CONTROLLER REVISAR TABLA INVENTARIO
@@ -428,6 +466,7 @@ function retrieve5(Restangular, $scope){
 function retrieve6(Restangular, $scope){
 
     var resource2 = Restangular.all('inventory/inventoryTable');
+
     resource2.getList().then(function(rowsInventoryTable){
         $scope.rowsiInventoryTable = rowsInventoryTable;
 
@@ -436,6 +475,7 @@ function retrieve6(Restangular, $scope){
             Restangular.all('inventory/currentStock?item='+item[1]+'&date='+new Date()).getList().then(function(currentstock){
 
                 item[4] = currentstock;
+                item[5] = currentstock;
             });
 
         });
@@ -576,6 +616,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
             //interprete save result
             alert("saved");
         });
+
 
 
     };
