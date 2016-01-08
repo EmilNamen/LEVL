@@ -24,7 +24,15 @@ app.controller('put4',put4);
 
 // CONTROLLER HEADER
 app.controller('TabController', function($scope){
-    $scope.tab = 1;
+
+    if(!localStorage.getItem('activeTab')){
+        localStorage.setItem('activeTab','1');
+    }
+
+    var num = parseInt(localStorage.getItem('activeTab'));
+
+    $scope.tab = num;
+
 
     $scope.setTab = function(tab){
         $scope.tab = tab;
@@ -37,6 +45,8 @@ app.controller('TabController', function($scope){
 
 // CONTROLLER HOME
 function retrieve1(Restangular, $scope){
+
+
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
         $scope.items = items;
@@ -104,14 +114,17 @@ function createChart(data, nameChart){
 
 // CONTROLLER NUEVO INSUMO
 function put1(Restangular, $scope){
+
     var resourceInsumo = Restangular.all('items');
     $scope.item = {};
     // calling our submit function.
     $scope.submitFormInsumo = function() {
         alert(JSON.stringify($scope.item));
+
         resourceInsumo.post($scope.item).then(function(data) {
             //interprete save result
             alert("saved");
+            reloadPage();
         });
     };
 
@@ -125,6 +138,7 @@ function put1(Restangular, $scope){
 
 // CONTROLLER INGRESAR COMPRA
 function put2(Restangular, $scope){
+
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
         $scope.items = items;
@@ -145,6 +159,7 @@ function put2(Restangular, $scope){
 
         resource2.post($scope.transaction).then(function(data) {
             //interprete save result
+
             alert("saved");
         });
     };
@@ -165,6 +180,7 @@ function put2(Restangular, $scope){
 
 // CONTROLLER REVISAR INVENTARIO
 function retrieve2(Restangular, $scope){
+
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
         $scope.items = items;
@@ -200,9 +216,9 @@ function retrieve2(Restangular, $scope){
    };
 
     $scope.editItem =  function(){
-        alert(JSON.stringify($scope.actualItemEdit));
 
         Restangular.one("/items/update",$scope.actualItemEdit._id).put().then(function(){
+
 
             alert("edited");
 
@@ -216,6 +232,7 @@ function retrieve2(Restangular, $scope){
 
 // CONTROLLER INGRESAR PRODUCTO
 function put3(Restangular, $scope){
+
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
         $scope.items = items;
@@ -241,6 +258,8 @@ function put3(Restangular, $scope){
             //interprete save result
             alert("saved");
         });
+
+        reloadPage();
 
 
     };
@@ -290,21 +309,23 @@ function put3(Restangular, $scope){
 
 // CONTROLLER NUEVO PROVEEDOR
 function put4(Restangular, $scope){
+
     var resource = Restangular.all('providers');
-
     $scope.provider = {};
-
     // calling our submit function.
     $scope.submitForm = function() {
         resource.post($scope.provider).then(function(data) {
             //interprete save result
             alert("saved");
+
+            reloadPage();
         });
     };
 }
 
 // CONTROLLER REVISAR PRODUCTOS
 function retrieve3(Restangular, $scope){
+
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
         $scope.items = items;
@@ -332,6 +353,9 @@ function retrieve3(Restangular, $scope){
         });
         alert("DELETED: "+element.name);
         $scope.selectedPlate = $scope.plates[0];
+
+        reloadPage();
+
     };
 
 
@@ -394,7 +418,6 @@ function retrieve4(Restangular, $scope){
 
 // CONTROLLER REVISAR TABLA INVENTARIO
 function retrieve5(Restangular, $scope){
-
 
     var resource2 = Restangular.all('inventory/inventoryTable');
     resource2.getList().then(function(rowsInventoryTable){
@@ -553,14 +576,11 @@ function retrieve7(Restangular, $scope){
 }
 
 
-
-
-
-
 // CONTROLLER SUBIR PMIX
 
 
-app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function ($scope, Upload, $timeout, Restangular) {
+app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function ($scope, Upload, $timeout, Restangular){
+
     $scope.uploadFiles = function(file, errFiles) {
         $scope.f = file;
         $scope.errFile = errFiles && errFiles[0];
@@ -615,6 +635,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
         Restangular.all('plates').post($scope.plate).then(function(data) {
             //interprete save result
             alert("saved");
+            reloadPage();
         });
 
 
@@ -669,3 +690,9 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
 
 
 }]);
+
+
+//Function used to reload the page in order to reload controllers calls
+function reloadPage() {
+    location.reload();
+}

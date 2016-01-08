@@ -43,6 +43,13 @@
     <script src="assets/js/ng-file-upload/ng-file-upload-shim.js"></script>
     <script src="assets/js/ng-file-upload/ng-file-upload.js"></script>
 
+    <!-- SET REFRESH TAB LOCAL STORAGE-->
+    <script>
+        function setRefreshTab(activeTab){
+            localStorage.setItem('activeTab', activeTab);
+        };
+    </script>
+
 
 </head>
 <body ng-controller="TabController">
@@ -86,7 +93,7 @@ MAIN CONTENT
                 <h5 class="centered">ANDREA</h5>
 
                 <li class="mt" ng-class="{ active:isSet(1) }">
-                    <a  ng-click="setTab(1)">
+                    <a  ng-click="setTab(1)" onclick="setRefreshTab(1)">
                         <i class="fa fa-home"></i>
                         <span>INICIO</span>
                     </a>
@@ -94,7 +101,7 @@ MAIN CONTENT
 
 
                 <li class="sub-menu" ng-class="{ active:isSet(2) }">
-                    <a ng-click="setTab(2)" >
+                    <a ng-click="setTab(2)" onclick="setRefreshTab(2)" >
                         <i class="fa fa-upload"></i>
                         <span>CARGAR PMIX</span>
                     </a>
@@ -107,10 +114,10 @@ MAIN CONTENT
                         <span>INGRESAR</span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a   ng-click="setTab(3)">INGRESAR COMPRA</a></li>
-                        <li><a   ng-click="setTab(4)">NUEVO INSUMO</a></li>
-                        <li><a   ng-click="setTab(5)">NUEVO PROVEEDOR</a></li>
-                        <li><a   ng-click="setTab(6)">INGRESAR PRODUCTO</a></li>
+                        <li><a   ng-click="setTab(3)" onclick="setRefreshTab(3)">INGRESAR COMPRA</a></li>
+                        <li><a   ng-click="setTab(4)" onclick="setRefreshTab(4)">NUEVO INSUMO</a></li>
+                        <li><a   ng-click="setTab(5)" onclick="setRefreshTab(5)">NUEVO PROVEEDOR</a></li>
+                        <li><a   ng-click="setTab(6)" onclick="setRefreshTab(6)">INGRESAR PRODUCTO</a></li>
                     </ul>
                 </li>
 
@@ -123,28 +130,28 @@ MAIN CONTENT
                         <span>VER REPORTES</span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a  ng-click="setTab(7)">REVISAR INSUMOS</a></li>
-                        <li><a  ng-click="setTab(8)">REVISAR RECETAS</a></li>
-                        <li><a  ng-click="setTab(9)">REVISAR PROVEEDORES</a></li>
+                        <li><a  ng-click="setTab(7)" onclick="setRefreshTab(7)">REVISAR INSUMOS</a></li>
+                        <li><a  ng-click="setTab(8)" onclick="setRefreshTab(8)">REVISAR RECETAS</a></li>
+                        <li><a  ng-click="setTab(9)" onclick="setRefreshTab(9)">REVISAR PROVEEDORES</a></li>
                     </ul>
                 </li>
 
                 <li class="sub-menu" ng-class="{ active:isSet(10) }">
-                    <a  ng-click="setTab(10)">
+                    <a  ng-click="setTab(10)" onclick="setRefreshTab(10)">
                         <i class="fa fa-cutlery"></i>
                         <span>TABLA INVENTARIO</span>
                     </a>
                 </li>
 
                 <li class="sub-menu" ng-class="{ active:isSet(11) }">
-                    <a  ng-click="setTab(11)">
+                    <a  ng-click="setTab(11)" onclick="setRefreshTab(11)">
                         <i class="fa fa-scissors"></i>
                         <span>AJUSTAR TABLA INVENTARIO</span>
                     </a>
                 </li>
 
                 <li class="sub-menu" ng-class="{ active:isSet(12) }">
-                    <a   ng-click="setTab(12)">
+                    <a   ng-click="setTab(12)" onclick="setRefreshTab(12)">
                         <i class="fa fa-scissors"></i>
                         <span>REVISAR ACTIVIDADES FILTRO</span>
                     </a>
@@ -160,7 +167,7 @@ MAIN CONTENT
     RIGHT SIDEBAR CONTENT
     *********************************************************************************************************************************************************** -->
     <section id="main-content" >
-        <section class="wrapper"  ng-controller="retrieve1" ng-show="isSet(1)" >
+        <section class="wrapper" ng-controller="retrieve1"  ng-show="isSet(1)" >
 
             <form ng-selected="graphSubmitForm()">
                 <div class="col-lg-12 ds alertas">
@@ -204,7 +211,7 @@ MAIN CONTENT
 
         </section><! --/wrapper HOME -->
 
-        <section class="wrapper" ng-show="isSet(2)" ng-controller="MyCtrl" >
+        <section class="wrapper" ng-controller="MyCtrl" ng-show="isSet(2)"  >
 
             <h4>Upload on file select</h4>
             <input type="file" ngf-select="uploadFiles($file, $invalidFiles)">
@@ -337,7 +344,7 @@ MAIN CONTENT
                                                         <tr ng-repeat="temp in platesTEMP.ingredients">
                                                             <td class="text">{{getNameByID(temp)}}</td>
                                                             <td class="numeric">{{platesTEMP.ingredientsQuantity[$index]}}</td>
-                                                            <td><button class="btn btn-danger btn-xs" ng-click="removeRow(selectedPlate.name)" ><i class="fa fa-trash-o "></i></button></td>
+                                                            <td><button class="btn btn-danger btn-xs" ng-click="removeRow(selectedPlate.name)" data-dismiss="modal" ><i class="fa fa-trash-o "></i></button></td>
                                                         </tr>
 
 
@@ -852,21 +859,6 @@ MAIN CONTENT
 
                 <form class="form-horizontal style-form" name="plateForm" ng-submit="plateSubmitForm()">
 
-                    <!--
-                    <div class="col-md-6 ">
-                        <div class="input-group">
-                            <div class="input-group-addon">Nombre Proveedor:</div>
-                            <div class="dropdown">
-                                <select class="form-control" ng-model="selectedProvider" ng-options="provider as provider.name for provider in providers">
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-
--->
-
-
                     <!-- COMPLEX TO DO LIST -->
                     <div class="col-md-12">
                         <div class="panel-heading">
@@ -1011,7 +1003,7 @@ MAIN CONTENT
 
 
 
-                                <button type="submit" class="btn btn-success btn-xs pull-right" ng-click="editProvider()" data-dismiss="modal">GUARDAR CAMBIOS</button>
+                                <button type="submit" class="btn btn-success btn-xs pull-right" ng-click="editProvider()"  data-dismiss="modal">GUARDAR CAMBIOS</button>
 
                             </div><!-- /row -->
 
@@ -1209,7 +1201,7 @@ MAIN CONTENT
         <section class="wrapper" ng-controller="retrieve7" ng-show="isSet(12)">
             <h3><i class="fa fa-angle-right"></i>REVISAR ACTIVIDADES POR FILTRO:</h3>
 
-            <!-- BASIC FORM ELELEMNTS -->
+            <!-- BASIC FORM ELEMENTS -->
             <div class="row">
 
                 <form class="form-horizontal style-form">
@@ -1377,8 +1369,6 @@ MAIN CONTENT
         </section><! --/wrapper REVISAR ACTIVIDADES FILTRO-->
 
 
-
-
     </section>
 
 
@@ -1434,14 +1424,6 @@ MAIN CONTENT
         endDateFiltroAsObject = $("#endDateInputFiltro").datepicker('getDate');
 
     });
-
-
-
-
-
-
-
-
 </script>
 
 
