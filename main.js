@@ -118,10 +118,8 @@ function put1(Restangular, $scope){
     var resourceInsumo = Restangular.all('items');
     $scope.item = {};
     // calling our submit function.
-    $scope.submitFormInsumo = function() {
-        alert(JSON.stringify($scope.item));
-
-        resourceInsumo.post($scope.item).then(function(data) {
+    $scope.ingresarInsumo =  function(insumo){
+        resourceInsumo.post(insumo).then(function(data) {
             //interprete save result
             alert("saved");
             reloadPage();
@@ -144,23 +142,27 @@ function put2(Restangular, $scope){
         $scope.items = items;
     });
 
-    var resource2 = Restangular.all('transactions');
-    resource2.getList().then(function(transactions){
+    var resourceTransactions = Restangular.all('transactions');
+    resourceTransactions.getList().then(function(transactions){
         $scope.transactions = transactions;
+    });
+
+
+    var resource2 = Restangular.all('providers');
+    resource2.getList().then(function(providers){
+        $scope.providers = providers;
     });
 
     $scope.transaction = {};
 
-    $scope.transactionSubmitForm = function() {
+    $scope.ingresarCompra = function(transaction){
 
         // calling our submit function
-
         $scope.transaction.date = new Date();
-
-        resource2.post($scope.transaction).then(function(data) {
+        resourceTransactions.post(transaction).then(function(data) {
             //interprete save result
-
             alert("saved");
+            reloadPage();
         });
     };
 
@@ -250,16 +252,16 @@ function put3(Restangular, $scope){
     $scope.iterator = 0;
 
 
-    $scope.sendForm = function() {
+    $scope.ingresarProducto = function() {
 
         console.log('want to send');
 
         resource2.post($scope.plate).then(function(data) {
             //interprete save result
             alert("saved");
+            reloadPage();
         });
 
-        reloadPage();
 
 
     };
@@ -313,11 +315,10 @@ function put4(Restangular, $scope){
     var resource = Restangular.all('providers');
     $scope.provider = {};
     // calling our submit function.
-    $scope.submitForm = function() {
-        resource.post($scope.provider).then(function(data) {
+    $scope.ingresarProveedor = function(provider) {
+        resource.post(provider).then(function(data) {
             //interprete save result
             alert("saved");
-
             reloadPage();
         });
     };
@@ -572,6 +573,16 @@ function retrieve7(Restangular, $scope){
         });
 
 
+    };
+
+    $scope.getNameByID= function(id){
+        if (id) {
+            for (var k = 0; k < $scope.items.length; ++k) {
+                if ($scope.items[k]._id == id) {
+                    return $scope.items[k].name;
+                }
+            }
+        }
     };
 }
 

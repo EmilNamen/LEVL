@@ -378,66 +378,81 @@ MAIN CONTENT
         <section class="wrapper" ng-controller="put2" ng-show="isSet(3)">
             <h3><i class="fa fa-angle-right"></i> INGRESAR COMPRA</h3>
 
+            <form class="form-horizontal style-form">
             <!-- BASIC FORM ELELEMNTS -->
             <div class="row">
                 <div class="col-md-7 col-md-offset-3">
 
                     <div class="form-panel">
                         <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
-                        <form class="form-horizontal style-form" name="compraForm" ng-submit="transactionSubmitForm()" action="home.html">
 
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Nombre insumo:</div>
-                                        <div class="dropdown">
-                                            <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
-                                            </select>
-                                            <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">(+) Nuevo Insumo</a></li>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Nombre insumo:</div>
+                                    <div class="dropdown">
+                                        <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
+                                        </select>
+                                        <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">(+) Nuevo Insumo</a></li>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Cantidad: </div>
-                                        <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
-                                        <div class="input-group-addon">{{getUnitsByID(transaction.item)}}</div>
-                                    </div>
-                                </div>
-                                <!--<div class="col-md-4 ">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Precio: $</div>
-                                        <input type="text" class="form-control" id="inputPrice" ng-model="transaction.precio"/>
-                                    </div>
-                                </div>-->
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Descripción:</div>
-                                        <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description" placeholder='Ingresar Descripción'/>
-                                    </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Cantidad: </div>
+                                    <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
+                                    <div class="input-group-addon">{{getUnitsByID(transaction.item)}}</div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <button type="submit" class="btn btn-default">INGRESAR</button>
+                            <!--<div class="col-md-4 ">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Precio: $</div>
+                                    <input type="text" class="form-control" id="inputPrice" ng-model="transaction.precio"/>
+                                </div>
+                            </div>-->
+
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Proveedor: </div>
+                                    <select class="form-control" ng-model="transaction.provider" ng-options="provider._id as provider.name for provider in providers">
+                                    </select>
+                                    <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Descripción:</div>
+                                    <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description" placeholder='Ingresar Descripción'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-default" ng-click="ingresarCompra(transaction)">INGRESAR</button>
+                            </div>
+                        </div>
                     </div>
                 </div><!-- col-lg-12-->
 
             </div><!-- /row -->
 
+                </form>
+
         </section> <! --/wrapper INGRESAR COMPRA -->
 
         <section class="wrapper" ng-controller="put1" ng-show="isSet(4)">
+
             <h3><i class="fa fa-angle-right"></i> INGRESAR INSUMO</h3>
-            <form class="form-horizontal style-form" name="insumoForm" ng-submit="submitFormInsumo()" action="home.html">
+
+                <form class="form-horizontal style-form">
+
                 <!-- BASIC FORM ELELEMNTS -->
                 <div class="row">
                     <div class="col-md-7 col-md-offset-3">
@@ -488,7 +503,7 @@ MAIN CONTENT
 
                             <div class="form-group">
                                 <div class="col-md-4">
-                                    <button type="submit" class="btn btn-success">INGRESAR INSUMO</button>
+                                    <button type="submit" class="btn btn-success" ng-click="ingresarInsumo(item)">INGRESAR INSUMO</button>
                                 </div>
                             </div>
 
@@ -504,7 +519,7 @@ MAIN CONTENT
 
         <section class="wrapper" ng-controller="put4" ng-show="isSet(5)">
             <h3><i class="fa fa-angle-right"></i> INGRESAR PROVEEDOR</h3>
-            <form class="form-horizontal style-form" name="proveedorForm" ng-submit="submitForm()" action="home.html">
+            <form class="form-horizontal style-form">
                 <!-- BASIC FORM ELELEMNTS -->
                 <div class="row">
                     <div class="col-md-8 col-md-offset-3">
@@ -550,7 +565,7 @@ MAIN CONTENT
 
                             <div class="form-group">
                                 <div class="col-md-4">
-                                    <button type="submit" class="btn btn-success" >INGRESAR PROVEEDOR</button>
+                                    <button type="submit" class="btn btn-success" ng-click="ingresarProveedor(provider)" >INGRESAR PROVEEDOR</button>
                                 </div>
                             </div>
 
@@ -570,7 +585,7 @@ MAIN CONTENT
             <!-- BASIC FORM ELELEMNTS -->
             <div class="row">
 
-                <form class="form-horizontal style-form" name="plateForm" ng-submit="plateSubmitForm()">
+                <form class="form-horizontal style-form" name="plateForm" >
 
                     <div class="col-md-6 ">
                         <div class="input-group">
@@ -645,7 +660,7 @@ MAIN CONTENT
 
                         <div class="form-group">
                             <div class="col-md-4">
-                                <button type="submit" class="btn btn-success pull-right " ng-click="sendForm()">INGRESAR PRODUCTO</button>
+                                <button type="submit" class="btn btn-success pull-right " ng-click="ingresarProducto()">INGRESAR PRODUCTO</button>
                             </div>
                         </div>
                     </div>
@@ -1082,7 +1097,7 @@ MAIN CONTENT
                                                 <td class="text">{{row[2]}}</td>
                                                 <td class="number">{{row[3]}}</td>
                                                 <td class="number">{{row[4]}}</td>
-                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRow(provider)" ><i class="fa fa-trash-o "></i></button></td>
+                                                <!--<td><button class="btn btn-danger btn-xs" ng-click="removeRow(provider)" ><i class="fa fa-trash-o "></i></button></td>-->
 
                                             </tr>
 
@@ -1294,8 +1309,6 @@ MAIN CONTENT
 
                                             }
 
-
-
                                         </script>
 
 
@@ -1339,7 +1352,7 @@ MAIN CONTENT
                                             <tr ng-repeat="transaction in transactions">
                                                 <td class="number">{{transaction.date}}</td>
                                                 <td class="text">{{transaction.quantity}}</td>
-                                                <td class="number">{{transaction.item}}</td>
+                                                <td class="number">{{getNameByID(transaction.item)}}</td>
                                                 <td class="number">{{transaction.description}}</td>
                                             </tr>
 
