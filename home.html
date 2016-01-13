@@ -200,7 +200,7 @@ MAIN CONTENT
                         <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
                     </div>
                     <div>
-                        <p><muted>{{transaction.date.toString()}}</muted><br/>
+                        <p><muted>{{transaction.date | date:'medium'  }}</muted><br/>
                             <a href="#">{{item.name}}</a> {{transaction.quantity + "   "+transaction.description}}<br/>
                         </p>
                     </div>
@@ -1350,7 +1350,7 @@ MAIN CONTENT
                                             <tbody>
 
                                             <tr ng-repeat="transaction in transactions">
-                                                <td class="number">{{transaction.date}}</td>
+                                                <td class="number">{{transaction.date | date:'medium' }}</td>
                                                 <td class="text">{{transaction.quantity}}</td>
                                                 <td class="number">{{getNameByID(transaction.item)}}</td>
                                                 <td class="number">{{transaction.description}}</td>

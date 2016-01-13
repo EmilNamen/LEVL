@@ -231,7 +231,6 @@ function retrieve2(Restangular, $scope){
 
 }
 
-
 // CONTROLLER INGRESAR PRODUCTO
 function put3(Restangular, $scope){
 
@@ -407,7 +406,7 @@ function retrieve4(Restangular, $scope){
     $scope.editProvider =  function(){
         alert(JSON.stringify($scope.actualProviderEdit));
 
-        Restangular.one("/providers/update",$scope.actualProviderEdit._id).put().then(function(){
+        Restangular.one("/providers/update",$scope.actualProviderEdit._id,$scope.actualProviderEdit).put().then(function(){
 
             alert("edited");
 
