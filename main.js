@@ -210,20 +210,24 @@ function retrieve2(Restangular, $scope){
     };
 
 
-
     $scope.actualItemEdit = "";
 
-   $scope.addItemEdit =  function (item){
-       $scope.actualItemEdit = item;
-   };
+    $scope.addItemEdit =  function (item){
+        $scope.actualItemEdit = item;
+    };
 
     $scope.editItem =  function(){
 
-        Restangular.one("/items/update",$scope.actualItemEdit._id).put().then(function(){
+        delete $scope.actualItemEdit.__v;
+        delete $scope.actualItemEdit.route;
+        delete $scope.actualItemEdit.parentResource;
+        delete $scope.actualItemEdit.restangularCollection;
+        delete $scope.actualItemEdit.$$hashKey;
 
+        alert(JSON.stringify($scope.actualItemEdit));
 
-            alert("edited");
-
+        Restangular.one("items/update/"+$scope.actualItemEdit._id).customPUT($scope.actualItemEdit).then(function(data){
+          alert("edited");
         });
     }
 
@@ -507,9 +511,42 @@ function retrieve6(Restangular, $scope){
 
     });
 
-    $scope.ajustar =  function(){
+    var resourceTransaction = Restangular.all('transactions');
+    resourceTransaction.getList().then(function(transactions){
+        $scope.transactions = transactions;
+    });
 
+    $scope.transaction = {};
 
+    $scope.ajustar = function(){
+
+        $scope.rowsiInventoryTable.forEach(function(row){
+
+            var dif =  row[5]-row[4];
+
+            if(dif!=0){
+                $scope.transaction.item = row[1];
+                $scope.transaction.quantity = dif;
+                $scope.transaction.description = "***AJUSTE INVENTARIO  "+new Date().toISOString().slice(0, 10);
+                $scope.transaction.date = new Date();
+                alert(JSON.stringify($scope.transaction));
+                resourceTransaction.post($scope.transaction).then(function(data){
+                    alert("ajustado");
+                    reloadPage();
+                });
+            }
+
+        });
+
+        //alert($scope.rowsiInventoryTable);
+
+        // calling our submit function
+        //$scope.transaction.date = new Date();
+        //resourceTransactions.post(transaction).then(function(data) {
+        //interprete save result
+        //alert("saved");
+        //reloadPage();
+        //});
     };
 }
 
@@ -525,9 +562,9 @@ function retrieve7(Restangular, $scope){
     var resource2 = Restangular.all('transactions');
     resource2.getList().then(function(transactions){
         $scope.transactions = transactions;
-
     });
 
+    $scope.items = [];
     var resource3 = Restangular.all('items');
     resource3.getList().then(function(items) {
         $scope.items = items;
@@ -574,7 +611,9 @@ function retrieve7(Restangular, $scope){
 
     };
 
-    $scope.getNameByID= function(id){
+
+    $scope.getNameItemByID= function(id){
+
         if (id) {
             for (var k = 0; k < $scope.items.length; ++k) {
                 if ($scope.items[k]._id == id) {
