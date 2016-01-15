@@ -56,21 +56,29 @@ function retrieve1(Restangular, $scope){
 
     var resource2 = Restangular.all('transactions');
     resource2.getList().then(function(transactions){
-        $scope.transactions = transactions;
 
         $scope.transaction = {};
-
         $scope.transaction.item = transactions[0].item;
 
+
+        $scope.transactions = transactions;
+
+
         $scope.graphSubmitForm = function() {
+
+            //alert(_.filter($scope.transactions,function(trans){return trans.item.localeCompare($scope.transaction.item)==0}));
 
             if( $scope.transaction.item.localeCompare('undefined') === 0 &&  $scope.transaction.item != null);
             {
                 var dps = [];
                 var acumQuantity = 0;
+                var transactionsItem = [];
                 transactions.forEach( function( transaction ) {
 
                     if(transaction.item === $scope.transaction.item){
+
+                        transactionsItem.push(transaction);
+
                         var transactionDate = new Date(transaction.date);
                         transactionDate = transactionDate.getTime();
                         acumQuantity = acumQuantity + transaction.quantity;
@@ -80,10 +88,32 @@ function retrieve1(Restangular, $scope){
                     }
                 });
 
-                createChart(dps);
+                $scope.transactions = transactionsItem;
+
+
+                createChart(dps, $scope.getNameItemByID($scope.transaction.item));
+
+
             }
         };
     });
+
+
+
+    $scope.getNameItemByID = function(id){
+
+        if (id) {
+            for (var k = 0; k < $scope.items.length; ++k) {
+                if ($scope.items[k]._id == id) {
+                    return $scope.items[k].name;
+                }
+            }
+        }
+
+
+    };
+
+
 }
 
 function createChart(data, nameChart){
@@ -227,7 +257,7 @@ function retrieve2(Restangular, $scope){
         alert(JSON.stringify($scope.actualItemEdit));
 
         Restangular.one("items/update/"+$scope.actualItemEdit._id).customPUT($scope.actualItemEdit).then(function(data){
-          alert("edited");
+            alert("edited");
         });
     }
 
@@ -350,15 +380,13 @@ function retrieve3(Restangular, $scope){
     }
     $scope.deleteProduct = function(element){
 
-        Restangular.one("/plates/delete",element._id).remove().then(function(){
+        Restangular.one("plates/delete",element._id).remove().then(function(){
 
-            var index = $scope.plates.indexOf(element);
-            if (index > -1) $scope.plates.splice(index, 1);
+            alert("DELETED: "+element.name);
+            $scope.selectedPlate = $scope.plates[0];
+
+            reloadPage();
         });
-        alert("DELETED: "+element.name);
-        $scope.selectedPlate = $scope.plates[0];
-
-        reloadPage();
 
     };
 
@@ -373,8 +401,64 @@ function retrieve3(Restangular, $scope){
         }
     };
 
-    $scope.removeRowProduct = function(element){
-        alert(JSON.stringify(element));
+    $scope.removeRowProduct = function(itemPlate,plate){
+
+
+        delete plate.__v;
+        delete plate.route;
+        delete plate.parentResource;
+        delete plate.restangularCollection;
+        delete plate.$$hashKey;
+
+        for(var i= 0; i<plate.ingredients.length; i++){
+            if(plate.ingredients[i].localeCompare(itemPlate)==0){
+                plate.ingredients.splice(i,1);
+            }
+        }
+        Restangular.one("plates/update/"+plate._id).customPUT(plate).then(function() {
+
+            alert("EDITED: " + plate.name);
+            reloadPage();
+        });
+
+    };
+
+    $scope.addItemProduct =  function(){
+
+    };
+
+    $scope.addRow = function(){
+        $scope.selectedPlate.ingredients.push($scope.selectedPlate.ingredients[$scope.iterator]);
+        $scope.selectedPlate.ingredientsQuantity.push($scope.selectedPlate.ingredientsQuantity[$scope.iterator]);
+        $scope.iterator++;
+
+    };
+    $scope.removeRow = function(itemPlate,plate){
+
+        delete plate.__v;
+        delete plate.route;
+        delete plate.parentResource;
+        delete plate.restangularCollection;
+        delete plate.$$hashKey;
+
+        for(var i= 0; i<plate.ingredients.length; i++){
+            if(plate.ingredients[i].localeCompare(itemPlate)==0){
+                plate.ingredients.splice(i,1);
+            }
+        }
+        Restangular.one("plates/update/"+plate._id).customPUT(plate).then(function() {
+
+            alert("EDITED: " + plate.name);
+        });
+    };
+
+    $scope.updateProductModalWindow = function(plate){
+        Restangular.one("plates/update/"+plate._id).customPUT(plate).then(function() {
+
+            alert("EDITED: " + plate.name);
+            reloadPage();
+        });
+
     };
 
 }
@@ -408,9 +492,14 @@ function retrieve4(Restangular, $scope){
     };
 
     $scope.editProvider =  function(){
-        alert(JSON.stringify($scope.actualProviderEdit));
 
-        Restangular.one("/providers/update",$scope.actualProviderEdit._id,$scope.actualProviderEdit).put().then(function(){
+        delete $scope.actualProviderEdit.__v;
+        delete $scope.actualProviderEdit.route;
+        delete $scope.actualProviderEdit.parentResource;
+        delete $scope.actualProviderEdit.restangularCollection;
+        delete $scope.actualProviderEdit.$$hashKey;
+
+        Restangular.one("providers/update/"+$scope.actualProviderEdit._id).customPUT($scope.actualProviderEdit).then(function(data){
 
             alert("edited");
 
@@ -595,17 +684,23 @@ function retrieve7(Restangular, $scope){
             args += (args==''?'':'&')+'provider='+$scope.transaction.provider;
         }
 
-        // inOurOut = 1 Entrantes    = 0 Salientes
+        // 0 DOS APAGADOS , 1 UNO PRENDIDO DOS APAGADO, 2 DOS PRENDIDO UNO APAGADO, 3 DOS PRENDIDOS
 
-        $scope.transaction.inOurOut = buttonActive;
+        $scope.transaction.inOurOut = getActivesDirections();
 
-        if($scope.transaction.inOurOut){
-            args += (args==''?'':'&')+'inOurOut='+$scope.transaction.inOurOut;
-        }
-
-        Restangular.all(uri+args)
-            .getList().then(function(transactions) {
-            $scope.transactions = transactions;
+        Restangular.all(uri+args).getList().then(function(transactions) {
+            if(getActivesDirections()==3){
+                $scope.transactions = transactions;
+            }
+            if(getActivesDirections()==1){
+                $scope.transactions = _.filter(transactions, function(transaction){return transaction.quantity>0});
+            }
+            if(getActivesDirections()==2){
+                $scope.transactions = _.filter(transactions, function(transaction){return transaction.quantity<0});
+            }
+            if(getActivesDirections()==0){
+                $scope.transactions = transactions;
+            }
         });
 
 
@@ -745,3 +840,5 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
 function reloadPage() {
     location.reload();
 }
+
+

@@ -11,7 +11,8 @@
 
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 
 
     <!--external css-->
@@ -167,51 +168,56 @@ MAIN CONTENT
     RIGHT SIDEBAR CONTENT
     *********************************************************************************************************************************************************** -->
     <section id="main-content" >
-        <section class="wrapper" ng-controller="retrieve1"  ng-show="isSet(1)" >
+        <section class="wrapper" ng-show="isSet(1)" >
 
-            <form ng-selected="graphSubmitForm()">
-                <div class="col-lg-12 ds alertas">
-                    <h4>VER GRÁFICA DEL INSUMO: </h4>
-                    <div class="col-md-4">
+            <div class="row" ng-controller="retrieve1">
+
+                <form ng-selected="graphSubmitForm()">
+                    <div class="col-lg-9 main-chart">
+
+                        <h4>VER GRÁFICA DEL INSUMO: </h4>
                         <div class="dropdown">
                             <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
                             </select>
                         </div>
+                        <div id="chartContainer">
+                        </div>
+
+
                     </div>
-                    <div class="col-md-12">
-                        <div class="panel-body text-center">
-                            <div id="chartContainer" style="height: 270px; width: 100%;">
-                            </div>
+                </form>
+
+
+                <!-- **********************************************************************************************************************************************************
+                RIGHT SIDEBAR CONTENT
+                *********************************************************************************************************************************************************** -->
+                <div class="col-lg-3 ds">
+
+                    <!--COMPLETED ACTIONS DONUTS CHART-->
+                    <h3>ACTIVIDADES</h3>
+
+                    <!-- First Action -->
+                    <div class="desc"  ng-repeat="transaction in transactions">
+
+                        <div>
+                            <p><muted>{{transaction.date | date:'medium'  }}</muted><br/>
+                                <a href="#">{{getNameItemByID(transaction.item)}}</a><br/>
+                                {{"Cantidad:  "+transaction.quantity }}<br/>
+                                {{"Descripción:  "+transaction.description}}<br/>
+                            </p>
                         </div>
                     </div>
 
 
-                </div><! -- /col-lg-6 -->
-            </form>
 
-
-            <div class="col-lg-12 ds actividades">
-                <!--COMPLETED ACTIONS DONUTS CHART-->
-                <h3>ACTIVIDADES</h3>
-
-                <!-- First Action -->
-                <div class="desc"  ng-repeat="transaction in transactions">
-                    <div class="thumb">
-                        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                    </div>
-                    <div>
-                        <p><muted>{{transaction.date | date:'medium'  }}</muted><br/>
-                            <a href="#">{{item.name}}</a> {{"Cantidad: "+transaction.quantity + "   Descripctión:"+transaction.description}}<br/>
-                        </p>
-                    </div>
-                </div>
+                </div><!-- /col-lg-3 -->
             </div>
-
-
 
         </section><! --/wrapper HOME -->
 
-        <section class="wrapper" ng-controller="MyCtrl" ng-show="isSet(2)"  >
+        <section class="wrapper"  ng-show="isSet(2)"  >
+
+            <div ng-controller="MyCtrl">
 
             <h4>Upload on file select</h4>
             <input type="file" ngf-select="uploadFiles($file, $invalidFiles)">
@@ -372,86 +378,91 @@ MAIN CONTENT
 
             <!-- MODAL WINDOW -->
 
+            </div>
+
 
         </section><! --/wrapper UPLOAD PMIX -->
 
-        <section class="wrapper" ng-controller="put2" ng-show="isSet(3)">
+        <section class="wrapper" ng-show="isSet(3)">
+            <div ng-controller="put2" >
             <h3><i class="fa fa-angle-right"></i> INGRESAR COMPRA</h3>
 
             <form class="form-horizontal style-form">
-            <!-- BASIC FORM ELELEMNTS -->
-            <div class="row">
-                <div class="col-md-7 col-md-offset-3">
+                <!-- BASIC FORM ELELEMNTS -->
+                <div class="row">
+                    <div class="col-md-7 col-md-offset-3">
 
-                    <div class="form-panel">
-                        <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
+                        <div class="form-panel">
+                            <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
 
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <div class="input-group-addon">Nombre insumo:</div>
-                                    <div class="dropdown">
-                                        <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
-                                        </select>
-                                        <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">(+) Nuevo Insumo</a></li>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Nombre insumo:</div>
+                                        <div class="dropdown">
+                                            <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
+                                            </select>
+                                            <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">(+) Nuevo Insumo</a></li>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <div class="input-group-addon">Cantidad: </div>
-                                    <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
-                                    <div class="input-group-addon">{{getUnitsByID(transaction.item)}}</div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Cantidad: </div>
+                                        <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
+                                        <div class="input-group-addon">{{getUnitsByID(transaction.item)}}</div>
+                                    </div>
+                                </div>
+                                <!--<div class="col-md-4 ">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Precio: $</div>
+                                        <input type="text" class="form-control" id="inputPrice" ng-model="transaction.precio"/>
+                                    </div>
+                                </div>-->
+
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Proveedor: </div>
+                                        <select class="form-control" ng-model="transaction.provider" ng-options="provider._id as provider.name for provider in providers">
+                                        </select>
+                                        <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
+                                    </div>
                                 </div>
                             </div>
-                            <!--<div class="col-md-4 ">
-                                <div class="input-group">
-                                    <div class="input-group-addon">Precio: $</div>
-                                    <input type="text" class="form-control" id="inputPrice" ng-model="transaction.precio"/>
-                                </div>
-                            </div>-->
 
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <div class="input-group-addon">Proveedor: </div>
-                                    <select class="form-control" ng-model="transaction.provider" ng-options="provider._id as provider.name for provider in providers">
-                                    </select>
-                                    <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Descripción:</div>
+                                        <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description" placeholder='Ingresar Descripción'/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <div class="input-group-addon">Descripción:</div>
-                                    <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description" placeholder='Ingresar Descripción'/>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-default" ng-click="ingresarCompra(transaction)">INGRESAR</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-default" ng-click="ingresarCompra(transaction)">INGRESAR</button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- col-lg-12-->
+                    </div><!-- col-lg-12-->
 
-            </div><!-- /row -->
+                </div><!-- /row -->
 
-                </form>
+            </form>
+            </div>
 
         </section> <! --/wrapper INGRESAR COMPRA -->
 
-        <section class="wrapper" ng-controller="put1" ng-show="isSet(4)">
+        <section class="wrapper"  ng-show="isSet(4)">
 
+            <div ng-controller="put1">
             <h3><i class="fa fa-angle-right"></i> INGRESAR INSUMO</h3>
 
-                <form class="form-horizontal style-form">
+            <form class="form-horizontal style-form">
 
                 <!-- BASIC FORM ELELEMNTS -->
                 <div class="row">
@@ -512,12 +523,17 @@ MAIN CONTENT
 
                 </div><!-- /row -->
             </form>
+            </div>
+
 
 
 
         </section><! --/wrapper NUEVO INSUMO -->
 
-        <section class="wrapper" ng-controller="put4" ng-show="isSet(5)">
+        <section class="wrapper"  ng-show="isSet(5)">
+
+            <div ng-controller="put4">
+
             <h3><i class="fa fa-angle-right"></i> INGRESAR PROVEEDOR</h3>
             <form class="form-horizontal style-form">
                 <!-- BASIC FORM ELELEMNTS -->
@@ -576,10 +592,16 @@ MAIN CONTENT
             </form>
 
 
+            </div>
+
 
         </section><! --/wrapper NUEVO PROVEEDOR-->
 
-        <section class="wrapper" ng-controller="put3" ng-show="isSet(6)">
+        <section class="wrapper"  ng-show="isSet(6)">
+
+            <div ng-controller="put3">
+
+
             <h3><i class="fa fa-angle-right"></i> INGRESAR PRODUCTO</h3>
 
             <!-- BASIC FORM ELELEMNTS -->
@@ -669,13 +691,15 @@ MAIN CONTENT
             </div><!-- /row -->
 
 
+            </div>
+
+
 
         </section><! --/wrapper INGRESAR PRODUCTO-->
 
-        <section class="wrapper" ng-controller="retrieve2" ng-show="isSet(7)">
+        <section class="wrapper"  ng-show="isSet(7)">
+            <div ng-controller="retrieve2">
             <h3><i class="fa fa-angle-right"></i> REVISAR INSUMOS:</h3>
-
-
 
             <div class="col-md-12">
                 <div class="panel-heading">
@@ -782,10 +806,14 @@ MAIN CONTENT
                     </div>
                 </div>
             </div>
+            </div>
+
 
         </section><! --/wrapper REVISAR INVENTARIO-->
 
-        <section class="wrapper" ng-controller="retrieve3" ng-show="isSet(8)">
+        <section class="wrapper"  ng-show="isSet(8)">
+
+            <div ng-controller="retrieve3">
             <h3><i class="fa fa-angle-right"></i>REVISAR PRODUCTOS:</h3>
 
             <!-- BASIC FORM ELELEMNTS -->
@@ -836,7 +864,7 @@ MAIN CONTENT
                                                 <td class="text">{{getNameByID(iter)}}</td>
                                                 <td>{{getUnitsByID(iter)}}</td>
                                                 <td class="numeric">{{selectedPlate.ingredientsQuantity[$index]}}</td>
-                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRowProduct(iter)"><i class="fa fa-trash-o "></i></button></td>
+                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRowProduct(iter,selectedPlate)"><i class="fa fa-trash-o "></i></button></td>
                                             </tr>
 
 
@@ -856,360 +884,493 @@ MAIN CONTENT
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProduct(selectedPlate)">ELIMINAR PRODUCTO</button>
                             </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-info pull-right"data-toggle="modal" data-target="#modalItemProducto" ng-click="addItemProduct(selectedPlate)">AGREGAR INSUMO A PRODUCTO</button>
+                            </div>
                         </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalItemProducto" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Agregar insumo a producto</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="row">
+
+
+                                            <div class="col-md-6 ">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Nombre Producto:</div>
+                                                    <input type="text" class="form-control" ng-model="selectedPlate.name"/>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-12 ">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Descripción Producto:</div>
+                                                    <input type="text" class="form-control"  ng-model="selectedPlate.description"/>
+                                                </div>
+                                            </div>
+
+
+
+                                            <!-- COMPLEX TO DO LIST -->
+                                            <div class="col-md-12">
+                                                <div class="panel-heading">
+                                                    <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
+                                                    <br>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="task-content">
+
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+
+                                                                <div class="col-md-6">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon">Nombre insumo:</div>
+                                                                        <div class="dropdown">
+                                                                            <select class="form-control" ng-model="selectedPlate.ingredients[iterator]" ng-value="item._id"
+                                                                                    ng-options="item._id as item.name for item in items">
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon">Cantidad:</div>
+                                                                        <input type="text" class="form-control" ng-model="selectedPlate.ingredientsQuantity[iterator]"/>
+                                                                        <div class="input-group-addon">{{getUnitsByID(selectedPlate.ingredients[iterator])}}</div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="col-md-12">
+
+                                                                    <div class="text-center">
+                                                                        <button type="submit" class="btn btn-info btn-sm" ng-click="addRow()">(+) AGREGAR INGREDIENTE</button>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                            </div>
+
+
+                                                            <div class="col-md-12">
+
+                                                                <br></br>
+                                                                <table class="table table-bordered table-striped table-condensed">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>NOMBRE INSUMO</th>
+                                                                        <th>CANTIDAD</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                    <tr ng-repeat="temp in selectedPlate.ingredients">
+                                                                        <td class="text">{{getNameByID(temp)}}</td>
+                                                                        <td class="numeric">{{selectedPlate.ingredientsQuantity[$index]}}</td>
+                                                                        <td><button class="btn btn-danger btn-xs" ng-click="removeRow(temp, selectedPlate)" data-dismiss="modal" ><i class="fa fa-trash-o "></i></button></td>
+                                                                    </tr>
+
+
+
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /col-md-12-->
+
+                                            </div>
+
+                                        </div><!-- /row -->
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success pull-right " ng-click="updateProductModalWindow(selectedPlate)">INGRESAR PRODUCTO</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- MODAL WINDOW -->
+
+
                     </div>
                 </form>
 
             </div><!-- /row -->
+            </div>
 
 
 
         </section><! --/wrapper REVISAR PRODUCTOS-->
 
-        <section class="wrapper" ng-controller="retrieve4" ng-show="isSet(9)">
-            <h3><i class="fa fa-angle-right"></i>REVISAR PROVEEDORES:</h3>
+        <section class="wrapper"  ng-show="isSet(9)">
+            <div ng-controller="retrieve4">
+                <h3><i class="fa fa-angle-right"></i>REVISAR PROVEEDORES:</h3>
 
-            <!-- BASIC FORM ELELEMNTS -->
-            <div class="row">
+                <!-- BASIC FORM ELELEMNTS -->
+                <div class="row">
 
-                <form class="form-horizontal style-form" name="plateForm" ng-submit="plateSubmitForm()">
+                    <form class="form-horizontal style-form" name="plateForm" ng-submit="plateSubmitForm()">
 
-                    <!-- COMPLEX TO DO LIST -->
-                    <div class="col-md-12">
-                        <div class="panel-heading">
-                            <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
-                            <br>
+                        <!-- COMPLEX TO DO LIST -->
+                        <div class="col-md-12">
+                            <div class="panel-heading">
+                                <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
+                                <br>
+                            </div>
+                            <div class="panel-body">
+                                <div class="task-content">
+
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-12">
+
+                                            <table class="table table-bordered table-striped table-condensed" id="tableIngresar">
+                                                <thead>
+                                                <tr>
+                                                    <th>ID PROVEEDOR</th>
+                                                    <th>NOMBRE PROVEEDOR</th>
+                                                    <th>DIRECCIÓN</th>
+                                                    <th>TELEFONO</th>
+                                                    <th>NOMBRE CONTACTO</th>
+                                                    <th>BORRAR</th>
+                                                    <th>EDITAR</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                <tr ng-repeat="provider in providers">
+                                                    <td class="number">{{provider.idNumber}}</td>
+                                                    <td class="text">{{provider.name}}</td>
+                                                    <td class="number">{{provider.address}}</td>
+                                                    <td class="number">{{provider.phoneNumber}}</td>
+                                                    <td class="text">{{provider.contactName}}</td>
+                                                    <td><button class="btn btn-danger btn-xs" ng-click="removeRow(provider)" ><i class="fa fa-trash-o "></i></button></td>
+                                                    <td><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalEditarProveedor" ng-click="addProviderEdit(provider)"><i class="fa fa-pencil"></i></button></td>
+
+                                                </tr>
+
+
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /col-md-12-->
+
+                            <div class="form-group">
+                                <!--
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProvider(selectedProvider._id)">ELIMINAR PROVEEDOR</button>
+                                </div>-->
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <div class="task-content">
+                    </form>
 
-                                <div class="form-group">
+                </div><!-- /row -->
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalEditarProveedor" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Editar Proveedor</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
 
 
                                     <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Nombre Proveedor:</div>
+                                            </div>
+                                        </div>
 
-                                        <table class="table table-bordered table-striped table-condensed" id="tableIngresar">
-                                            <thead>
-                                            <tr>
-                                                <th>ID PROVEEDOR</th>
-                                                <th>NOMBRE PROVEEDOR</th>
-                                                <th>DIRECCIÓN</th>
-                                                <th>TELEFONO</th>
-                                                <th>NOMBRE CONTACTO</th>
-                                                <th>BORRAR</th>
-                                                <th>EDITAR</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            <tr ng-repeat="provider in providers">
-                                                <td class="number">{{provider.idNumber}}</td>
-                                                <td class="text">{{provider.name}}</td>
-                                                <td class="number">{{provider.address}}</td>
-                                                <td class="number">{{provider.phoneNumber}}</td>
-                                                <td class="text">{{provider.contactName}}</td>
-                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRow(provider)" ><i class="fa fa-trash-o "></i></button></td>
-                                                <td><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalEditarProveedor" ng-click="addProviderEdit(provider)"><i class="fa fa-pencil"></i></button></td>
-
-                                            </tr>
-
-
-                                            </tbody>
-
-                                        </table>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input type="text" ng-model="actualProviderEdit.name"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <div class="col-md-12 ">
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Dirección:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input type="text" ng-model="actualProviderEdit.address"/></td>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-12 ">
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Teléfono:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+
+                                                <input type="text" ng-model="actualProviderEdit.phoneNumber"/></td>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 ">
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Nombre Contacto:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+
+                                                <input type="text" ng-model="actualProviderEdit.contactName"/></td>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <button type="submit" class="btn btn-success btn-xs pull-right" ng-click="editProvider()"  data-dismiss="modal">GUARDAR CAMBIOS</button>
+
+                                </div><!-- /row -->
+
                             </div>
-                        </div><!-- /col-md-12-->
-
-                        <div class="form-group">
-                            <!--
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProvider(selectedProvider._id)">ELIMINAR PROVEEDOR</button>
-                            </div>-->
-                        </div>
-                    </div>
-                </form>
-
-            </div><!-- /row -->
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="modalEditarProveedor" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Editar Proveedor</h4>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="row">
-
-
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Nombre Proveedor:</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <input type="text" ng-model="actualProviderEdit.name"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 ">
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Dirección:</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <input type="text" ng-model="actualProviderEdit.address"/></td>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-12 ">
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Teléfono:</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-
-                                            <input type="text" ng-model="actualProviderEdit.phoneNumber"/></td>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-12 ">
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Nombre Contacto:</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-
-                                            <input type="text" ng-model="actualProviderEdit.contactName"/></td>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-                                <button type="submit" class="btn btn-success btn-xs pull-right" ng-click="editProvider()"  data-dismiss="modal">GUARDAR CAMBIOS</button>
-
-                            </div><!-- /row -->
-
                         </div>
                     </div>
                 </div>
 
-
+            </div>
 
         </section><! --/wrapper REVISAR PROVEEDORES-->
 
-        <section class="wrapper" ng-controller="retrieve5" ng-show="isSet(10)">
-            <h3><i class="fa fa-angle-right"></i>REVISAR TABLA DE INVENTARIO:</h3>
+        <section class="wrapper"  ng-show="isSet(10)">
+            <div ng-controller="retrieve5" >
 
-            <!-- BASIC FORM ELELEMNTS -->
-            <div class="row">
+                <h3><i class="fa fa-angle-right"></i>REVISAR TABLA DE INVENTARIO:</h3>
 
-                <form class="form-horizontal style-form">
+                <!-- BASIC FORM ELELEMNTS -->
+                <div class="row">
 
-                    <!--
-                    <div class="col-md-6 ">
-                        <div class="input-group">
-                            <div class="input-group-addon">Nombre Proveedor:</div>
-                            <div class="dropdown">
-                                <select class="form-control" ng-model="selectedProvider" ng-options="provider as provider.name for provider in providers">
-                                </select>
-                            </div>
-                        </div>
+                    <form class="form-horizontal style-form">
 
-                    </div>-->
-
-
-                    <!-- COMPLEX TO DO LIST -->
-                    <div class="col-md-12">
-                        <div class="panel-heading">
-                            <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Procesos:</h5></div>
-                            <br>
-                        </div>
-                        <div class="panel-body">
-                            <div class="task-content">
-
-                                <div class="form-group">
-
-                                    <div class="col-md-6">
-
-                                        <div class="input-group input-daterange">
-                                            <input id="startDateInput" type="text" class="form-control" placeholder='Fecha Inicio'/>
-                                            <span class="input-group-addon">to</span>
-                                            <input id="endDateInput"  type="text" class="form-control" placeholder='Fecha Fin'/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <button id="sendDatesTableInventario" type="submit" class="btn btn-success" ng-click="sendDatesTableInventario(startDateAsObject,endDateAsObject)">ENVIAR</button>
-                                    </div>
-
-                                    <br></br>
-                                    <br></br>
-
-                                    <div class="col-md-12">
-
-                                        <table class="table table-bordered table-striped table-condensed" id="tableInventario">
-                                            <thead>
-                                            <tr>
-                                                <th>INSUMO</th>
-                                                <th>CANTIDAD QUE ENTRÓ</th>
-                                                <th>CANTIDAD QUE SALIÓ</th>
-                                                <th>CANTIDAD ACTUAL</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            <tr ng-repeat="row in rowsInventoryTable">
-                                                <td class="number">{{row[0]}}</td>
-                                                <td class="text">{{row[2]}}</td>
-                                                <td class="number">{{row[3]}}</td>
-                                                <td class="number">{{row[4]}}</td>
-                                                <!--<td><button class="btn btn-danger btn-xs" ng-click="removeRow(provider)" ><i class="fa fa-trash-o "></i></button></td>-->
-
-                                            </tr>
-
-
-                                            </tbody>
-
-                                        </table>
-                                    </div>
+                        <!--
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <div class="input-group-addon">Nombre Proveedor:</div>
+                                <div class="dropdown">
+                                    <select class="form-control" ng-model="selectedProvider" ng-options="provider as provider.name for provider in providers">
+                                    </select>
                                 </div>
                             </div>
-                        </div><!-- /col-md-12-->
 
-                        <div class="form-group">
-                            <!--
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
+                        </div>-->
+
+
+                        <!-- COMPLEX TO DO LIST -->
+                        <div class="col-md-12">
+                            <div class="panel-heading">
+                                <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Procesos:</h5></div>
+                                <br>
                             </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProvider(selectedProvider._id)">ELIMINAR PROVEEDOR</button>
-                            </div>-->
-                        </div>
-                    </div>
-                </form>
+                            <div class="panel-body">
+                                <div class="task-content">
 
-            </div><!-- /row -->
+                                    <div class="form-group">
+
+                                        <div class="col-md-6">
+
+                                            <div class="input-group input-daterange">
+                                                <input id="startDateInput" type="text" class="form-control" placeholder='Fecha Inicio'/>
+                                                <span class="input-group-addon">to</span>
+                                                <input id="endDateInput"  type="text" class="form-control" placeholder='Fecha Fin'/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <button id="sendDatesTableInventario" type="submit" class="btn btn-success" ng-click="sendDatesTableInventario(startDateAsObject,endDateAsObject)">ENVIAR</button>
+                                        </div>
+
+                                        <br></br>
+                                        <br></br>
+
+                                        <div class="col-md-12">
+
+                                            <table class="table table-bordered table-striped table-condensed" id="tableInventario">
+                                                <thead>
+                                                <tr>
+                                                    <th>INSUMO</th>
+                                                    <th>CANTIDAD QUE ENTRÓ</th>
+                                                    <th>CANTIDAD QUE SALIÓ</th>
+                                                    <th>CANTIDAD ACTUAL</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                <tr ng-repeat="row in rowsInventoryTable">
+                                                    <td class="number">{{row[0]}}</td>
+                                                    <td class="text">{{row[2]}}</td>
+                                                    <td class="number">{{row[3]}}</td>
+                                                    <td class="number">{{row[4]}}</td>
+                                                    <!--<td><button class="btn btn-danger btn-xs" ng-click="removeRow(provider)" ><i class="fa fa-trash-o "></i></button></td>-->
+
+                                                </tr>
+
+
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /col-md-12-->
+
+                            <div class="form-group">
+                                <!--
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProvider(selectedProvider._id)">ELIMINAR PROVEEDOR</button>
+                                </div>-->
+                            </div>
+                        </div>
+                    </form>
+
+                </div><!-- /row -->
+            </div>
 
 
 
         </section><! --/wrapper REVISAR TABLA INVENTARIO-->
 
-        <section class="wrapper" ng-controller="retrieve6" ng-show="isSet(11)">
-            <h3><i class="fa fa-angle-right"></i>AJUSTAR TABLA DE INVENTARIO:</h3>
+        <section class="wrapper"  ng-show="isSet(11)">
+            <div ng-controller="retrieve6">
 
-            <!-- BASIC FORM ELELEMNTS -->
-            <div class="row">
+                <h3><i class="fa fa-angle-right"></i>AJUSTAR TABLA DE INVENTARIO:</h3>
 
-                <form class="form-horizontal style-form">
+                <!-- BASIC FORM ELELEMNTS -->
+                <div class="row">
 
-                    <!--
-                    <div class="col-md-6 ">
-                        <div class="input-group">
-                            <div class="input-group-addon">Nombre Proveedor:</div>
-                            <div class="dropdown">
-                                <select class="form-control" ng-model="selectedProvider" ng-options="provider as provider.name for provider in providers">
-                                </select>
-                            </div>
-                        </div>
+                    <form class="form-horizontal style-form">
 
-                    </div>-->
-
-
-                    <!-- COMPLEX TO DO LIST -->
-                    <div class="col-md-12">
-                        <div class="panel-heading">
-                            <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Procesos:</h5></div>
-                            <button class="pull-right btn btn-success" type="submit" ng-click="ajustar()">AJUSTAR</button>
-                            <br>
-                        </div>
-                        <div class="panel-body">
-                            <div class="task-content">
-
-                                <div class="form-group">
-
-
-                                    <br></br>
-
-                                    <div class="col-md-12">
-
-                                        <table class="table table-bordered table-striped table-condensed" id="tableAjusteInventario">
-                                            <thead>
-                                            <tr>
-                                                <th>INSUMO</th>
-                                                <th>CANTIDAD QUE ENTRÓ</th>
-                                                <th>CANTIDAD QUE SALIÓ</th>
-                                                <th>CANTIDAD ACTUAL</th>
-                                                <th>CANTIDAD REAL</th>
-                                                <th>DIFERENCIA</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            <tr ng-repeat="rowi in rowsiInventoryTable" ng-class='{red:(rowi[5]-rowi[4])<0}'>
-                                                <td>{{rowi[0]}}</td>
-                                                <td>{{rowi[2]}}</td>
-                                                <td>{{rowi[3]}}</td>
-                                                <td>{{rowi[4]}}</td>
-                                                <td class="number"><input type="text" ng-model="rowi[5]"/></td>
-                                                <td class="number">{{rowi[5]-rowi[4]}}</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
+                        <!--
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <div class="input-group-addon">Nombre Proveedor:</div>
+                                <div class="dropdown">
+                                    <select class="form-control" ng-model="selectedProvider" ng-options="provider as provider.name for provider in providers">
+                                    </select>
                                 </div>
                             </div>
-                        </div><!-- /col-md-12-->
 
-                        <div class="form-group">
-                            <!--
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
+                        </div>-->
+
+
+                        <!-- COMPLEX TO DO LIST -->
+                        <div class="col-md-12">
+                            <div class="panel-heading">
+                                <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Procesos:</h5></div>
+                                <button class="pull-right btn btn-success" type="submit" ng-click="ajustar()">AJUSTAR</button>
+                                <br>
                             </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProvider(selectedProvider._id)">ELIMINAR PROVEEDOR</button>
-                            </div>-->
+                            <div class="panel-body">
+                                <div class="task-content">
+
+                                    <div class="form-group">
+
+
+                                        <br></br>
+
+                                        <div class="col-md-12">
+
+                                            <table class="table table-bordered table-striped table-condensed" id="tableAjusteInventario">
+                                                <thead>
+                                                <tr>
+                                                    <th>INSUMO</th>
+                                                    <th>CANTIDAD QUE ENTRÓ</th>
+                                                    <th>CANTIDAD QUE SALIÓ</th>
+                                                    <th>CANTIDAD ACTUAL</th>
+                                                    <th>CANTIDAD REAL</th>
+                                                    <th>DIFERENCIA</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                <tr ng-repeat="rowi in rowsiInventoryTable" ng-class='{red:(rowi[5]-rowi[4])<0}'>
+                                                    <td>{{rowi[0]}}</td>
+                                                    <td>{{rowi[2]}}</td>
+                                                    <td>{{rowi[3]}}</td>
+                                                    <td>{{rowi[4]}}</td>
+                                                    <td class="number"><input type="text" ng-model="rowi[5]"/></td>
+                                                    <td class="number">{{rowi[5]-rowi[4]}}</td>
+                                                </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /col-md-12-->
+
+                            <div class="form-group">
+                                <!--
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProvider(selectedProvider._id)">ELIMINAR PROVEEDOR</button>
+                                </div>-->
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
 
-            </div><!-- /row -->
+                </div><!-- /row -->
 
 
+            </div>
 
         </section><! --/wrapper TABLA AJUSTE INVENTARIO-->
 
@@ -1234,6 +1395,8 @@ MAIN CONTENT
                     </div>-->
 
 
+
+
                     <!-- COMPLEX TO DO LIST -->
                     <div class="col-md-12">
                         <div class="panel-heading">
@@ -1252,56 +1415,58 @@ MAIN CONTENT
                                             <input id="endDateInputFiltro"  type="text" class="form-control" placeholder="Fecha Fin"/>
                                         </div>
 
-
-                                        Dirección:
                                         <div class="btn-group btn-group-justified">
                                             <div class="btn-group">
-                                                <button id="buttonEntrantes"type="button" class="btn btn-theme04 active" onclick="disable1()"><i class="fa fa-chevron-down"></i> ENTRANTES</button>
+
+                                                <h4>ENTRANTES</h4>
+
+                                                <div class="col-sm-6 text-center">
+                                                    <div class="switch switch-square"
+                                                         data-on-label="<i class=' fa fa-check'></i>"
+                                                         data-off-label="<i class='fa fa-times'></i>">
+                                                        <input id="entrantes" type="checkbox" checked="false" />
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="btn-group">
-                                                <button id="buttonSalientes" type="button" class="btn btn-theme02 active" onclick="disable2()"><i class="fa fa-chevron-up"></i> SALIENTES</button>
+
+                                                <h4>SALIENTES</h4>
+
+                                                <div class="col-sm-6 text-center">
+                                                    <div class="switch switch-square"
+                                                         data-on-label="<i class=' fa fa-check'></i>"
+                                                         data-off-label="<i class='fa fa-times'></i>">
+                                                        <input id="salientes" type="checkbox" ng-click="filtrar()"checked="false" />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-
-
                                         <script>
-                                            var v1 = ' active';
-                                            var v2 = ' active';
-                                            var buttonActive = 0;
+                                            function getActivesDirections(){
 
-                                            function disable1(){
 
-                                                buttonActive = 1;
-                                                if(v1 == ' active'){
-                                                    document.getElementById("buttonEntrantes").className = 'btn btn-theme04';
-                                                    v1 = ' disabled';
-                                                    document.getElementById("buttonEntrantes").className += v1;
+                                                if(document.getElementById("entrantes").checked){
+                                                    if(document.getElementById("salientes").checked){
+                                                        resp = 3;
+                                                    }
+                                                    else{
+                                                        resp = 1;
+                                                    }
                                                 }
-                                                else{
-                                                    document.getElementById("buttonEntrantes").className = 'btn btn-theme04';
-                                                    v1 = ' active'
-                                                    document.getElementById("buttonEntrantes").className += v1;
+                                                if(document.getElementById("salientes").checked){
+                                                    if(document.getElementById("entrantes").checked){
+                                                        resp = 3;
+                                                    }
+                                                    else{
+                                                        resp = 2;
+                                                    }
                                                 }
-
-                                            }
-
-                                            function disable2(){
-
-                                                buttonActive = 0;
-
-                                                if(v2 == ' active'){
-                                                    document.getElementById("buttonSalientes").className = 'btn btn-theme02';
-                                                    v2 = ' disabled';
-                                                    document.getElementById("buttonSalientes").className += v2;
-                                                }
-                                                else{
-                                                    document.getElementById("buttonSalientes").className = 'btn btn-theme02';
-                                                    v2 = ' active'
-                                                    document.getElementById("buttonSalientes").className += v2;
+                                                if(!document.getElementById("entrantes").checked && !document.getElementById("salientes").checked){
+                                                    resp = 0;
                                                 }
 
-
+                                                return resp;
                                             }
 
                                         </script>
@@ -1326,7 +1491,7 @@ MAIN CONTENT
                                 </div>
                                 <div class="form-group text-center">
                                     <div class="btn-group">
-                                        <button id="sendDatesFilterInventario" class="btn btn-theme btn-lg" type="submit" ng-click="filtrar(startDateFiltroAsObject,endDateFiltroAsObject)">FILTRAR</button>
+                                        <button id="sendDatesFilterInventario" class="btn btn-theme btn-lg" type="submit" ng-click="filtrar()">FILTRAR</button>
                                     </div>
 
 
@@ -1444,6 +1609,10 @@ MAIN CONTENT
 
 <!--common script for all pages-->
 <script src="assets/js/common-scripts.js"></script>
+
+
+<!--custom switch-->
+<script src="assets/js/bootstrap-switch.js"></script>
 
 </body>
 </html>
