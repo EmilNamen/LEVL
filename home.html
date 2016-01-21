@@ -37,12 +37,17 @@
     <script src="//code.angularjs.org/1.2.20/angular.js"></script>
     <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
     <script src="assets/js/restangular.js"></script>
+    <script src="assets/js/underscoreString.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.6.0/math.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
 
 
 
     <script src="assets/js/ng-file-upload/ng-file-upload-shim.js"></script>
     <script src="assets/js/ng-file-upload/ng-file-upload.js"></script>
+
+    <script src="assets/js/pdf-make/pdfmake.js"></script>
+    <script src="assets/js/pdf-make/vfs_fonts.js"></script>
 
     <!-- SET REFRESH TAB LOCAL STORAGE-->
     <script>
@@ -153,8 +158,15 @@ MAIN CONTENT
 
                 <li class="sub-menu" ng-class="{ active:isSet(12) }">
                     <a   ng-click="setTab(12)" onclick="setRefreshTab(12)">
-                        <i class="fa fa-scissors"></i>
+                        <i class="fa fa-filter"></i>
                         <span>REVISAR ACTIVIDADES FILTRO</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu" ng-class="{ active:isSet(13) }">
+                    <a   ng-click="setTab(13)" onclick="setRefreshTab(13)">
+                        <i class="fa fa-money"></i>
+                        <span>ORDENES DE COMPRA</span>
                     </a>
                 </li>
 
@@ -219,164 +231,241 @@ MAIN CONTENT
 
             <div ng-controller="MyCtrl">
 
-            <h4>Upload on file select</h4>
-            <input type="file" ngf-select="uploadFiles($file, $invalidFiles)">
-            Select File</input>
-            <br><br>
-            File:
-            <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                <h4>Upload on file select</h4>
+                <input type="file" ngf-select="uploadFiles($file, $invalidFiles)">
+                Select File</input>
+                <br><br>
+                File:
+                <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
       <span class="progress" ng-show="f.progress >= 0">
           <div style="width:{{f.progress}}%"
                ng-bind="f.progress + '%'"></div>
       </span>
-            </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="panel-heading">
 
 
-            <table class="table table-bordered table-striped table-condensed" id="tableSubmitPMIX">
-                <thead>
-                <tr>
-                    <th>NOMBRE PRODUCTO</th>
-                    <th>CANTIDAD</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
+                        <button ng-if="err" class="pull-right btn btn-danger" type="submit" ng-disabled="true">FALTAN AGREGAR PRODUCTOS</button>
 
+                        <button ng-if="!err" class="pull-right btn btn-success" type="submit"
+                                data-toggle="modal" data-target="#modalIngresoItemsPmix" ng-click="addTransactionPmix()">Agregar Transacciones</button>
+                        </br>
 
-                <tr ng-repeat="pmixPivot in responseData track by $index"  ng-class='{red: pmixPivot.exists == false}'>
-
-                    <td class="text">{{pmixPivot.plateName}}</td>
-                    <td class="numeric">{{pmixPivot.quantity}}</td>
-                    <td class="text"> {{pmixPivot.exists}}</td>
-                    <td><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalProducto" ng-click="addPlate(pmixPivot.plateName)"><i class="fa fa-check "></i></button></td>
-                </tr>
+                    </div>
+                </div>
 
 
 
-                </tbody>
-
-            </table>
 
 
-            <!-- Modal -->
-            <div class="modal fade" id="modalProducto" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Ingresar Producto a LEVL</h4>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="row">
+                <table class="table table-bordered table-striped table-condensed" id="tableSubmitPMIX">
+                    <thead>
+                    <tr>
+                        <th>NOMBRE PRODUCTO</th>
+                        <th>CANTIDAD</th>
+                        <th>AGREGAR PRODUCTO</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
 
-                                <div class="col-md-6 ">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Nombre Producto:</div>
-                                        <input type="text" class="form-control" ng-model="plate.name"/>
+                    <tr ng-repeat="pmixPivot in responseData track by $index"  ng-class='{red: pmixPivot.exists == false}'>
+
+                        <td class="text">{{pmixPivot.plateName}}</td>
+                        <td class="numeric">{{pmixPivot.quantity}}</td>
+                        <td ng-show="pmixPivot.exists == falsee" class="text"> {{pmixPivot.exists}}</td>
+                        <td ng-show="pmixPivot.exists == false"><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalProducto" ng-click="addPlate(pmixPivot.plateName)"><i class="fa fa-check"></i></button></td>
+                    </tr>
+
+
+
+                    </tbody>
+
+                </table>
+
+
+                <!-- Modal PRODUCTOS-->
+                <div class="modal fade" id="modalProducto" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" ng-click="closeModalPmix()">&times;</button>
+                                <h4 class="modal-title">Ingresar Producto a LEVL</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+
+
+                                    <div class="col-md-6 ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Nombre Producto:</div>
+                                            <input type="text" class="form-control" ng-model="plate.name"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12 ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Descripción Producto:</div>
+                                            <input type="text" class="form-control"  ng-model="plate.description"/>
+                                        </div>
                                     </div>
 
-                                </div>
-                                <div class="col-md-12 ">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Descripción Producto:</div>
-                                        <input type="text" class="form-control"  ng-model="plate.description"/>
-                                    </div>
-                                </div>
 
 
+                                    <!-- COMPLEX TO DO LIST -->
+                                    <div class="col-md-12">
+                                        <div class="panel-heading">
+                                            <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
+                                            <br>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="task-content">
 
-                                <!-- COMPLEX TO DO LIST -->
-                                <div class="col-md-12">
-                                    <div class="panel-heading">
-                                        <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
-                                        <br>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="task-content">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
 
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-
-                                                    <div class="col-md-6">
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">Nombre insumo:</div>
-                                                            <div class="dropdown">
-                                                                <select class="form-control" ng-model="plate.ingredients[iterator]" ng-value="item._id"
-                                                                        ng-options="item._id as item.name for item in items">
-                                                                </select>
+                                                        <div class="col-md-6">
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon">Nombre insumo:</div>
+                                                                <div class="dropdown">
+                                                                    <select class="form-control" ng-model="plate.ingredients[iterator]" ng-value="item._id"
+                                                                            ng-options="item._id as item.name for item in items">
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
+                                                        <div class="col-md-6">
 
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon">Cantidad:</div>
-                                                            <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]"/>
-                                                            <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon">Cantidad:</div>
+                                                                <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]"/>
+                                                                <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
+
+                                                            </div>
 
                                                         </div>
 
+                                                        <div class="col-md-12">
+
+                                                            <div class="text-center">
+                                                                <button type="submit" class="btn btn-info btn-sm" ng-click="addRow(plate.ingredients[iterator],plate.ingredientsQuantity[iterator] )">(+) AGREGAR INGREDIENTE</button>
+                                                            </div>
+                                                        </div>
+
+
+
                                                     </div>
+
 
                                                     <div class="col-md-12">
 
-                                                        <div class="text-center">
-                                                            <button type="submit" class="btn btn-info btn-sm" ng-click="addRow()">(+) AGREGAR INGREDIENTE</button>
-                                                        </div>
+                                                        <br></br>
+                                                        <table class="table table-bordered table-striped table-condensed">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>NOMBRE INSUMO</th>
+                                                                <th>CANTIDAD</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            <tr ng-repeat="temp in platesTEMP.ingredients">
+                                                                <td class="text">{{getNameByID(platesTEMP.ingredients[$index])}}</td>
+                                                                <td class="numeric">{{platesTEMP.ingredientsQuantity[$index]}}</td>
+                                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRow(platesTEMP.ingredients[$index])"><i class="fa fa-trash-o "></i></button></td>
+                                                            </tr>
+
+
+
+                                                            </tbody>
+
+                                                        </table>
                                                     </div>
-
-
-
-                                                </div>
-
-
-                                                <div class="col-md-12">
-
-                                                    <br></br>
-                                                    <table class="table table-bordered table-striped table-condensed">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>NOMBRE INSUMO</th>
-                                                            <th>CANTIDAD</th>
-                                                            <th></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        <tr ng-repeat="temp in platesTEMP.ingredients">
-                                                            <td class="text">{{getNameByID(temp)}}</td>
-                                                            <td class="numeric">{{platesTEMP.ingredientsQuantity[$index]}}</td>
-                                                            <td><button class="btn btn-danger btn-xs" ng-click="removeRow(selectedPlate.name)" data-dismiss="modal" ><i class="fa fa-trash-o "></i></button></td>
-                                                        </tr>
-
-
-
-                                                        </tbody>
-
-                                                    </table>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div><!-- /col-md-12-->
+                                        </div><!-- /col-md-12-->
 
-                                </div>
+                                    </div>
 
-                            </div><!-- /row -->
+                                </div><!-- /row -->
 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success pull-right " data-dismiss="modal"  ng-click="sendFormModalWindow()">INGRESAR PRODUCTO</button>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success pull-right " ng-click="sendFormModalWindow()">INGRESAR PRODUCTO</button>
-                        </div>
+
                     </div>
-
                 </div>
-            </div>
 
-            <!-- MODAL WINDOW -->
+                <!-- MODAL WINDOW -->
+
+
+                <!-- Modal INGRESO PRODUCTOS-->
+                <div class="modal fade" id="modalIngresoItemsPmix" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">¿Desea realizar las transacciones correspondientes a los siguientes insumos?</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+
+
+                                    <div class="col-md-12 ">
+
+                                        <table class="table table-bordered table-striped table-condensed" id="tableItemsPMIX">
+                                            <thead>
+                                            <tr>
+                                                <th>NOMBRE ITEM</th>
+                                                <th>CANTIDAD</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                            <tr ng-repeat="item in itemsPmix">
+
+                                                <td class="text">{{getNameByID(item.itemID)}}</td>
+                                                <td class="numeric">{{item.quantity}}</td>
+                                            </tr>
+
+
+
+                                            </tbody>
+
+                                        </table>
+
+
+                                    </div>
+
+
+                                </div><!-- /row -->
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-danger pull-right " data-dismiss="modal">CANCELAR</button>
+                                <button type="submit" class="btn btn-success pull-right " data-dismiss="modal"  ng-click="aceptarTransaccionPmix()">ACEPTAR</button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- MODAL WINDOW -->
+
 
             </div>
 
@@ -385,74 +474,74 @@ MAIN CONTENT
 
         <section class="wrapper" ng-show="isSet(3)">
             <div ng-controller="put2" >
-            <h3><i class="fa fa-angle-right"></i> INGRESAR COMPRA</h3>
+                <h3><i class="fa fa-angle-right"></i> INGRESAR COMPRA</h3>
 
-            <form class="form-horizontal style-form">
-                <!-- BASIC FORM ELELEMNTS -->
-                <div class="row">
-                    <div class="col-md-7 col-md-offset-3">
+                <form class="form-horizontal style-form">
+                    <!-- BASIC FORM ELELEMNTS -->
+                    <div class="row">
+                        <div class="col-md-7 col-md-offset-3">
 
-                        <div class="form-panel">
-                            <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
+                            <div class="form-panel">
+                                <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
 
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Nombre insumo:</div>
-                                        <div class="dropdown">
-                                            <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
-                                            </select>
-                                            <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">(+) Nuevo Insumo</a></li>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Nombre insumo:</div>
+                                            <div class="dropdown">
+                                                <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
+                                                </select>
+                                                <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">(+) Nuevo Insumo</a></li>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Cantidad: </div>
-                                        <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
-                                        <div class="input-group-addon">{{getUnitsByID(transaction.item)}}</div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Cantidad: </div>
+                                            <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
+                                            <div class="input-group-addon">{{getUnitsByID(transaction.item)}}</div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="col-md-4 ">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Precio: $</div>
+                                            <input type="text" class="form-control" id="inputPrice" ng-model="transaction.precio"/>
+                                        </div>
+                                    </div>-->
+
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Proveedor: </div>
+                                            <select class="form-control" ng-model="transaction.provider" ng-options="provider._id as provider.name for provider in providers">
+                                            </select>
+                                            <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
+                                        </div>
                                     </div>
                                 </div>
-                                <!--<div class="col-md-4 ">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Precio: $</div>
-                                        <input type="text" class="form-control" id="inputPrice" ng-model="transaction.precio"/>
-                                    </div>
-                                </div>-->
 
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Proveedor: </div>
-                                        <select class="form-control" ng-model="transaction.provider" ng-options="provider._id as provider.name for provider in providers">
-                                        </select>
-                                        <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Descripción:</div>
+                                            <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description" placeholder='Ingresar Descripción'/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Descripción:</div>
-                                        <input type="text" class="form-control" id="inputDescription" ng-model="transaction.description" placeholder='Ingresar Descripción'/>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-default" ng-click="ingresarCompra(transaction)">INGRESAR</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <button type="submit" class="btn btn-default" ng-click="ingresarCompra(transaction)">INGRESAR</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- col-lg-12-->
+                        </div><!-- col-lg-12-->
 
-                </div><!-- /row -->
+                    </div><!-- /row -->
 
-            </form>
+                </form>
             </div>
 
         </section> <! --/wrapper INGRESAR COMPRA -->
@@ -460,69 +549,77 @@ MAIN CONTENT
         <section class="wrapper"  ng-show="isSet(4)">
 
             <div ng-controller="put1">
-            <h3><i class="fa fa-angle-right"></i> INGRESAR INSUMO</h3>
+                <h3><i class="fa fa-angle-right"></i> INGRESAR INSUMO</h3>
 
-            <form class="form-horizontal style-form">
+                <form class="form-horizontal style-form">
 
-                <!-- BASIC FORM ELELEMNTS -->
-                <div class="row">
-                    <div class="col-md-7 col-md-offset-3">
-                        <div class="form-panel">
-                            <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
+                    <!-- BASIC FORM ELELEMNTS -->
+                    <div class="row">
+                        <div class="col-md-7 col-md-offset-3">
+                            <div class="form-panel">
+                                <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
 
-                            <div class="form-group">
-                                <div class="col-md-7">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Nombre insumo: </div>
-                                        <input type="text" class="form-control" id="inputPrice" ng-model="item.name" placeholder='Ingresar Nombre'>
+                                <div class="form-group">
+                                    <div class="col-md-7">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Nombre insumo: </div>
+                                            <input type="text" class="form-control" id="inputPrice" ng-model="item.name" placeholder='Ingresar Nombre'>
 
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Minimo de stock requerido: </div>
+                                            <input type="text" class="form-control" id="minStockReq" ng-model="item.minStockReq" placeholder='Min '>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Stock Óptimo: </div>
+                                            <input type="text" class="form-control" id="optStockReq" ng-model="item.optStockReq" placeholder='Stock Opt '>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Unidades (Kg, Litros, ...): </div>
+                                            <input type="text" class="form-control" id="unidades" ng-model="item.units" placeholder='Unidades'>
+                                        </div>
+                                    </div>
+
+                                   <!-- <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Proveedor: </div>
+                                            <select class="form-control" ng-model="item.provider" ng-options="provider._id as provider.name for provider in providers">
+                                            </select>
+
+                                            <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
+
+
+                                        </div>
+                                    </div>-->
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Categoría: </div>
+                                            <input type="text" class="form-control" id="categoria" ng-model="item.category" placeholder='Ingresar Categoría'>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-success" ng-click="ingresarInsumo(item)">INGRESAR INSUMO</button>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Minimo de stock requerido: </div>
-                                        <input type="text" class="form-control" id="minStockReq" ng-model="item.minStockReq" placeholder='Min '>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Unidades (Kg, Litros, ...): </div>
-                                        <input type="text" class="form-control" id="unidades" ng-model="item.units" placeholder='Unidades'>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Proveedor: </div>
-                                        <select class="form-control" ng-model="item.provider" ng-options="provider._id as provider.name for provider in providers">
-                                        </select>
+                        </div><!-- col-lg-12-->
 
-                                        <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
-
-
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Categoría: </div>
-                                        <input type="text" class="form-control" id="categoria" ng-model="item.category" placeholder='Ingresar Categoría'>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <button type="submit" class="btn btn-success" ng-click="ingresarInsumo(item)">INGRESAR INSUMO</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- col-lg-12-->
-
-                </div><!-- /row -->
-            </form>
+                    </div><!-- /row -->
+                </form>
             </div>
 
 
@@ -534,62 +631,62 @@ MAIN CONTENT
 
             <div ng-controller="put4">
 
-            <h3><i class="fa fa-angle-right"></i> INGRESAR PROVEEDOR</h3>
-            <form class="form-horizontal style-form">
-                <!-- BASIC FORM ELELEMNTS -->
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-3">
-                        <div class="form-panel">
-                            <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
+                <h3><i class="fa fa-angle-right"></i> INGRESAR PROVEEDOR</h3>
+                <form class="form-horizontal style-form">
+                    <!-- BASIC FORM ELELEMNTS -->
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-3">
+                            <div class="form-panel">
+                                <h3 class="mb"><i class="fa fa-angle-right"></i> Ingresar los siguientes valores:</h3>
 
-                            <div class="form-group">
-                                <div class="col-md-7">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Nombre proveedor: </div>
-                                        <input type="text" class="form-control" id="name" ng-model="provider.name" placeholder='Ingresar Nombre '>
+                                <div class="form-group">
+                                    <div class="col-md-7">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Nombre proveedor: </div>
+                                            <input type="text" class="form-control" id="name" ng-model="provider.name" placeholder='Ingresar Nombre '>
 
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Identificador: </div>
+                                            <input type="text" class="form-control" id="idNumber" ng-model="provider.idNumber" placeholder='Ingresar Identificador'>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Dirección: </div>
+                                            <input type="text" class="form-control" id="address" ng-model="provider.address " placeholder='Ingresar Dirección'>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Telefono: </div>
+                                            <input type="text" class="form-control" id="phoneNumber" ng-model="provider.phoneNumber" placeholder='Ingresar Teléfono'>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Nombre Contacto: </div>
+                                            <input type="text" class="form-control" id="contactName" ng-model="provider.contactName" placeholder='Ingresar Nombre '>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-success" ng-click="ingresarProveedor(provider)" >INGRESAR PROVEEDOR</button>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Identificador: </div>
-                                        <input type="text" class="form-control" id="idNumber" ng-model="provider.idNumber" placeholder='Ingresar Identificador'>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Dirección: </div>
-                                        <input type="text" class="form-control" id="address" ng-model="provider.address " placeholder='Ingresar Dirección'>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Telefono: </div>
-                                        <input type="text" class="form-control" id="phoneNumber" ng-model="provider.phoneNumber" placeholder='Ingresar Teléfono'>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">Nombre Contacto: </div>
-                                        <input type="text" class="form-control" id="contactName" ng-model="provider.contactName" placeholder='Ingresar Nombre '>
-                                    </div>
-                                </div>
+                        </div><!-- col-lg-12-->
 
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <button type="submit" class="btn btn-success" ng-click="ingresarProveedor(provider)" >INGRESAR PROVEEDOR</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- col-lg-12-->
-
-                </div><!-- /row -->
-            </form>
+                    </div><!-- /row -->
+                </form>
 
 
             </div>
@@ -602,93 +699,93 @@ MAIN CONTENT
             <div ng-controller="put3">
 
 
-            <h3><i class="fa fa-angle-right"></i> INGRESAR PRODUCTO</h3>
+                <h3><i class="fa fa-angle-right"></i> INGRESAR PRODUCTO</h3>
 
-            <!-- BASIC FORM ELELEMNTS -->
-            <div class="row">
+                <!-- BASIC FORM ELELEMNTS -->
+                <div class="row">
 
-                <form class="form-horizontal style-form" name="plateForm" >
+                    <form class="form-horizontal style-form" name="plateForm" >
 
-                    <div class="col-md-6 ">
-                        <div class="input-group">
-                            <div class="input-group-addon">Nombre Producto:</div>
-                            <input type="text" class="form-control" id="inputNameProduct" ng-model="plate.name" placeholder='Ingresar Nombre'/>
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <div class="input-group-addon">Nombre Producto:</div>
+                                <input type="text" class="form-control" id="inputNameProduct" ng-model="plate.name" placeholder='Ingresar Nombre'/>
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-group-addon">Descripción Producto:</div>
+                                <input type="text" class="form-control" id="inputDescriptionProduct" ng-model="plate.description" placeholder='Ingresar Descripción'/>
+                            </div>
                         </div>
 
-                        <div class="input-group">
-                            <div class="input-group-addon">Descripción Producto:</div>
-                            <input type="text" class="form-control" id="inputDescriptionProduct" ng-model="plate.description" placeholder='Ingresar Descripción'/>
-                        </div>
-                    </div>
 
 
+                        <!-- COMPLEX TO DO LIST -->
+                        <div class="col-md-12">
+                            <div class="panel-heading">
+                                <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
+                                <br>
+                            </div>
+                            <div class="panel-body">
+                                <div class="task-content">
 
-                    <!-- COMPLEX TO DO LIST -->
-                    <div class="col-md-12">
-                        <div class="panel-heading">
-                            <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
-                            <br>
-                        </div>
-                        <div class="panel-body">
-                            <div class="task-content">
-
-                                <div class="form-group">
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Nombre insumo:</div>
-                                            <div class="dropdown">
-                                                <select class="form-control" ng-model="plate.ingredients[iterator]" ng-value="item._id"
-                                                        ng-options="item._id as item.name for item in items">
-                                                </select>
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Nombre insumo:</div>
+                                                <div class="dropdown">
+                                                    <select class="form-control" ng-model="plate.ingredients[iterator]" ng-value="item._id"
+                                                            ng-options="item._id as item.name for item in items">
+                                                    </select>
+                                                </div>
                                             </div>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Cantidad:</div>
+                                                <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]" placeholder='Ingresar Cantidad'/>
+                                                <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
+
+                                            </div>
+                                            <button type="submit" class="btn btn-info btn-xs" ng-click="addRow(plate.ingredients[iterator],plate.ingredientsQuantity[iterator])">(+) AGREGAR INGREDIENTE</button>
                                         </div>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Cantidad:</div>
-                                            <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]" placeholder='Ingresar Cantidad'/>
-                                            <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
 
+
+                                        <div class="col-md-6">
+
+                                            <table class="table table-bordered table-striped table-condensed" id="tableIngredientesProducto">
+                                                <thead>
+                                                <tr>
+                                                    <th>NOMBRE INSUMO</th>
+                                                    <th>CANTIDAD</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                <tr ng-repeat="temp in platesTEMP.ingredients">
+                                                    <td class="text">{{getNameByID(temp)}}</td>
+                                                    <td class="numeric">{{platesTEMP.ingredientsQuantity[$index]}}</td>
+                                                    <td><button class="btn btn-danger btn-xs" ng-click="removeRow(platesTEMP.ingredients[$index])" ><i class="fa fa-trash-o "></i></button></td>
+                                                </tr>
+
+
+
+                                                </tbody>
+
+                                            </table>
                                         </div>
-                                        <button type="submit" class="btn btn-info btn-xs" ng-click="addRow()">(+) AGREGAR INGREDIENTE</button>
-                                    </div>
-
-
-                                    <div class="col-md-6">
-
-                                        <table class="table table-bordered table-striped table-condensed" id="tableIngredientesProducto">
-                                            <thead>
-                                            <tr>
-                                                <th>NOMBRE INSUMO</th>
-                                                <th>CANTIDAD</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            <tr ng-repeat="temp in platesTEMP.ingredients">
-                                                <td class="text">{{getNameByID(temp)}}</td>
-                                                <td class="numeric">{{platesTEMP.ingredientsQuantity[$index]}}</td>
-                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRow(selectedPlate.name)" ><i class="fa fa-trash-o "></i></button></td>
-                                            </tr>
-
-
-
-                                            </tbody>
-
-                                        </table>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!-- /col-md-12-->
+                            </div><!-- /col-md-12-->
 
-                        <div class="form-group">
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success pull-right " ng-click="ingresarProducto()">INGRESAR PRODUCTO</button>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success pull-right " ng-click="ingresarProducto()">INGRESAR PRODUCTO</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
 
-            </div><!-- /row -->
+                </div><!-- /row -->
 
 
             </div>
@@ -699,113 +796,133 @@ MAIN CONTENT
 
         <section class="wrapper"  ng-show="isSet(7)">
             <div ng-controller="retrieve2">
-            <h3><i class="fa fa-angle-right"></i> REVISAR INSUMOS:</h3>
+                <h3><i class="fa fa-angle-right"></i> REVISAR INSUMOS:</h3>
 
-            <div class="col-md-12">
-                <div class="panel-heading">
-                    <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
-                </div>
-                <div class="panel-body">
-                    <div class="task-content">
-
-                        <table class="table table-bordered table-striped table-condensed" id="revisarInventarioTable">
-                            <thead>
-                            <tr>
-                                <th>ITEM</th>
-                                <th class="numeric">Stock Mínimo</th>
-                                <th class="numeric">Stock Actual</th>
-                                <th>BORRAR</th>
-                                <th>EDITAR</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="item in items">
-                                <td>{{item.name}}</td>
-                                <td class="numeric">{{item.minStockReq}}</td>
-                                <td class="numeric">{{item.currentStock}}</td>
-                                <td><button class="btn btn-danger btn-xs" ng-click="removeRowItem(item)"><i class="fa fa-trash-o "></i></button></td>
-                                <td><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalEditarInsumo" ng-click="addItemEdit(item)"><i class="fa fa-pencil"></i></button></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-
+                <div class="col-md-12">
+                    <div class="panel-heading">
+                        <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
                     </div>
-                </div>
+                    <div class="panel-body">
+                        <div class="task-content">
 
-            </div><!-- /col-lg-4 -->
+                            <table class="table table-bordered table-striped table-condensed" id="revisarInventarioTable">
+                                <thead>
+                                <tr>
+                                    <th>ITEM</th>
+                                    <th class="numeric">Stock Mínimo</th>
+                                    <th class="numeric">Stock Óptimo</th>
+                                    <th class="numeric">Stock Actual</th>
+                                    <th>UNIDADES</th>
+                                    <th>BORRAR</th>
+                                    <th>EDITAR</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in items">
+                                    <td>{{item.name}}</td>
+                                    <td class="numeric">{{item.minStockReq}}</td>
+                                    <td class="numeric">{{item.optStockReq}}</td>
+                                    <td class="numeric">{{item.currentStock}}</td>
+                                    <td>{{getUnitsByID(item._id)}}</td>
+                                    <td><button class="btn btn-danger btn-xs" ng-click="removeRowItem(item)"><i class="fa fa-trash-o "></i></button></td>
+                                    <td><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalEditarInsumo" ng-click="addItemEdit(item)"><i class="fa fa-pencil"></i></button></td>
 
-
-            <!-- Modal -->
-            <div class="modal fade" id="modalEditarInsumo" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Editar Insumo</h4>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="row">
-
-
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Nombre insumo:</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <input type="text" ng-model="actualItemEdit.name"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 ">
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Cantidad Mínima Stock:</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <input type="text" ng-model="actualItemEdit.minStockReq"/></td>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-12 ">
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Stock Actual:</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="input-group">
-
-                                            <input type="text" ng-model="actualItemEdit.currentStock"/></td>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <button type="submit" class="btn btn-success btn-xs pull-right" ng-click="editItem()" data-dismiss="modal">GUARDAR CAMBIOS</button>
-
-                            </div><!-- /row -->
+                                </tr>
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>
+
+                </div><!-- /col-lg-4 -->
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalEditarInsumo" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Editar Insumo</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Nombre insumo:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input type="text" ng-model="actualItemEdit.name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 ">
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Cantidad Mínima Stock:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input type="text" ng-model="actualItemEdit.minStockReq"/></td>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-12 ">
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Stock Óptimo:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input type="text" ng-model="actualItemEdit.optStockReq"/></td>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                   <!-- <div class="col-md-12 ">
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Stock Actual:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+
+                                                <input type="text" ng-model="actualItemEdit.currentStock"/></td>
+                                            </div>
+                                        </div>
+                                    </div>-->
+
+
+                                    <button type="submit" class="btn btn-success btn-xs pull-right" ng-click="editItem()" data-dismiss="modal">GUARDAR CAMBIOS</button>
+
+                                </div><!-- /row -->
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
             </div>
 
 
@@ -814,205 +931,209 @@ MAIN CONTENT
         <section class="wrapper"  ng-show="isSet(8)">
 
             <div ng-controller="retrieve3">
-            <h3><i class="fa fa-angle-right"></i>REVISAR PRODUCTOS:</h3>
+                <h3><i class="fa fa-angle-right"></i>REVISAR PRODUCTOS:</h3>
 
-            <!-- BASIC FORM ELELEMNTS -->
-            <div class="row">
+                <!-- BASIC FORM ELELEMNTS -->
+                <div class="row">
 
-                <form class="form-horizontal style-form" name="plateForm" ng-submit="plateSubmitForm()">
+                    <form class="form-horizontal style-form" name="plateForm" ng-submit="plateSubmitForm()">
 
-                    <div class="col-md-6 ">
-                        <div class="input-group">
-                            <div class="input-group-addon">Nombre Producto:</div>
-                            <div class="dropdown">
-                                <select class="form-control" ng-model="selectedPlate" ng-options="plate as plate.name for plate in plates">
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-
-                    <!-- COMPLEX TO DO LIST -->
-                    <div class="col-md-12">
-                        <div class="panel-heading">
-                            <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
-                            <br>
-                        </div>
-                        <div class="panel-body">
-                            <div class="task-content">
-
-                                <div class="form-group">
-
-
-                                    <div class="col-md-6">
-
-                                        <table class="table table-bordered table-striped table-condensed" id="tableIngredientesPlate">
-                                            <thead>
-                                            <tr>
-                                                <th>NOMBRE INSUMO</th>
-                                                <th>CANTIDAD</th>
-                                                <th>UNIDAD</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            <tr ng-repeat="iter in selectedPlate.ingredients">
-                                                <td class="text">{{getNameByID(iter)}}</td>
-                                                <td>{{getUnitsByID(iter)}}</td>
-                                                <td class="numeric">{{selectedPlate.ingredientsQuantity[$index]}}</td>
-                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRowProduct(iter,selectedPlate)"><i class="fa fa-trash-o "></i></button></td>
-                                            </tr>
-
-
-                                            </tbody>
-
-                                        </table>
-                                    </div>
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <div class="input-group-addon">Nombre Producto:</div>
+                                <div class="dropdown">
+                                    <select class="form-control" ng-model="selectedPlate" ng-options="plate as plate.name for plate in plates">
+                                    </select>
                                 </div>
                             </div>
-                        </div><!-- /col-md-12-->
 
-                        <div class="form-group">
-                            <!--
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
-                            </div>-->
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProduct(selectedPlate)">ELIMINAR PRODUCTO</button>
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-info pull-right"data-toggle="modal" data-target="#modalItemProducto" ng-click="addItemProduct(selectedPlate)">AGREGAR INSUMO A PRODUCTO</button>
-                            </div>
                         </div>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modalItemProducto" role="dialog">
-                            <div class="modal-dialog">
 
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Agregar insumo a producto</h4>
+
+
+
+                        <!-- COMPLEX TO DO LIST -->
+                        <div class="col-md-12">
+                            <div class="panel-heading">
+                                <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
+                                <br>
+                            </div>
+                            <div class="panel-body">
+                                <div class="task-content">
+
+                                    <div class="form-group">
+
+
+                                        <div class="col-md-6">
+
+                                            <table class="table table-bordered table-striped table-condensed" id="tableIngredientesPlate">
+                                                <thead>
+                                                <tr>
+                                                    <th>NOMBRE INSUMO</th>
+                                                    <th>CANTIDAD</th>
+                                                    <th>UNIDAD</th>
+                                                    <th>BORRAR</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                <tr ng-repeat="iter in selectedPlate.ingredients">
+                                                    <td class="text">{{getNameByID(iter)}}</td>
+                                                    <td class="numeric">{{selectedPlate.ingredientsQuantity[$index]}}</td>
+                                                    <td>{{getUnitsByID(iter)}}</td>
+                                                    <td><button class="btn btn-danger btn-xs" ng-click="removeRowProduct(iter,selectedPlate)"><i class="fa fa-trash-o "></i></button></td>
+                                                </tr>
+
+
+                                                </tbody>
+
+                                            </table>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
+                                </div>
+                            </div><!-- /col-md-12-->
 
-                                        <div class="row">
+                            <div class="form-group">
+                                <!--
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
+                                </div>-->
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProduct(selectedPlate)">ELIMINAR PRODUCTO</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-info pull-right"data-toggle="modal" data-target="#modalItemProducto" ng-click="addItemProduct(selectedPlate)">AGREGAR INSUMO A PRODUCTO</button>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalItemProducto" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Agregar insumo a producto</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="row">
 
 
-                                            <div class="col-md-6 ">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">Nombre Producto:</div>
-                                                    <input type="text" class="form-control" ng-model="selectedPlate.name"/>
+                                                <div class="col-md-6 ">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">Nombre Producto:</div>
+                                                        <input type="text" class="form-control" ng-model="selectedPlate.name"/>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-12 ">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">Descripción Producto:</div>
+                                                        <input type="text" class="form-control"  ng-model="selectedPlate.description"/>
+                                                    </div>
                                                 </div>
 
-                                            </div>
-                                            <div class="col-md-12 ">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">Descripción Producto:</div>
-                                                    <input type="text" class="form-control"  ng-model="selectedPlate.description"/>
-                                                </div>
-                                            </div>
 
 
+                                                <!-- COMPLEX TO DO LIST -->
+                                                <div class="col-md-12">
+                                                    <div class="panel-heading">
+                                                        <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
+                                                        <br>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="task-content">
 
-                                            <!-- COMPLEX TO DO LIST -->
-                                            <div class="col-md-12">
-                                                <div class="panel-heading">
-                                                    <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
-                                                    <br>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div class="task-content">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
 
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-
-                                                                <div class="col-md-6">
-                                                                    <div class="input-group">
-                                                                        <div class="input-group-addon">Nombre insumo:</div>
-                                                                        <div class="dropdown">
-                                                                            <select class="form-control" ng-model="selectedPlate.ingredients[iterator]" ng-value="item._id"
-                                                                                    ng-options="item._id as item.name for item in items">
-                                                                            </select>
+                                                                    <div class="col-md-6">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon">Nombre insumo:</div>
+                                                                            <div class="dropdown">
+                                                                                <select class="form-control" ng-model="selectedPlate.ingredients[iterator]" ng-value="item._id"
+                                                                                        ng-options="item._id as item.name for item in items">
+                                                                                </select>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-6">
+                                                                    <div class="col-md-6">
 
-                                                                    <div class="input-group">
-                                                                        <div class="input-group-addon">Cantidad:</div>
-                                                                        <input type="text" class="form-control" ng-model="selectedPlate.ingredientsQuantity[iterator]"/>
-                                                                        <div class="input-group-addon">{{getUnitsByID(selectedPlate.ingredients[iterator])}}</div>
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-addon">Cantidad:</div>
+                                                                            <input type="text" class="form-control" ng-model="selectedPlate.ingredientsQuantity[iterator]"/>
+                                                                            <div class="input-group-addon">{{getUnitsByID(selectedPlate.ingredients[iterator])}}</div>
+
+                                                                        </div>
 
                                                                     </div>
 
+
+
+                                                                    <div class="col-md-12">
+
+                                                                        <div class="text-center">
+                                                                            <button type="submit" class="btn btn-info btn-sm" ng-click="addRow(selectedPlate.ingredients[iterator], selectedPlate.ingredientsQuantity[iterator])">(+) AGREGAR INGREDIENTE</button>
+                                                                        </div>
+                                                                    </div>
+
+
+
                                                                 </div>
+
 
                                                                 <div class="col-md-12">
 
-                                                                    <div class="text-center">
-                                                                        <button type="submit" class="btn btn-info btn-sm" ng-click="addRow()">(+) AGREGAR INGREDIENTE</button>
-                                                                    </div>
+                                                                    <br></br>
+                                                                    <table class="table table-bordered table-striped table-condensed">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>NOMBRE INSUMO</th>
+                                                                            <th>CANTIDAD</th>
+                                                                            <th>UNIDAD</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                        <tr ng-repeat="temp in selectedPlate.ingredients">
+                                                                            <td class="text">{{getNameByID(temp)}}</td>
+                                                                            <td class="numeric">{{selectedPlate.ingredientsQuantity[$index]}}</td>
+                                                                            <td>{{getUnitsByID(temp)}}</td>
+                                                                            <td><button class="btn btn-danger btn-xs" ng-click="removeRow(selectedPlate.ingredients[$index])"  ><i class="fa fa-trash-o "></i></button></td>
+                                                                        </tr>
+
+
+
+                                                                        </tbody>
+
+                                                                    </table>
                                                                 </div>
-
-
-
-                                                            </div>
-
-
-                                                            <div class="col-md-12">
-
-                                                                <br></br>
-                                                                <table class="table table-bordered table-striped table-condensed">
-                                                                    <thead>
-                                                                    <tr>
-                                                                        <th>NOMBRE INSUMO</th>
-                                                                        <th>CANTIDAD</th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-
-                                                                    <tr ng-repeat="temp in selectedPlate.ingredients">
-                                                                        <td class="text">{{getNameByID(temp)}}</td>
-                                                                        <td class="numeric">{{selectedPlate.ingredientsQuantity[$index]}}</td>
-                                                                        <td><button class="btn btn-danger btn-xs" ng-click="removeRow(temp, selectedPlate)" data-dismiss="modal" ><i class="fa fa-trash-o "></i></button></td>
-                                                                    </tr>
-
-
-
-                                                                    </tbody>
-
-                                                                </table>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div><!-- /col-md-12-->
+                                                    </div><!-- /col-md-12-->
 
-                                            </div>
+                                                </div>
 
-                                        </div><!-- /row -->
+                                            </div><!-- /row -->
 
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success pull-right " data-dismiss="modal" ng-click="updateProductModalWindow(selectedPlate)">INGRESAR PRODUCTO</button>
+                                        </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success pull-right " ng-click="updateProductModalWindow(selectedPlate)">INGRESAR PRODUCTO</button>
-                                    </div>
+
                                 </div>
-
                             </div>
+
+                            <!-- MODAL WINDOW -->
+
+
                         </div>
+                    </form>
 
-                        <!-- MODAL WINDOW -->
-
-
-                    </div>
-                </form>
-
-            </div><!-- /row -->
+                </div><!-- /row -->
             </div>
 
 
@@ -1190,7 +1311,7 @@ MAIN CONTENT
 
                 <h3><i class="fa fa-angle-right"></i>REVISAR TABLA DE INVENTARIO:</h3>
 
-                <!-- BASIC FORM ELELEMNTS -->
+                <!-- BASIC FORM ELEMENTS -->
                 <div class="row">
 
                     <form class="form-horizontal style-form">
@@ -1241,19 +1362,24 @@ MAIN CONTENT
                                                 <thead>
                                                 <tr>
                                                     <th>INSUMO</th>
+                                                    <th>MIN STOCK</th>
+                                                    <th>OPT STOCK</th>
                                                     <th>CANTIDAD QUE ENTRÓ</th>
                                                     <th>CANTIDAD QUE SALIÓ</th>
                                                     <th>CANTIDAD ACTUAL</th>
-                                                    <th></th>
+                                                    <th>UNIDADES</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
 
                                                 <tr ng-repeat="row in rowsInventoryTable">
                                                     <td class="number">{{row[0]}}</td>
-                                                    <td class="text">{{row[2]}}</td>
+                                                    <td class="number">{{row[2]}}</td>
                                                     <td class="number">{{row[3]}}</td>
                                                     <td class="number">{{row[4]}}</td>
+                                                    <td class="number">{{row[5]}}</td>
+                                                    <td class="number">{{row[6]}}</td>
+                                                    <td>{{getUnitsByID(row[1])}}</td>
                                                     <!--<td><button class="btn btn-danger btn-xs" ng-click="removeRow(provider)" ><i class="fa fa-trash-o "></i></button></td>-->
 
                                                 </tr>
@@ -1330,22 +1456,20 @@ MAIN CONTENT
                                                 <thead>
                                                 <tr>
                                                     <th>INSUMO</th>
-                                                    <th>CANTIDAD QUE ENTRÓ</th>
-                                                    <th>CANTIDAD QUE SALIÓ</th>
                                                     <th>CANTIDAD ACTUAL</th>
                                                     <th>CANTIDAD REAL</th>
                                                     <th>DIFERENCIA</th>
+                                                    <th>UNIDADES</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
 
-                                                <tr ng-repeat="rowi in rowsiInventoryTable" ng-class='{red:(rowi[5]-rowi[4])<0}'>
+                                                <tr ng-repeat="rowi in rowsiInventoryTable" ng-class='{red:(rowi[7]-rowi[6])<0}'>
                                                     <td>{{rowi[0]}}</td>
-                                                    <td>{{rowi[2]}}</td>
-                                                    <td>{{rowi[3]}}</td>
-                                                    <td>{{rowi[4]}}</td>
-                                                    <td class="number"><input type="text" ng-model="rowi[5]"/></td>
-                                                    <td class="number">{{rowi[5]-rowi[4]}}</td>
+                                                    <td>{{rowi[6]}}</td>
+                                                    <td class="number"><input type="text" ng-model="rowi[7]"/></td>
+                                                    <td class="number">{{rowi[7]-rowi[6]}}</td>
+                                                    <td>{{getUnitsByID(rowi[1])}}</td>
                                                 </tr>
                                                 </tbody>
 
@@ -1424,7 +1548,7 @@ MAIN CONTENT
                                                     <div class="switch switch-square"
                                                          data-on-label="<i class=' fa fa-check'></i>"
                                                          data-off-label="<i class='fa fa-times'></i>">
-                                                        <input id="entrantes" type="checkbox" checked="false" />
+                                                        <input id="entrantes" type="checkbox" checked="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -1436,7 +1560,7 @@ MAIN CONTENT
                                                     <div class="switch switch-square"
                                                          data-on-label="<i class=' fa fa-check'></i>"
                                                          data-off-label="<i class='fa fa-times'></i>">
-                                                        <input id="salientes" type="checkbox" ng-click="filtrar()"checked="false" />
+                                                        <input id="salientes" type="checkbox" ng-click="filtrar()"checked="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -1486,7 +1610,37 @@ MAIN CONTENT
                                             <select class="form-control" ng-model="transaction.provider" ng-options="provider._id as provider.name for provider in providers">
                                             </select>
                                         </div>
+
+                                        <div class="dropdown">
+                                            <div class="btn-group">
+
+                                                <h4>POR AJUSTE</h4>
+
+                                                <div class="col-sm-6 text-center">
+                                                    <div class="switch switch-square"
+                                                         data-on-label="<i class=' fa fa-check'></i>"
+                                                         data-off-label="<i class='fa fa-times'></i>">
+                                                        <input id="ajuste" type="checkbox" checked="" />
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    function getTransactionsPorAjuste(){
+                                                        var respAjuste = -1;
+                                                        if(document.getElementById("ajuste").checked){
+                                                            respAjuste = 1;
+                                                        }
+                                                        else{
+                                                            respAjuste = 0;
+                                                        }
+                                                        return respAjuste;
+                                                    }
+                                                </script>
+
+                                            </div>
+                                        </div>
+
                                     </div>
+
 
                                 </div>
                                 <div class="form-group text-center">
@@ -1505,6 +1659,7 @@ MAIN CONTENT
                                                 <th>CANTIDAD ITEM</th>
                                                 <th>ITEM</th>
                                                 <th>DESCRIPCIÓN</th>
+                                                <th>UNIDADES</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -1514,6 +1669,7 @@ MAIN CONTENT
                                                 <td class="text">{{transaction.quantity}}</td>
                                                 <td class="number">{{getNameItemByID(transaction.item)}}</td>
                                                 <td class="number">{{transaction.description}}</td>
+                                                <td>{{getUnitsByID(transaction.item)}}</td>
                                             </tr>
 
 
@@ -1540,6 +1696,97 @@ MAIN CONTENT
 
 
         </section><! --/wrapper REVISAR ACTIVIDADES FILTRO-->
+
+        <section class="wrapper"  ng-show="isSet(13)">
+            <div ng-controller="retrieve8">
+
+                <h3><i class="fa fa-angle-right"></i>ORDENES DE COMPRA:</h3>
+
+                <!-- BASIC FORM ELELEMNTS -->
+                <div class="row">
+
+                    <form class="form-horizontal style-form">
+
+                        <!--
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <div class="input-group-addon">Nombre Proveedor:</div>
+                                <div class="dropdown">
+                                    <select class="form-control" ng-model="selectedProvider" ng-options="provider as provider.name for provider in providers">
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>-->
+
+
+                        <!-- COMPLEX TO DO LIST -->
+                        <div class="col-md-12">
+                            <div class="panel-heading">
+                                <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Procesos:</h5></div>
+                                <button class="pull-right btn btn-success" type="submit" ng-click="ordenar()">ORDENAR</button>
+                                <br>
+                            </div>
+                            <div class="panel-body">
+                                <div class="task-content">
+
+                                    <div class="form-group">
+
+
+                                        <br></br>
+
+                                        <div class="col-md-12">
+
+                                            <table class="table table-bordered table-striped table-condensed" id="tableOrdenesCompra">
+                                                <thead>
+                                                <tr>
+                                                    <th>INSUMO</th>
+                                                    <th>MIN STOCK</th>
+                                                    <th>OPT STOCK</th>
+                                                    <th>CANTIDAD ACTUAL</th>
+                                                    <th>CANTIDAD REAL</th>
+                                                    <th>DIFERENCIA</th>
+                                                    <th>UNIDADES</th>
+                                                    <th>PROVEEDOR</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                <tr ng-repeat="rowi in rowsiInventoryTable" ng-class='{red:(rowi[7]-rowi[2])<0}'>
+                                                    <td>{{rowi[0]}}</td>
+                                                    <td>{{rowi[2]}}</td>
+                                                    <td>{{rowi[3]}}</td>
+                                                    <td>{{rowi[6]}}</td>
+                                                    <td class="number"><input type="text" ng-model="rowi[7]"/></td>
+                                                    <td class="number">{{rowi[7]-rowi[2]}}</td>
+                                                    <td>{{getUnitsByID(rowi[1])}}</td>
+                                                    <td>{{rowi[8]}}</td>
+                                                </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /col-md-12-->
+
+                            <div class="form-group">
+                                <!--
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-success pull-right" ng-click="sendForm()">GUARDAR CAMBIOS PRODUCTO</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-danger pull-right" ng-click="deleteProvider(selectedProvider._id)">ELIMINAR PROVEEDOR</button>
+                                </div>-->
+                            </div>
+                        </div>
+                    </form>
+
+                </div><!-- /row -->
+
+
+            </div>
+        </section><! --/wrapper ORDENES DE COMPRA-->
 
 
     </section>
