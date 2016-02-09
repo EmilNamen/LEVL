@@ -11,10 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-
-
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
     <!--external css-->
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
@@ -30,16 +27,16 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
     <![endif]-->
 
-    <script src="//code.angularjs.org/1.2.20/angular.js"></script>
-    <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
+    <script src="assets/js/angular.js"></script>
+    <script src="assets/js/angular-route.js"></script>
     <script src="assets/js/restangular.js"></script>
     <script src="assets/js/underscoreString.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.6.0/math.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script src="assets/js/underscore.js"></script>
 
 
 
@@ -180,6 +177,7 @@ MAIN CONTENT
     RIGHT SIDEBAR CONTENT
     *********************************************************************************************************************************************************** -->
     <section id="main-content" >
+
         <section class="wrapper" ng-show="isSet(1)" >
 
             <div class="row" ng-controller="retrieve1">
@@ -347,7 +345,22 @@ MAIN CONTENT
                                                                 <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
 
                                                             </div>
+                                                        </div>
 
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon">Seleccionar Unidad:</div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <div class="dropdown">
+                                                                    <select class="form-control" ng-model="itemTemp.units">
+                                                                        <option ng-repeat="unit in units">{{unit}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         <div class="col-md-12">
@@ -489,7 +502,7 @@ MAIN CONTENT
                                         <div class="input-group">
                                             <div class="input-group-addon">Nombre insumo:</div>
                                             <div class="dropdown">
-                                                <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items">
+                                                <select class="form-control" ng-model="transaction.item" ng-options="item._id as item.name for item in items" ng-click="getTypeByItemId(transaction.item)">
                                                 </select>
                                                 <li  ng-class="{ active:isSet(4) }"><a  href="" ng-click="setTab(4)">(+) Nuevo Insumo</a></li>
 
@@ -502,15 +515,8 @@ MAIN CONTENT
                                         <div class="input-group">
                                             <div class="input-group-addon">Cantidad: </div>
                                             <input type="text" class="form-control" id="inputAmount" ng-model="transaction.quantity" placeholder='Ingresar Cantidad'/>
-                                            <div class="input-group-addon">{{getUnitsByID(transaction.item)}}</div>
                                         </div>
                                     </div>
-                                    <!--<div class="col-md-4 ">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Precio: $</div>
-                                            <input type="text" class="form-control" id="inputPrice" ng-model="transaction.precio"/>
-                                        </div>
-                                    </div>-->
 
                                     <div class="col-md-6">
                                         <div class="input-group">
@@ -518,6 +524,31 @@ MAIN CONTENT
                                             <select class="form-control" ng-model="transaction.provider" ng-options="provider._id as provider.name for provider in providers">
                                             </select>
                                             <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Unidades Insumo: </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Seleccionar Unidad:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="dropdown">
+                                                <select class="form-control" ng-model="itemTemp.units">
+                                                    <option ng-repeat="unit in units">{{unit}}</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -533,7 +564,7 @@ MAIN CONTENT
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                        <button type="submit" class="btn btn-default" ng-click="ingresarCompra(transaction)">INGRESAR</button>
+                                        <button class="btn btn-default" ng-click="ingresarCompra()">INGRESAR</button>
                                     </div>
                                 </div>
                             </div>
@@ -584,46 +615,64 @@ MAIN CONTENT
 
                                     <div class="col-md-6">
                                         <div class="input-group">
-                                            <div class="input-group-addon">Unidades (Kg, Litros, ...): </div>
-                                            <input type="text" class="form-control" id="unidades" ng-model="item.units" placeholder='Unidades'>
-                                        </div>
-                                    </div>
-
-                                   <!-- <div class="col-md-6">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Proveedor: </div>
-                                            <select class="form-control" ng-model="item.provider" ng-options="provider._id as provider.name for provider in providers">
-                                            </select>
-
-                                            <li  ng-class="{ active:isSet(5) }"><a  href="" ng-click="setTab(5)">(+) Nuevo Proveedor</a></li>
-
-
-                                        </div>
-                                    </div>-->
-                                    <div class="col-md-6">
-                                        <div class="input-group">
                                             <div class="input-group-addon">Categoría: </div>
                                             <input type="text" class="form-control" id="categoria" ng-model="item.category" placeholder='Ingresar Categoría'>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-md-4">
-                                        <button type="submit" class="btn btn-success" ng-click="ingresarInsumo(item)">INGRESAR INSUMO</button>
+
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Unidades Insumo: </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Seleccionar Tipo:</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="dropdown">
+                                                <select class="form-control" ng-model="item.unitsType" ng-value="type.type"
+                                                        ng-options="type.type as type.label for type in unitsTypes" ng-click="getUnitsByType()">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="item.unitsType"  class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">Seleccionar Unidad:</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="dropdown">
+                                                <select class="form-control" ng-model="item.units">
+                                                    <option ng-repeat="unit in units">{{unit}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <div class="col-md-4 col-md-offset-3">
+                                        <button type="submit" class="btn btn-success" ng-click="ingresarInsumo(item)">INGRESAR INSUMO</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div><!-- col-lg-12-->
 
-                    </div><!-- /row -->
+
+                        </div>
+                    </div>
                 </form>
             </div>
-
-
-
 
         </section><! --/wrapper NUEVO INSUMO -->
 
@@ -734,7 +783,7 @@ MAIN CONTENT
                                             <div class="input-group">
                                                 <div class="input-group-addon">Nombre insumo:</div>
                                                 <div class="dropdown">
-                                                    <select class="form-control" ng-model="plate.ingredients[iterator]" ng-value="item._id"
+                                                    <select class="form-control" ng-model="plate.ingredients[iterator]" ng-click="getTypeByItemId(plate.ingredients[iterator])" ng-value="item._id"
                                                             ng-options="item._id as item.name for item in items">
                                                     </select>
                                                 </div>
@@ -742,10 +791,36 @@ MAIN CONTENT
                                             <div class="input-group">
                                                 <div class="input-group-addon">Cantidad:</div>
                                                 <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]" placeholder='Ingresar Cantidad'/>
-                                                <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
-
                                             </div>
-                                            <button type="submit" class="btn btn-info btn-xs" ng-click="addRow(plate.ingredients[iterator],plate.ingredientsQuantity[iterator])">(+) AGREGAR INGREDIENTE</button>
+
+                                            <div class="input-group" >
+                                                </br>
+
+                                                <div class="col-md-12">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">Unidades Insumo: </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon">Seleccionar Unidad:</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="dropdown">
+                                                            <select class="form-control" ng-model="plate.ingredientsUnit[iterator]">
+                                                                <option ng-repeat="unit in units">{{unit}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-info btn-xs" ng-click="addRow(plate.ingredients[iterator],plate.ingredientsQuantity[iterator],plate.ingredientsUnit[iterator])">(+) AGREGAR INGREDIENTE</button>
+
                                         </div>
 
 
@@ -756,6 +831,7 @@ MAIN CONTENT
                                                 <tr>
                                                     <th>NOMBRE INSUMO</th>
                                                     <th>CANTIDAD</th>
+                                                    <th>UNIDAD</th>
                                                     <th></th>
                                                 </tr>
                                                 </thead>
@@ -764,6 +840,7 @@ MAIN CONTENT
                                                 <tr ng-repeat="temp in platesTEMP.ingredients">
                                                     <td class="text">{{getNameByID(temp)}}</td>
                                                     <td class="numeric">{{platesTEMP.ingredientsQuantity[$index]}}</td>
+                                                    <td class="text">{{platesTEMP.ingredientsUnit[$index]}}</td>
                                                     <td><button class="btn btn-danger btn-xs" ng-click="removeRow(platesTEMP.ingredients[$index])" ><i class="fa fa-trash-o "></i></button></td>
                                                 </tr>
 
@@ -898,21 +975,21 @@ MAIN CONTENT
 
                                     </div>
 
-                                   <!-- <div class="col-md-12 ">
+                                    <!-- <div class="col-md-12 ">
 
-                                        <div class="col-md-6">
-                                            <div class="input-group">
-                                                <div class="input-group-addon">Stock Actual:</div>
-                                            </div>
-                                        </div>
+                                         <div class="col-md-6">
+                                             <div class="input-group">
+                                                 <div class="input-group-addon">Stock Actual:</div>
+                                             </div>
+                                         </div>
 
-                                        <div class="col-md-6">
-                                            <div class="input-group">
+                                         <div class="col-md-6">
+                                             <div class="input-group">
 
-                                                <input type="text" ng-model="actualItemEdit.currentStock"/></td>
-                                            </div>
-                                        </div>
-                                    </div>-->
+                                                 <input type="text" ng-model="actualItemEdit.currentStock"/></td>
+                                             </div>
+                                         </div>
+                                     </div>-->
 
 
                                     <button type="submit" class="btn btn-success btn-xs pull-right" ng-click="editItem()" data-dismiss="modal">GUARDAR CAMBIOS</button>

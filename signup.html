@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="LEVL">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="INVENTARIO PCN">
+    <meta name="author" content="PCN">
+    <meta name="keyword" content="INVENTARIO PCN">
+
+    <title>PCN INVENTARIO</title>
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="//code.angularjs.org/1.2.20/angular.js"></script>
+    <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
+    <script src="assets/js/restangular.js"></script>
+    <script src="assets/js/underscoreString.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.6.0/math.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+
+
+
+    <script src="assets/js/ng-file-upload/ng-file-upload-shim.js"></script>
+    <script src="assets/js/ng-file-upload/ng-file-upload.js"></script>
+
+    <script src="assets/js/pdf-make/pdfmake.js"></script>
+    <script src="assets/js/pdf-make/vfs_fonts.js"></script>
+
+
+</head>
+
+<body ng-controller="retrieve0">
+
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+
+<div id="signup-page" >
+    <div class="container">
+
+
+        <form class="form-login" action="index.html" method='POST' ng-submit="signupForm()">
+            <h2 class="form-login-heading">Sign up now</h2>
+            <div class="login-wrap">
+                <input type="text" name="username" ng-model="user.username"  class="form-control" placeholder="Usuario" required autofocus>
+                <br>
+                <input type="password" name="password" ng-model="user.password" class="form-control" placeholder="Clave" required>
+                <br>
+                <input type="email" name="email"  ng-model="user.email" class="form-control" placeholder="Email" required>
+                <br>
+                <input type="text" name="firstName" ng-model="user.firstName" class="form-control" placeholder="First Name" required>
+                <br>
+                <input type="text" name="lastName" ng-model="user.lastName" class="form-control" placeholder="Last Name" required>
+                <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> CREAR CUENTA</button>
+                <hr>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script src='main.js'></script>
+
+<!--BACKSTRETCH-->
+<!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+<script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
+<script>
+    $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+</script>
+
+
+</body>
+</html>

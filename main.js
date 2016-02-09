@@ -1,15 +1,16 @@
 /**
  * Created by emilnamen on 12/1/15.
  */
-
 var app = angular.module('LEVL',['restangular','ngFileUpload']);
 app.config(["RestangularProvider",function(RestangularProvider){
     RestangularProvider.setRestangularFields({
         id: "_id"
     });
-    RestangularProvider.setBaseUrl('http://masa.stratigeek.com:3000/api/');
+    RestangularProvider.setBaseUrl('http://localhost:3000/api');
 
 }]);
+
+app.controller('retrieve0', retrieve0);
 app.controller('retrieve1', retrieve1);
 app.controller('retrieve2', retrieve2);
 app.controller('retrieve3', retrieve3);
@@ -41,19 +42,47 @@ app.controller('TabController', function($scope){
     };
 });
 
+
+//CONTROLLER LOGIN
+function retrieve0(Restangular,$scope){
+
+    $scope.user = {};
+
+    // Register the login() function
+    $scope.loginForm = function(){
+        Restangular.oneUrl('login','http://localhost:3000/login').customPOST({
+            username: $scope.user.username,
+            password: $scope.user.password,
+        });
+    };
+
+    $scope.signupForm = function(){
+        Restangular.oneUrl('signup','http://localhost:3000/signup').customPOST({
+
+            username: $scope.user.username,
+            password: $scope.user.password,
+            email: $scope.user.email,
+            firstName: $scope.user.firstName,
+            secondName: $scope.user.secondName
+
+        });
+    };
+
+}
+
 // CONTROLLER HOME
 function retrieve1(Restangular, $scope){
 
-
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
+
         $scope.items = items;
+
     });
-
-
 
     var resource2 = Restangular.all('transactions');
     resource2.getList().then(function(transactions){
+        console.log(transactions);
 
         $scope.transaction = {};
         $scope.transaction.item = transactions[0].item;
@@ -154,6 +183,16 @@ function put1(Restangular, $scope){
         });
     };
 
+    $scope.unitsTypes = [{type:'mass', label:'MASA'},{type:'volume', label:'VOLUMEN'},{type:'length', label:'LONGITUD'}];
+
+    $scope.getUnitsByType = function(){
+        if($scope.item.unitsType){
+            Restangular.all('convert/possibilities?measure='+$scope.item.unitsType).getList().then(function(measures){
+                $scope.units = measures;
+            });
+        }
+    };
+
     var resource2 = Restangular.all('providers');
     resource2.getList().then(function(providers){
         $scope.providers = providers;
@@ -181,31 +220,66 @@ function put2(Restangular, $scope){
         $scope.providers = providers;
     });
 
-    $scope.transaction = {};
+    $scope.itemTemp = {};
 
-    $scope.ingresarCompra = function(transaction){
 
-        // calling our submit function
-        $scope.transaction.type = "MANUAL";
-        $scope.transaction.date = new Date();
-        resourceTransactions.post(transaction).then(function(data) {
-            //interprete save result
-            alert("saved");
-            reloadPage();
-        });
-    };
+    $scope.getTypeByItemId = function(itemID){
 
-    $scope.getUnitsByID= function(element){
-
-        if (element) {
-            for (var k = 0; k < $scope.items.length; ++k) {
-                if ($scope.items[k]._id == element) {
-                    return $scope.items[k].units;
-                }
-            }
+        $scope.itemType = _.find($scope.items, function(act){ return act._id== itemID; }).unitsType;
+        $scope.itemOriginalType = _.find($scope.items, function(act){ return act._id== itemID; }).units;
+        if($scope.itemType){
+            Restangular.all('convert/possibilities?measure='+$scope.itemType).getList().then(function(measures){
+                $scope.units = measures;
+            });
         }
     };
 
+    $scope.transaction = {};
+
+    $scope.ingresarCompra = function(){
+
+        // calling our submit function
+        // CREO $scope.transactionPOST para agregarle a este objeto temporal la cantidad convertida.
+        $scope.transactionPOST = $scope.transaction;
+        $scope.transactionPOST.type = "MANUAL";
+        $scope.transactionPOST.date = new Date();
+
+        Restangular.one('convert?quantity='+$scope.transaction.quantity+'&from='+$scope.itemTemp.units+'&to='+$scope.itemOriginalType).getList().then(
+            function(respConvertion){
+                $scope.transactionPOST.quantity = respConvertion;
+                resourceTransactions.post($scope.transactionPOST).then(function(data) {
+                    //interprete save result
+                    alert("saved"+ JSON.stringify(data));
+                    reloadPage();
+                });
+            });
+
+
+    };
+
+
+
+
+
+    /*$scope.unitsTypes = [{type:'mass', label:'MASA'},{type:'volume', label:'VOLUMEN'},{type:'length', label:'LONGITUD'}];
+     $scope.showUnitsType = false;
+
+
+
+     $scope.getUnitsByItemId = function(itemID){
+
+     alert(_.find($scope.items, function(act){ return act._id== itemID; }).unitsType);
+
+     if(String(_.find($scope.items, function(act){ return act._id== itemID; }).unitsType) === 'undefined'){
+     $scope.showUnitsType = true;
+     }
+     else{
+     $scope.showUnitsType = false;
+     }
+     };
+
+
+     */
 
 }
 
@@ -217,16 +291,18 @@ function retrieve2(Restangular, $scope){
 
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
-        $scope.items = items;
+        if (items) {
+            $scope.items = items;
 
-        items.forEach( function( item ) {
-            var resource2 = Restangular.all('inventory/currentStock/'+'?item='+item._id+'&date='+new Date());
-            resource2.getList().then(function(currents){
-                item.currentStock = currents;
+            items.forEach(function (item) {
+                var resource2 = Restangular.all('inventory/currentStock/' + '?item=' + item._id + '&date=' + new Date());
+                resource2.getList().then(function (currents) {
+                    item.currentStock = currents;
+                });
             });
-        });
 
-        $scope.item = {};
+            $scope.item = {};
+        }
 
     });
 
@@ -289,10 +365,12 @@ function put3(Restangular, $scope){
     $scope.platesTEMP = {};
     $scope.platesTEMP.ingredients = [];
     $scope.platesTEMP.ingredientsQuantity = [];
+    $scope.platesTEMP.ingredientsUnit = [];
 
     $scope.plate = {};
     $scope.plate.ingredients=[];
     $scope.plate.ingredientsQuantity=[];
+    $scope.plate.ingredientsUnit = [];
     $scope.iterator = 0;
 
 
@@ -303,6 +381,9 @@ function put3(Restangular, $scope){
 
         $scope.plate.ingredients = $scope.platesTEMP.ingredients;
         $scope.plate.ingredientsQuantity = $scope.platesTEMP.ingredientsQuantity;
+        $scope.plate.ingredientsUnit = $scope.platesTEMP.ingredientsUnit;
+
+        delete $scope.plate.ingredientsUnit;
 
         resource2.post($scope.plate).then(function(data) {
             //interprete save result
@@ -324,22 +405,24 @@ function put3(Restangular, $scope){
         }
     };
 
-    $scope.getUnitsByID= function(element){
-        if (element) {
-            for (var k = 0; k < $scope.items.length; ++k) {
-                if ($scope.items[k]._id == element) {
-                    return $scope.items[k].units;
-                }
-            }
+
+    $scope.getTypeByItemId = function(itemID){
+        $scope.itemType = _.find($scope.items, function(act){ return act._id== itemID; }).unitsType;
+        $scope.itemOriginalType = _.find($scope.items, function(act){ return act._id== itemID; }).units;
+        if($scope.itemType){
+            Restangular.all('convert/possibilities?measure='+$scope.itemType).getList().then(function(measures){
+                $scope.units = measures;
+            });
         }
     };
 
 
-    $scope.addRow = function(ingredient,quantity){
+    $scope.addRow = function(ingredient,quantity, unit){
 
         if($scope.iterator === 0){
             $scope.platesTEMP.ingredients.push(ingredient);
             $scope.platesTEMP.ingredientsQuantity.push(quantity);
+            $scope.platesTEMP.ingredientsUnit.push(unit);
             $scope.iterator++;
         }
         else{
@@ -349,14 +432,16 @@ function put3(Restangular, $scope){
             if( index == -1){
                 $scope.platesTEMP.ingredients.push(ingredient);
                 $scope.platesTEMP.ingredientsQuantity.push(quantity);
+                $scope.platesTEMP.ingredientsUnit.push(unit);
                 $scope.iterator++;
-
 
             }
             else{
+                alert("Se guardaran en las unidades iniciales que ingresó");
                 var quantityAct = parseInt($scope.platesTEMP.ingredientsQuantity[index]);
                 var quantityNum = parseInt(quantity);
                 $scope.platesTEMP.ingredientsQuantity[index] = quantityAct+quantityNum;
+
             }
         }
     };
@@ -373,6 +458,7 @@ function put3(Restangular, $scope){
         else{
             $scope.platesTEMP.ingredients.splice(index,1);
             $scope.platesTEMP.ingredientsQuantity.splice(index,1);
+            $scope.platesTEMP.ingredientsUnit.splice(index,1);
         }
     };
 }
@@ -573,17 +659,21 @@ function retrieve5(Restangular, $scope){
 
     var resource2 = Restangular.all('inventory/inventoryTable');
     resource2.getList().then(function(rowsInventoryTable){
-        $scope.rowsInventoryTable = rowsInventoryTable;
 
-        rowsInventoryTable.forEach( function( item ) {
+        if(rowsInventoryTable){
 
-            var resource3 = Restangular.all('inventory/currentStock'+'?item='+item[1]+'&date='+new Date());
-            resource3.getList().then(function(currents){
-                item[6] = currents;
+            $scope.rowsInventoryTable = rowsInventoryTable;
+
+            rowsInventoryTable.forEach( function( item ) {
+
+                var resource3 = Restangular.all('inventory/currentStock'+'?item='+item[1]+'&date='+new Date());
+                resource3.getList().then(function(currents){
+                    item[6] = currents;
+                });
             });
-        });
 
-        $scope.rowsInventoryTable = rowsInventoryTable;
+            $scope.rowsInventoryTable = rowsInventoryTable;
+        }
 
     });
 
@@ -883,6 +973,17 @@ function retrieve8(Restangular, $scope){
         var ordersArray = [];
         var order = {};
 
+        var value = [];
+        var valuesArray = [];
+        var column = [];
+
+        column.push({ text: 'INSUMO', alignment: 'center'});
+        column.push({ text: 'CANTIDAD',alignment: 'center'});
+        column.push({ text: 'UNIDADES', alignment: 'center'});
+        column.push({ text: 'PROVEEDOR', alignment: 'center'});
+
+        valuesArray.push(column);
+
         $scope.rowsiInventoryTable.forEach(function(row){
 
             var dif =  row[7]-row[2];
@@ -894,7 +995,15 @@ function retrieve8(Restangular, $scope){
                 order.type = "ORDEN";
                 order.description = "***ORDEN DE COMPRA"  +new Date().toISOString().slice(0, 10);
                 ordersArray.push(order);
-                alert(JSON.stringify(ordersArray));
+
+
+                value.push({ text: row[0], style: 'tableHeader'});
+                value.push({ text: ''+dif*-1, style: 'tableHeader'});
+                value.push({ text: ''+$scope.getUnitsByID(row[1]), style: 'tableHeader'});
+                value.push({ text: row[8], style: 'tableHeader'});
+                valuesArray.push(value);
+                value = [];
+
 
                 /*$scope.transaction.item = row[1];
                  $scope.transaction.quantity = dif*-1;
@@ -911,21 +1020,54 @@ function retrieve8(Restangular, $scope){
 
         var docDefinition = {
             content: [
+
+                /*{
+                    image: 'data:http://localhost:63342/LEVL/levlHeader.png/jpg',
+                    fit: [100, 100]
+                },*/
+
                 // if you don't need styles, you can use a simple string to define a paragraph
-                'This is a standard paragraph, using default style',
+                {
+                    text: 'ORDENES DE COMPRA',
+                    fontSize: 25
+                },
+
+
+                {
+                    text: ' ',
+                    fontSize: 20
+                },
 
                 // using a { text: '...' } object lets you set styling properties
-                { text: 'This paragraph will have a bigger font', fontSize: 15 },
+                { text: 'Estas son las siguientes ordenes de compra que se deben realizar ' +
+                'para cumplir con el stock mínimo:', fontSize: 10 },
 
-                // if you set pass an array instead of a string, you'll be able
-                // to style any fragment individually
+                {text: ' ', fontSize:  20 },
+
+                {table: {
+                    headerRows: 1,
+                    widths: [ '*', 'auto', 'auto', 100],
+                    body: valuesArray
+                }},
+
+
+
+                /*{ text: 'headerLineOnly:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
                 {
-                    text: [
-                        'This paragraph is defined as an array of elements to make it possible to ',
-                        { text: 'restyle part of it and make it bigger ', fontSize: 15 },
-                        'than the rest.'
-                    ]
-                }
+                    style: 'tableExample',
+                    table: {
+                        headerRows: 1,
+                        body: valuesArray
+                    },
+                    layout: 'headerLineOnly'
+                },*/
+
+
+
+                {text: ' ', fontSize:  20 },
+
+
+                {text: 'Aprobado por: ________________________________________', fontSize:  10 }
             ]
         };
         // open the PDF in a new window
@@ -1140,15 +1282,15 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
 
     $scope.aceptarTransaccionPmix = function(){
 
-       $scope.itemsPmix.forEach(function(itemAct){
+        $scope.itemsPmix.forEach(function(itemAct){
             $scope.transaction = {};
             $scope.transaction.item = itemAct.itemID;
             $scope.transaction.quantity = itemAct.quantity*-1;
             $scope.transaction.description = "***VENTA PMIX  "+new Date().toISOString().slice(0, 10);
             $scope.transaction.date = new Date();
 
-           //alert(JSON.stringify($scope.transaction));
-           resourceTransactionsPMIX.post($scope.transaction).then(function(data){
+            //alert(JSON.stringify($scope.transaction));
+            resourceTransactionsPMIX.post($scope.transaction).then(function(data){
                 //alert(data);
             });
 
@@ -1167,5 +1309,4 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
 function reloadPage() {
     location.reload();
 }
-
 
