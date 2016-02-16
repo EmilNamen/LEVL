@@ -39,6 +39,7 @@
     <script src="assets/js/pdf-make/vfs_fonts.js"></script>
 
 
+
 </head>
 
 <body ng-controller="retrieve0">
@@ -50,20 +51,34 @@ MAIN CONTENT
 <div id="signup-page" >
     <div class="container">
 
+        <div class="col-md-12">
+            <br></br>
 
-        <form class="form-login" action="index.html" method='POST' ng-submit="signupForm()">
+            <div class="bs-callout bs-callout-warning hidden">
+                <h4>Oh snap!</h4>
+                <p>This form seems to be invalid :(</p>
+            </div>
+
+            <div class="bs-callout bs-callout-info hidden">
+                <h4>Yay!</h4>
+                <p>Everything seems to be ok :)</p>
+            </div>
+
+        </div>
+
+        <form id="signUp" data-parsley-validate="" class="form-login"  action="home.html" method='POST' ng-submit="signupForm()">
             <h2 class="form-login-heading">Sign up now</h2>
             <div class="login-wrap">
-                <input type="text" name="username" ng-model="user.username"  class="form-control" placeholder="Usuario" required autofocus>
+                <input type="text"  required="" name="username" ng-model="user.username"  class="form-control" placeholder="Usuario" required autofocus>
                 <br>
-                <input type="password" name="password" ng-model="user.password" class="form-control" placeholder="Clave" required>
+                <input type="password" required="" name="password" ng-model="user.password" class="form-control" placeholder="Clave" required>
                 <br>
-                <input type="email" name="email"  ng-model="user.email" class="form-control" placeholder="Email" required>
+                <input type="email" data-parsley-trigger="change"  required="" name="email"  ng-model="user.email" class="form-control" placeholder="Email" required>
                 <br>
-                <input type="text" name="firstName" ng-model="user.firstName" class="form-control" placeholder="First Name" required>
+                <input type="text" required="" name="firstName" ng-model="user.firstName" class="form-control" placeholder="First Name" required>
                 <br>
-                <input type="text" name="lastName" ng-model="user.lastName" class="form-control" placeholder="Last Name" required>
-                <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> CREAR CUENTA</button>
+                <input type="text" required="" name="lastName" ng-model="user.lastName" class="form-control" placeholder="Last Name" required>
+                <button value="validate" class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> CREAR CUENTA</button>
                 <hr>
             </div>
         </form>
@@ -71,8 +86,28 @@ MAIN CONTENT
     </div>
 </div>
 
+
+
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="assets/js/jquery.js"></script>
+
+
+<script type="text/javascript" src="assets/validate/parsley.js"></script>
+
+
+<script type="text/javascript">
+
+    $('#signUp').parsley().on('field:validated', function() {
+                var ok = $('.parsley-error').length === 0;
+                $('.bs-callout-info').toggleClass('hidden', !ok);
+                $('.bs-callout-warning').toggleClass('hidden', ok);
+            })
+            .on('form:submit', function() {
+                return false; // Don't submit form for this demo
+            });
+
+</script>
+
 <script src="assets/js/bootstrap.min.js"></script>
 
 <script src='main.js'></script>

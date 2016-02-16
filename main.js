@@ -1,6 +1,9 @@
 /**
  * Created by emilnamen on 12/1/15.
  */
+
+
+
 var app = angular.module('LEVL',['restangular','ngFileUpload']);
 app.config(["RestangularProvider",function(RestangularProvider){
     RestangularProvider.setRestangularFields({
@@ -9,6 +12,43 @@ app.config(["RestangularProvider",function(RestangularProvider){
     RestangularProvider.setBaseUrl('http://localhost:3000/api');
 
 }]);
+
+app.config(['$httpProvider', function ($httpProvider) {
+    var $http,
+        interceptor = ['$q', '$injector', function ($q, $injector) {
+            var error;
+
+            function success(response) {
+                console.log("SUCCESS"+JSON.stringify(response));
+                // get $http via $injector because of circular dependency problem
+                $http = $http || $injector.get('$http');
+                if($http.pendingRequests.length < 1) {
+                    $('#loadingWidget').hide();
+                }
+                return response;
+            }
+
+            function error(response) {
+                console.log("ERROR"+JSON.stringify(response));
+                // get $http via $injector because of circular dependency problem
+                $http = $http || $injector.get('$http');
+                if($http.pendingRequests.length < 1) {
+                    $('#loadingWidget').hide();
+                }
+                return $q.reject(response);
+            }
+
+            return function (promise) {
+                $('#loadingWidget').show();
+                return promise.then(success, error);
+            }
+        }];
+
+    $httpProvider.responseInterceptors.push(interceptor);
+}]);
+
+
+
 
 app.controller('retrieve0', retrieve0);
 app.controller('retrieve1', retrieve1);
@@ -44,20 +84,47 @@ app.controller('TabController', function($scope){
 
 
 //CONTROLLER LOGIN
-function retrieve0(Restangular,$scope){
+function retrieve0(Restangular,$scope,$http){
 
     $scope.user = {};
 
     // Register the login() function
     $scope.loginForm = function(){
+
+        /* $http({
+         method: 'POST',
+         url: 'http://localhost:3000/login',
+         data: {
+         username: $scope.user.username,
+         password: $scope.user.password,
+         }
+         }).then(function successCallback(response) {
+         alert(JSON.stringify(response));
+         // this callback will be called asynchronously
+         // when the response is available
+         }, function errorCallback(response) {
+         alert(JSON.stringify(response));
+         // called asynchronously if an error occurs
+         // or server returns response with an error status.
+         });*/
+
         Restangular.oneUrl('login','http://localhost:3000/login').customPOST({
             username: $scope.user.username,
             password: $scope.user.password,
+        }).then(function(data){
+            if(String(data) == "true"){
+                alert("Autenticado");
+                window.location = "/LEVL/home.html";
+            }
+            else{
+                alert("Contraseña Incorrecta");
+                window.location = "/LEVL/index.html";
+            }
         });
     };
 
     $scope.signupForm = function(){
-        Restangular.oneUrl('signup','http://localhost:3000/signup').customPOST({
+        /*Restangular.oneUrl('signup','http://localhost:3000/signup').customPOST({
 
             username: $scope.user.username,
             password: $scope.user.password,
@@ -65,7 +132,7 @@ function retrieve0(Restangular,$scope){
             firstName: $scope.user.firstName,
             secondName: $scope.user.secondName
 
-        });
+        });*/
     };
 
 }
@@ -75,34 +142,32 @@ function retrieve1(Restangular, $scope){
 
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
-
-        $scope.items = items;
+        if(isAuthenticated(items) == true){
+            $scope.items = items;
+        }
 
     });
 
     var resource2 = Restangular.all('transactions');
-    resource2.getList().then(function(transactions){
-        console.log(transactions);
-
+    resource2.getList().then(function(transactions) {
+        if (isAuthenticated(transactions) == true){
         $scope.transaction = {};
         $scope.transaction.item = transactions[0].item;
-
-
         $scope.transactions = transactions;
 
 
-        $scope.graphSubmitForm = function() {
+        $scope.graphSubmitForm = function () {
 
             //alert(_.filter($scope.transactions,function(trans){return trans.item.localeCompare($scope.transaction.item)==0}));
 
-            if( $scope.transaction.item.localeCompare('undefined') === 0 &&  $scope.transaction.item != null);
+            if ($scope.transaction.item.localeCompare('undefined') === 0 && $scope.transaction.item != null);
             {
                 var dps = [];
                 var acumQuantity = 0;
                 var transactionsItem = [];
-                transactions.forEach( function( transaction ) {
+                transactions.forEach(function (transaction) {
 
-                    if(transaction.item === $scope.transaction.item){
+                    if (transaction.item === $scope.transaction.item) {
 
                         transactionsItem.push(transaction);
 
@@ -110,7 +175,7 @@ function retrieve1(Restangular, $scope){
                         transactionDate = transactionDate.getTime();
                         acumQuantity = acumQuantity + transaction.quantity;
 
-                        var itemAct = { "x": transactionDate, "y" :acumQuantity};
+                        var itemAct = {"x": transactionDate, "y": acumQuantity};
                         dps.push(itemAct);
                     }
                 });
@@ -123,6 +188,7 @@ function retrieve1(Restangular, $scope){
 
             }
         };
+    }
     });
 
 
@@ -195,7 +261,9 @@ function put1(Restangular, $scope){
 
     var resource2 = Restangular.all('providers');
     resource2.getList().then(function(providers){
-        $scope.providers = providers;
+        if(isAuthenticated(providers) == true){
+            $scope.providers = providers;
+        }
     });
 
 
@@ -206,7 +274,11 @@ function put2(Restangular, $scope){
 
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
-        $scope.items = items;
+
+        if(isAuthenticated(items) == true){
+            $scope.items = items;
+        }
+
     });
 
     var resourceTransactions = Restangular.all('transactions');
@@ -286,13 +358,14 @@ function put2(Restangular, $scope){
 // CONTROLLER REVISAR INVENTARIO
 function retrieve2(Restangular, $scope){
 
-
     $scope.items = [];
 
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
         if (items) {
+            if(isAuthenticated(items) == true){
             $scope.items = items;
+            }
 
             items.forEach(function (item) {
                 var resource2 = Restangular.all('inventory/currentStock/' + '?item=' + item._id + '&date=' + new Date());
@@ -357,7 +430,9 @@ function put3(Restangular, $scope){
 
     var resource = Restangular.all('items');
     resource.getList().then(function(items){
-        $scope.items = items;
+        if(isAuthenticated(items) == true){
+            $scope.items = items;
+        }
     });
 
     var resource2 = Restangular.all('plates');
@@ -1022,9 +1097,9 @@ function retrieve8(Restangular, $scope){
             content: [
 
                 /*{
-                    image: 'data:http://localhost:63342/LEVL/levlHeader.png/jpg',
-                    fit: [100, 100]
-                },*/
+                 image: 'data:http://localhost:63342/LEVL/levlHeader.png/jpg',
+                 fit: [100, 100]
+                 },*/
 
                 // if you don't need styles, you can use a simple string to define a paragraph
                 {
@@ -1053,14 +1128,14 @@ function retrieve8(Restangular, $scope){
 
 
                 /*{ text: 'headerLineOnly:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
-                {
-                    style: 'tableExample',
-                    table: {
-                        headerRows: 1,
-                        body: valuesArray
-                    },
-                    layout: 'headerLineOnly'
-                },*/
+                 {
+                 style: 'tableExample',
+                 table: {
+                 headerRows: 1,
+                 body: valuesArray
+                 },
+                 layout: 'headerLineOnly'
+                 },*/
 
 
 
@@ -1110,7 +1185,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
         $scope.errFile = errFiles && errFiles[0];
         if (file) {
             file.upload = Upload.upload({
-                url: 'http://masa.stratigeek.com:3000/api/inventory/uploadFile',
+                url: 'http://localhost:3000/api/inventory/uploadFile',
                 data: {file: file}
             });
 
@@ -1310,3 +1385,13 @@ function reloadPage() {
     location.reload();
 }
 
+
+function isAuthenticated(response){
+
+    if(String(response) === String("not authenticated")){
+        window.location = "/LEVL/index.html";
+    }else{
+        return true;
+    }
+
+}

@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de38e232-e71b-4ca4-99c3-03cf2b9dbd8e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/levlHeader.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/angular-route.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/angular.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/html5shiv.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/respond.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/underscore.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/signup.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/validate/parsley.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/jquery-1.8.3.min.js" afterPath="$PROJECT_DIR$/assets/js/jquery-1.8.3.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home.html" afterPath="$PROJECT_DIR$/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/style.css" afterPath="$PROJECT_DIR$/assets/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signup.html" afterPath="$PROJECT_DIR$/signup.html" />
     </list>
     <ignored path="INVENTARIO.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,10 +32,11 @@
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="19" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="19" />
+              <caret line="134" column="13" selection-start-line="134" selection-start-column="13" selection-end-line="134" selection-end-column="13" />
               <folding>
-                <element signature="e#864#1195#0" expanded="false" />
+                <element signature="e#376#1544#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve1#0" expanded="false" />
+                <element signature="e#5837#6065#0" expanded="false" />
                 <element signature="n#!!block;n#createChart#0" expanded="false" />
                 <element signature="n#!!block;n#put1#0" expanded="false" />
                 <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -53,27 +48,18 @@
                 <element signature="n#!!block;n#retrieve5#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve6#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve7#0" expanded="false" />
-                <element signature="n#!!block;n#retrieve8#0" expanded="false" />
+                <element signature="e#33223#39119#0" expanded="false" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="levlHeader.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/levlHeader.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="signup.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/signup.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29151943">
-              <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
-              <folding>
-                <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.4434629">
+              <caret line="68" column="90" selection-start-line="68" selection-start-column="90" selection-end-line="68" selection-end-column="90" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,11 +67,12 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.208334">
-              <caret line="363" column="62" selection-start-line="363" selection-start-column="62" selection-end-line="363" selection-end-column="62" />
+            <state vertical-scroll-proportion="-6.0833335">
+              <caret line="180" column="0" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
               <folding>
                 <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#section#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#section#1;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#section#2;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#section#3;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#section#4;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -103,13 +90,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.625">
+              <caret line="52" column="54" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -146,13 +143,14 @@
         <option value="$PROJECT_DIR$/assets/js/restangular.js" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/assets/js/common-scripts.js" />
-        <option value="$PROJECT_DIR$/assets/css/style.css" />
         <option value="$PROJECT_DIR$/assets/js/underscoreString.js" />
         <option value="$PROJECT_DIR$/assets/js/jquery-1.8.3.min.js" />
         <option value="$PROJECT_DIR$/.htaccess" />
+        <option value="$PROJECT_DIR$/home.html" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/main.js" />
-        <option value="$PROJECT_DIR$/home.html" />
+        <option value="$PROJECT_DIR$/assets/validate/validate.js" />
+        <option value="$PROJECT_DIR$/assets/css/style.css" />
         <option value="$PROJECT_DIR$/signup.html" />
       </list>
     </option>
@@ -208,6 +206,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="LEVL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LEVL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LEVL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="validate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LEVL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LEVL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -313,7 +343,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="708" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="708" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1858618" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -349,34 +379,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="50" />
+      <option name="time" value="51" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#864#1195#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve1#0" expanded="false" />
-            <element signature="n#!!block;n#createChart#0" expanded="false" />
-            <element signature="n#!!block;n#put1#0" expanded="false" />
-            <element signature="n#!!block;n#put2#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve2#0" expanded="false" />
-            <element signature="n#!!block;n#put3#0" expanded="false" />
-            <element signature="n#!!block;n#put4#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve3#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve4#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve5#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve6#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve7#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templatePages/buttons.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -389,8 +396,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="503" column="0" selection-start-line="503" selection-start-column="0" selection-end-line="503" selection-end-column="0" />
           <folding>
-            <element signature="e#864#1195#0" expanded="false" />
+            <element signature="e#376#1544#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
+            <element signature="e#5837#6065#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -402,7 +410,7 @@
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
+            <element signature="e#33223#39119#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -414,6 +422,7 @@
           <folding>
             <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#section#1;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#2;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#3;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#4;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -435,8 +444,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="503" column="0" selection-start-line="503" selection-start-column="0" selection-end-line="503" selection-end-column="0" />
           <folding>
-            <element signature="e#864#1195#0" expanded="false" />
+            <element signature="e#376#1544#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
+            <element signature="e#5837#6065#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -448,7 +458,7 @@
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
+            <element signature="e#33223#39119#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -460,6 +470,7 @@
           <folding>
             <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#section#1;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#2;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#3;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#4;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -481,8 +492,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#864#1195#0" expanded="false" />
+            <element signature="e#376#1544#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
+            <element signature="e#5837#6065#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -494,7 +506,7 @@
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
+            <element signature="e#33223#39119#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -506,6 +518,7 @@
           <folding>
             <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#section#1;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#2;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#3;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#4;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -527,8 +540,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#864#1195#0" expanded="false" />
+            <element signature="e#376#1544#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
+            <element signature="e#5837#6065#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -540,7 +554,7 @@
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
+            <element signature="e#33223#39119#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -552,6 +566,7 @@
           <folding>
             <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#section#1;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#2;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#3;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#4;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -573,8 +588,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="377" column="6" selection-start-line="377" selection-start-column="6" selection-end-line="377" selection-end-column="6" />
           <folding>
-            <element signature="e#864#1195#0" expanded="false" />
+            <element signature="e#376#1544#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
+            <element signature="e#5837#6065#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -586,7 +602,7 @@
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
+            <element signature="e#33223#39119#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -764,13 +780,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625">
-          <caret line="375" column="1" selection-start-line="375" selection-start-column="1" selection-end-line="375" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/underscoreString.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40142095">
@@ -834,21 +843,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625">
-          <caret line="55" column="101" selection-start-line="55" selection-start-column="76" selection-end-line="55" selection-end-column="101" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/levlHeader.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.208334">
-          <caret line="363" column="62" selection-start-line="363" selection-start-column="62" selection-end-line="363" selection-end-column="62" />
+        <state vertical-scroll-proportion="-6.0833335">
+          <caret line="180" column="0" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
           <folding>
             <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#section#1;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#2;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#3;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#4;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -865,13 +872,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.625">
+          <caret line="52" column="54" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="19" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="19" />
+          <caret line="134" column="13" selection-start-line="134" selection-start-column="13" selection-end-line="134" selection-end-column="13" />
           <folding>
-            <element signature="e#864#1195#0" expanded="false" />
+            <element signature="e#376#1544#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
+            <element signature="e#5837#6065#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -883,23 +899,34 @@
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
+            <element signature="e#33223#39119#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/levlHeader.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/assets/validate/parsley.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="56.92373">
+          <caret line="2261" column="35" selection-start-line="2261" selection-start-column="35" selection-end-line="2261" selection-end-column="35" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.007067138">
+          <caret line="2306" column="16" selection-start-line="2306" selection-start-column="16" selection-end-line="2306" selection-end-column="16" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/signup.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29151943">
-          <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
-          <folding>
-            <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.4434629">
+          <caret line="68" column="90" selection-start-line="68" selection-start-column="90" selection-end-line="68" selection-end-column="90" />
+          <folding />
         </state>
       </provider>
     </entry>
