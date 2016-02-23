@@ -9,7 +9,7 @@ app.config(["RestangularProvider",function(RestangularProvider){
     RestangularProvider.setRestangularFields({
         id: "_id"
     });
-    RestangularProvider.setBaseUrl('http://localhost:3000/api');
+    RestangularProvider.setBaseUrl('http://masa.stratigeek.com:3000/api');
 
 }]);
 
@@ -49,7 +49,7 @@ app.config(['$httpProvider', function ($httpProvider) {
 
 
 
-
+app.controller('retrieveUsername',retrieveUsername);
 app.controller('retrieve0', retrieve0);
 app.controller('retrieve1', retrieve1);
 app.controller('retrieve2', retrieve2);
@@ -108,7 +108,8 @@ function retrieve0(Restangular,$scope,$http){
          // or server returns response with an error status.
          });*/
 
-        Restangular.oneUrl('login','http://localhost:3000/login').customPOST({
+
+        Restangular.oneUrl('login','http://masa.stratigeek.com:3000/login').customPOST({
             username: $scope.user.username,
             password: $scope.user.password,
         }).then(function(data){
@@ -124,7 +125,7 @@ function retrieve0(Restangular,$scope,$http){
     };
 
     $scope.signupForm = function(){
-        /*Restangular.oneUrl('signup','http://localhost:3000/signup').customPOST({
+        Restangular.oneUrl('signup','http://masa.stratigeek.com:3000/signup').customPOST({
 
             username: $scope.user.username,
             password: $scope.user.password,
@@ -132,8 +133,22 @@ function retrieve0(Restangular,$scope,$http){
             firstName: $scope.user.firstName,
             secondName: $scope.user.secondName
 
-        });*/
+        });
     };
+
+}
+
+
+
+function retrieveUsername(Restangular, $scope){
+
+    $scope.user = {}
+
+    var resource = Restangular.oneUrl('me','http://masa.stratigeek.com:3000/api/users/me');
+    resource.getList().then(function(users){
+       $scope.user = users;
+
+    });
 
 }
 
@@ -1185,7 +1200,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
         $scope.errFile = errFiles && errFiles[0];
         if (file) {
             file.upload = Upload.upload({
-                url: 'http://localhost:3000/api/inventory/uploadFile',
+                url: 'http://masa.stratigeek.com:3000/api/inventory/uploadFile',
                 data: {file: file}
             });
 
@@ -1202,7 +1217,8 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
                     file.result = response.data;
                 });
             }, function (response) {
-                //$scope.responseData = JSON.stringify(response.data);
+                console.log(JSON.stringify(response));
+                $scope.responseData = JSON.stringify(response.data);
 
             }, function (evt) {
                 file.progress = Math.min(100, parseInt(100.0 *
@@ -1356,6 +1372,8 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
 
 
     $scope.aceptarTransaccionPmix = function(){
+
+        console.log(JSON.stringify($scope.itemsPmix));
 
         $scope.itemsPmix.forEach(function(itemAct){
             $scope.transaction = {};

@@ -66,7 +66,7 @@ MAIN CONTENT
 
         </div>
 
-        <form id="signUp" data-parsley-validate="" class="form-login"  action="home.html" method='POST' ng-submit="signupForm()">
+        <form id="signUp" data-parsley-validate="" class="form-login" action="home.html" method='POST' ng-submit="signupForm()">
             <h2 class="form-login-heading">Sign up now</h2>
             <div class="login-wrap">
                 <input type="text"  required="" name="username" ng-model="user.username"  class="form-control" placeholder="Usuario" required autofocus>
@@ -103,7 +103,7 @@ MAIN CONTENT
                 $('.bs-callout-warning').toggleClass('hidden', ok);
             })
             .on('form:submit', function() {
-                return false; // Don't submit form for this demo
+                return true; // Don't submit form for this demo
             });
 
 </script>

@@ -93,7 +93,7 @@ MAIN CONTENT
             <ul class="sidebar-menu" id="nav-accordion">
 
                 <p class="centered"><a href="#"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-                <h5 class="centered">ANDREA</h5>
+                <h5 ng-controller="retrieveUsername" class="centered">{{user.username}}</h5>
 
                 <li class="mt" ng-class="{ active:isSet(1) }">
                     <a  ng-click="setTab(1)" onclick="setRefreshTab(1)">
