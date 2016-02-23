@@ -115,11 +115,11 @@ function retrieve0(Restangular,$scope,$http){
         }).then(function(data){
             if(String(data) == "true"){
                 alert("Autenticado");
-                window.location = "/LEVL/home.html";
+                window.location = "/home.html";
             }
             else{
                 alert("Contraseña Incorrecta");
-                window.location = "/LEVL/index.html";
+                window.location = "/index.html";
             }
         });
     };
@@ -1407,7 +1407,7 @@ function reloadPage() {
 function isAuthenticated(response){
 
     if(String(response) === String("not authenticated")){
-        window.location = "/LEVL/index.html";
+        window.location = "/index.html";
     }else{
         return true;
     }

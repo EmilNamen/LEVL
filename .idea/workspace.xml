@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de38e232-e71b-4ca4-99c3-03cf2b9dbd8e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home.html" afterPath="$PROJECT_DIR$/home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signup.html" afterPath="$PROJECT_DIR$/signup.html" />
     </list>
     <ignored path="INVENTARIO.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,11 +26,11 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44049734">
-              <caret line="1375" column="51" selection-start-line="1375" selection-start-column="51" selection-end-line="1375" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.106571935">
+              <caret line="121" column="35" selection-start-line="121" selection-start-column="35" selection-end-line="121" selection-end-column="35" />
               <folding>
                 <element signature="e#386#1554#0" expanded="false" />
-                <element signature="e#6167#6395#0" expanded="false" />
+                <element signature="e#6157#6385#0" expanded="false" />
                 <element signature="n#!!block;n#createChart#0" expanded="false" />
                 <element signature="n#!!block;n#put1#0" expanded="false" />
                 <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -372,7 +369,7 @@
           <caret line="503" column="0" selection-start-line="503" selection-start-column="0" selection-end-line="503" selection-end-column="0" />
           <folding>
             <element signature="e#386#1554#0" expanded="false" />
-            <element signature="e#6167#6395#0" expanded="false" />
+            <element signature="e#6157#6385#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -417,7 +414,7 @@
           <caret line="503" column="0" selection-start-line="503" selection-start-column="0" selection-end-line="503" selection-end-column="0" />
           <folding>
             <element signature="e#386#1554#0" expanded="false" />
-            <element signature="e#6167#6395#0" expanded="false" />
+            <element signature="e#6157#6385#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -462,7 +459,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#386#1554#0" expanded="false" />
-            <element signature="e#6167#6395#0" expanded="false" />
+            <element signature="e#6157#6385#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -507,7 +504,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#386#1554#0" expanded="false" />
-            <element signature="e#6167#6395#0" expanded="false" />
+            <element signature="e#6157#6385#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -552,7 +549,7 @@
           <caret line="377" column="6" selection-start-line="377" selection-start-column="6" selection-end-line="377" selection-end-column="6" />
           <folding>
             <element signature="e#386#1554#0" expanded="false" />
-            <element signature="e#6167#6395#0" expanded="false" />
+            <element signature="e#6157#6385#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
@@ -867,11 +864,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44049734">
-          <caret line="1375" column="51" selection-start-line="1375" selection-start-column="51" selection-end-line="1375" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.106571935">
+          <caret line="121" column="35" selection-start-line="121" selection-start-column="35" selection-end-line="121" selection-end-column="35" />
           <folding>
             <element signature="e#386#1554#0" expanded="false" />
-            <element signature="e#6167#6395#0" expanded="false" />
+            <element signature="e#6157#6385#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
