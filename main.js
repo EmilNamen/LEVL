@@ -10,6 +10,7 @@ app.config(["RestangularProvider",function(RestangularProvider){
         id: "_id"
     });
     RestangularProvider.setBaseUrl('http://masa.stratigeek.com:3000/api');
+    RestangularProvider.setDefaultHttpFields({'withCredentials':'true'});
 
 }]);
 
@@ -108,7 +109,6 @@ function retrieve0(Restangular,$scope,$http){
          // or server returns response with an error status.
          });*/
 
-        Restangular.setDefaultHttpFields({'withCredentials':'true'});
         Restangular.oneUrl('login','http://masa.stratigeek.com:3000/login').customPOST({
             username: $scope.user.username,
             password: $scope.user.password,
