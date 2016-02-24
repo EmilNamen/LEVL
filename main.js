@@ -115,11 +115,11 @@ function retrieve0(Restangular,$scope,$http){
         }).then(function(data){
             if(String(data) == "true"){
                 alert("Autenticado");
-                window.location = "/home.html";
+                window.location = "/LEVL/home.html";
             }
             else{
                 alert("Contraseña Incorrecta");
-                window.location = "/index.html";
+                window.location = "/LEVL/index.html";
             }
         });
     };
@@ -1201,7 +1201,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
         if (file) {
             file.upload = Upload.upload({
                 url: 'http://masa.stratigeek.com:3000/api/inventory/uploadFile',
-                data: {file: file}
+                data: {withCredentials:true, file: file}
             });
 
 
@@ -1407,7 +1407,7 @@ function reloadPage() {
 function isAuthenticated(response){
 
     if(String(response) === String("not authenticated")){
-        window.location = "/index.html";
+        window.location = "/LEVL/index.html";
     }else{
         return true;
     }
