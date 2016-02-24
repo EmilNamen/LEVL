@@ -1201,7 +1201,8 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
         if (file) {
             file.upload = Upload.upload({
                 url: 'http://masa.stratigeek.com:3000/api/inventory/uploadFile',
-                data: {withCredentials:true, file: file}
+                withCredentials:true,
+                data: { file: file}
             });
 
 
