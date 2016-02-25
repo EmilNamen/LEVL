@@ -144,7 +144,7 @@ function retrieveUsername(Restangular, $scope){
 
     var resource = Restangular.oneUrl('me','http://masa.stratigeek.com:3000/api/users/me');
     resource.getList().then(function(users){
-       $scope.user = users;
+        $scope.user = users;
 
     });
 
@@ -164,44 +164,44 @@ function retrieve1(Restangular, $scope){
     var resource2 = Restangular.all('transactions');
     resource2.getList().then(function(transactions) {
         if (isAuthenticated(transactions) == true){
-        $scope.transaction = {};
-        $scope.transaction.item = transactions[0].item;
-        $scope.transactions = transactions;
+            $scope.transaction = {};
+            $scope.transaction.item = transactions[0].item;
+            $scope.transactions = transactions;
 
 
-        $scope.graphSubmitForm = function () {
+            $scope.graphSubmitForm = function () {
 
-            //alert(_.filter($scope.transactions,function(trans){return trans.item.localeCompare($scope.transaction.item)==0}));
+                //alert(_.filter($scope.transactions,function(trans){return trans.item.localeCompare($scope.transaction.item)==0}));
 
-            if ($scope.transaction.item.localeCompare('undefined') === 0 && $scope.transaction.item != null);
-            {
-                var dps = [];
-                var acumQuantity = 0;
-                var transactionsItem = [];
-                transactions.forEach(function (transaction) {
+                if ($scope.transaction.item.localeCompare('undefined') === 0 && $scope.transaction.item != null);
+                {
+                    var dps = [];
+                    var acumQuantity = 0;
+                    var transactionsItem = [];
+                    transactions.forEach(function (transaction) {
 
-                    if (transaction.item === $scope.transaction.item) {
+                        if (transaction.item === $scope.transaction.item) {
 
-                        transactionsItem.push(transaction);
+                            transactionsItem.push(transaction);
 
-                        var transactionDate = new Date(transaction.date);
-                        transactionDate = transactionDate.getTime();
-                        acumQuantity = acumQuantity + transaction.quantity;
+                            var transactionDate = new Date(transaction.date);
+                            transactionDate = transactionDate.getTime();
+                            acumQuantity = acumQuantity + transaction.quantity;
 
-                        var itemAct = {"x": transactionDate, "y": acumQuantity};
-                        dps.push(itemAct);
-                    }
-                });
+                            var itemAct = {"x": transactionDate, "y": acumQuantity};
+                            dps.push(itemAct);
+                        }
+                    });
 
-                $scope.transactions = transactionsItem;
-
-
-                createChart(dps, $scope.getNameItemByID($scope.transaction.item));
+                    $scope.transactions = transactionsItem;
 
 
-            }
-        };
-    }
+                    createChart(dps, $scope.getNameItemByID($scope.transaction.item));
+
+
+                }
+            };
+        }
     });
 
 
@@ -377,7 +377,7 @@ function retrieve2(Restangular, $scope){
     resource.getList().then(function(items){
         if (items) {
             if(isAuthenticated(items) == true){
-            $scope.items = items;
+                $scope.items = items;
             }
 
             items.forEach(function (item) {
@@ -1189,7 +1189,7 @@ function retrieve8(Restangular, $scope){
 // CONTROLLER SUBIR PMIX
 
 
-app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function ($scope, Upload, $timeout, Restangular){
+app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular','$http', function ($scope, Upload, $timeout, Restangular,$http){
 
     Restangular.setDefaultHttpFields({'withCredentials':'true'});
 
@@ -1299,14 +1299,14 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
     };
 
     /*$scope.getUnitsByID= function(element){
-        if (element) {
-            for (var k = 0; k < $scope.items.length; ++k) {
-                if ($scope.items[k]._id == element) {
-                    return $scope.items[k].units;
-                }
-            }
-        }
-    };*/
+     if (element) {
+     for (var k = 0; k < $scope.items.length; ++k) {
+     if ($scope.items[k]._id == element) {
+     return $scope.items[k].units;
+     }
+     }
+     }
+     };*/
 
     $scope.getTypeByItemIdPMIX = function(itemPMIXID){
         if(itemPMIXID){
@@ -1391,21 +1391,42 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
 
     $scope.aceptarTransaccionPmix = function(){
 
+       /* $scope.transaction = {};
+        $scope.transaction.item = itemAct.itemID;
+        $scope.transaction.quantity = itemAct.quantity*-1;
+        $scope.transaction.description = "***VENTA PMIX  "+new Date().toISOString().slice(0, 10);
+        $scope.transaction.date = new Date();
+
+        //alert(JSON.stringify($scope.transaction));
+        Restangular.oneUrl('transactions','http://masa.stratigeek.com:3000/api/transactions').customPOST($scope.transaction).then(function(data){
+            //alert(data);
+        });*/
 
         $scope.itemsPmix.forEach(function(itemAct){
+
             $scope.transaction = {};
             $scope.transaction.item = itemAct.itemID;
             $scope.transaction.quantity = itemAct.quantity*-1;
             $scope.transaction.description = "***VENTA PMIX  "+new Date().toISOString().slice(0, 10);
             $scope.transaction.date = new Date();
 
-            //alert(JSON.stringify($scope.transaction));
-            Restangular.oneUrl('transactions','http://masa.stratigeek.com:3000/api/transactions').customPOST($scope.transaction).then(function(data){
-                //alert(data);
+            $http({
+                method: 'POST',
+                url: 'http://masa.stratigeek.com:3000/api/transactions',
+                data: $scope.transaction
+            }).then(function successCallback(response) {
+                alert(JSON.stringify(response));
+                // this callback will be called asynchronously
+                // when the response is available
+            }, function errorCallback(response) {
+                alert(JSON.stringify(response));
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
             });
 
-
         });
+
+
         alert("Se realizaron las "+$scope.itemsPmix.length+" transacciones correctamente");
         localStorage.setItem('activeTab','11');
         reloadPage();
