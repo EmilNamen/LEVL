@@ -1407,7 +1407,7 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
             $scope.transaction.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            Restangular.all('transactions').post($scope.transaction).then(function (data) {
+            Restangular.one('transactions').customPOST($scope.transaction).then(function (data) {
                 //alert(data);
             });
 
