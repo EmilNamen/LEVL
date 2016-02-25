@@ -1400,6 +1400,8 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
         $scope.itemsPmix.forEach(function (itemAct) {
 
+            Restangular.all('items').getList().then(function(data){alert(data)});
+
             $scope.transaction = {};
             $scope.transaction.item = itemAct.itemID;
             $scope.transaction.quantity = itemAct.quantity * -1;
