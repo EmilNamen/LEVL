@@ -1391,16 +1391,6 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular','$http', 
 
     $scope.aceptarTransaccionPmix = function(){
 
-       /* $scope.transaction = {};
-        $scope.transaction.item = itemAct.itemID;
-        $scope.transaction.quantity = itemAct.quantity*-1;
-        $scope.transaction.description = "***VENTA PMIX  "+new Date().toISOString().slice(0, 10);
-        $scope.transaction.date = new Date();
-
-        //alert(JSON.stringify($scope.transaction));
-        Restangular.oneUrl('transactions','http://masa.stratigeek.com:3000/api/transactions').customPOST($scope.transaction).then(function(data){
-            //alert(data);
-        });*/
 
         $scope.itemsPmix.forEach(function(itemAct){
 
@@ -1410,19 +1400,9 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular','$http', 
             $scope.transaction.description = "***VENTA PMIX  "+new Date().toISOString().slice(0, 10);
             $scope.transaction.date = new Date();
 
-            $http({
-                method: 'POST',
-                withCredentials:true,
-                url: 'http://masa.stratigeek.com:3000/api/transactions',
-                data: $scope.transaction
-            }).then(function successCallback(response) {
-                //alert(JSON.stringify(response));
-                // this callback will be called asynchronously
-                // when the response is available
-            }, function errorCallback(response) {
-                //alert(JSON.stringify(response));
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+            //alert(JSON.stringify($scope.transaction));
+            Restangular.all('transactions').post($scope.transaction).then(function(data){
+                //alert(data);
             });
 
         });
