@@ -1412,6 +1412,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular','$http', 
 
             $http({
                 method: 'POST',
+                withCredentials:true,
                 url: 'http://masa.stratigeek.com:3000/api/transactions',
                 data: $scope.transaction
             }).then(function successCallback(response) {
