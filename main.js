@@ -1397,21 +1397,19 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
     $scope.aceptarTransaccionPmix = function () {
 
-        Restangular.setDefaultHttpFields({'withCredentials':'true'});
-
-
-
         $scope.itemsPmix.forEach(function (itemAct) {
 
 
-            $scope.transaction = {};
-            $scope.transaction.item = itemAct.itemID;
-            $scope.transaction.quantity = itemAct.quantity * -1;
-            $scope.transaction.description = "***VENTA PMIX  " + new Date().toISOString().slice(0, 10);
-            $scope.transaction.date = new Date();
+            $scope.transactionPMIX = {};
+            $scope.transactionPMIX.item = itemAct.itemID;
+            $scope.transactionPMIX.quantity = itemAct.quantity * -1;
+            $scope.transactionPMIX.description = "***VENTA PMIX  " + new Date().toISOString().slice(0, 10);
+            $scope.transactionPMIX.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            Restangular.all('transactions').post($scope.transaction);
+            Restangular.all('transactions').post($scope.transactionPMIX).then(function(data){
+                alert(JSON.stringify(data));
+            });
 
         });
 
