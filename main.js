@@ -1191,6 +1191,8 @@ function retrieve8(Restangular, $scope){
 
 app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function ($scope, Upload, $timeout, Restangular){
 
+    Restangular.setDefaultHttpFields({'withCredentials':'true'});
+
     $scope.err=true;
 
     $scope.uploadFiles = function(file, errFiles) {
@@ -1398,7 +1400,6 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
             $scope.transaction.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            Restangular.setDefaultHttpFields({'withCredentials':'true'});
             Restangular.oneUrl('transactions','http://masa.stratigeek.com:3000/api/transactions').customPOST($scope.transaction).then(function(data){
                 //alert(data);
             });
