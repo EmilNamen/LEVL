@@ -1403,7 +1403,6 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
         $scope.itemsPmix.forEach(function (itemAct) {
 
-            Restangular.all('items').getList().then(function(data){alert(data)});
 
             $scope.transaction = {};
             $scope.transaction.item = itemAct.itemID;
@@ -1412,9 +1411,7 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
             $scope.transaction.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            Restangular.one('transactions').customPOST($scope.transaction).then(function (data) {
-                alert(JSON.stringify(data));
-            });
+            Restangular.all('transactions').post($scope.transaction);
 
         });
 
