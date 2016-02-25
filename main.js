@@ -1387,13 +1387,6 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
 
     };
 
-    var resourceTransactionsPMIX = Restangular.all('transactions');
-    resourceTransactionsPMIX.getList().then(function(transactions){
-        $scope.transactions = transactions;
-    });
-
-
-
     $scope.aceptarTransaccionPmix = function(){
 
 
@@ -1405,7 +1398,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
             $scope.transaction.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            resourceTransactionsPMIX.customPOST($scope.transaction).then(function(data){
+            Restangular.oneUrl('transactions','http://masa.stratigeek.com:3000/api/transactions').customPOST($scope.transaction).then(function(data){
                 //alert(data);
             });
 
