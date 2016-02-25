@@ -1408,7 +1408,7 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
             //alert(JSON.stringify($scope.transaction));
             Restangular.one('transactions').customPOST($scope.transaction).then(function (data) {
-                //alert(data);
+                alert(JSON.stringify(data));
             });
 
         });
