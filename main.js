@@ -1397,6 +1397,9 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
     $scope.aceptarTransaccionPmix = function () {
 
+        Restangular.setDefaultHttpFields({'withCredentials':'true'});
+
+
 
         $scope.itemsPmix.forEach(function (itemAct) {
 
