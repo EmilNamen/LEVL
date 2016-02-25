@@ -1190,29 +1190,29 @@ function retrieve8(Restangular, $scope){
 // CONTROLLER SUBIR PMIX
 
 
-function MyCtrl (Restangular,$scope, Upload, $timeout){
+function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
 
-    $scope.err=true;
+    $scope.err = true;
 
-    $scope.uploadFiles = function(file, errFiles) {
+    $scope.uploadFiles = function (file, errFiles) {
         $scope.f = file;
         $scope.errFile = errFiles && errFiles[0];
         if (file) {
             file.upload = Upload.upload({
                 url: 'http://masa.stratigeek.com:3000/api/inventory/uploadFile',
-                withCredentials:true,
-                data: { file: file}
+                withCredentials: true,
+                data: {file: file}
             });
 
 
             file.upload.then(function (response) {
                 $scope.responseData = response.data;
-                if(_.contains(_.pluck($scope.responseData,'exists'),false)){
-                    $scope.err=true;
+                if (_.contains(_.pluck($scope.responseData, 'exists'), false)) {
+                    $scope.err = true;
                 }
-                else{
-                    $scope.err=false;
+                else {
+                    $scope.err = false;
                 }
                 $timeout(function () {
                     file.result = response.data;
@@ -1228,7 +1228,7 @@ function MyCtrl (Restangular,$scope, Upload, $timeout){
     }
 
 
-    Restangular.all('items').getList().then(function(items) {
+    Restangular.all('items').getList().then(function (items) {
         $scope.items = items;
     });
 
@@ -1238,17 +1238,17 @@ function MyCtrl (Restangular,$scope, Upload, $timeout){
     $scope.platesPMIXTEMP.ingredientsUnit = [];
 
     $scope.platePMIX = {};
-    $scope.addPlate = function(plateName){
+    $scope.addPlate = function (plateName) {
         $scope.platePMIX.name = plateName;
     }
 
-    $scope.platePMIX.ingredients=[];
-    $scope.platePMIX.ingredientsQuantity=[];
+    $scope.platePMIX.ingredients = [];
+    $scope.platePMIX.ingredientsQuantity = [];
     $scope.platePMIX.ingredientsUnit = [];
     $scope.iteratorPMIX = 0;
 
 
-    $scope.sendFormModalWindow = function() {
+    $scope.sendFormModalWindow = function () {
 
         console.log('want to send');
 
@@ -1259,15 +1259,16 @@ function MyCtrl (Restangular,$scope, Upload, $timeout){
         delete $scope.platePMIX.ingredientsUnit;
 
 
-
-        Restangular.all('plates').post($scope.platePMIX).then(function(data) {
+        Restangular.all('plates').post($scope.platePMIX).then(function (data) {
             //interprete save result
-            _.find($scope.responseData, function(act){return act.plateName == $scope.platePMIX.name}).exists = true;
-            if(_.contains(_.pluck($scope.responseData,'exists'),false)){
-                $scope.err=true;
+            _.find($scope.responseData, function (act) {
+                return act.plateName == $scope.platePMIX.name
+            }).exists = true;
+            if (_.contains(_.pluck($scope.responseData, 'exists'), false)) {
+                $scope.err = true;
             }
-            else{
-                $scope.err=false;
+            else {
+                $scope.err = false;
             }
             $scope.platesPMIXTEMP = {};
             $scope.platesPMIXTEMP.ingredients = [];
@@ -1275,12 +1276,11 @@ function MyCtrl (Restangular,$scope, Upload, $timeout){
             $scope.platesPMIXTEMP.ingredientsUnit = [];
 
 
-
         });
 
     };
 
-    $scope.closeModalPmix = function(){
+    $scope.closeModalPmix = function () {
         $scope.platesPMIXTEMP = {};
         $scope.platesPMIXTEMP.ingredients = [];
         $scope.platesPMIXTEMP.ingredientsQuantity = [];
@@ -1288,7 +1288,7 @@ function MyCtrl (Restangular,$scope, Upload, $timeout){
 
     };
 
-    $scope.getNameByID= function(id){
+    $scope.getNameByID = function (id) {
         if (id) {
             for (var k = 0; k < $scope.items.length; ++k) {
                 if ($scope.items[k]._id == id) {
@@ -1308,12 +1308,16 @@ function MyCtrl (Restangular,$scope, Upload, $timeout){
      }
      };*/
 
-    $scope.getTypeByItemIdPMIX = function(itemPMIXID){
-        if(itemPMIXID){
-            $scope.itemPMIXType = _.find($scope.items, function(act){ return act._id== itemPMIXID; }).unitsType;
-            $scope.itemPMIXOriginalType = _.find($scope.items, function(act){ return act._id== itemPMIXID; }).units;
-            if($scope.itemPMIXType){
-                Restangular.all('convert/possibilities?measure='+$scope.itemPMIXType).getList().then(function(measures){
+    $scope.getTypeByItemIdPMIX = function (itemPMIXID) {
+        if (itemPMIXID) {
+            $scope.itemPMIXType = _.find($scope.items, function (act) {
+                return act._id == itemPMIXID;
+            }).unitsType;
+            $scope.itemPMIXOriginalType = _.find($scope.items, function (act) {
+                return act._id == itemPMIXID;
+            }).units;
+            if ($scope.itemPMIXType) {
+                Restangular.all('convert/possibilities?measure=' + $scope.itemPMIXType).getList().then(function (measures) {
                     $scope.unitsPMIX = measures;
                 });
             }
@@ -1321,19 +1325,19 @@ function MyCtrl (Restangular,$scope, Upload, $timeout){
     };
 
 
-    $scope.addRowPMIX = function(ingredient,quantity,unit){
+    $scope.addRowPMIX = function (ingredient, quantity, unit) {
 
-        if($scope.iteratorPMIX === 0){
+        if ($scope.iteratorPMIX === 0) {
             $scope.platesPMIXTEMP.ingredients.push(ingredient);
             $scope.platesPMIXTEMP.ingredientsQuantity.push(quantity);
             $scope.platesPMIXTEMP.ingredientsUnit.push(unit);
             $scope.iteratorPMIX++;
         }
-        else{
+        else {
 
             var index = _.indexOf($scope.platesPMIXTEMP.ingredients, String(ingredient))
 
-            if( index == -1){
+            if (index == -1) {
                 $scope.platesPMIXTEMP.ingredients.push(ingredient);
                 $scope.platesPMIXTEMP.ingredientsQuantity.push(quantity);
                 $scope.platesPMIXTEMP.ingredientsUnit.push(unit);
@@ -1341,80 +1345,82 @@ function MyCtrl (Restangular,$scope, Upload, $timeout){
 
 
             }
-            else{
+            else {
                 var quantityAct = parseInt($scope.platesPMIXTEMP.ingredientsQuantity[index]);
                 var quantityNum = parseInt(quantity);
-                $scope.platesPMIXTEMP.ingredientsQuantity[index] = quantityAct+quantityNum;
+                $scope.platesPMIXTEMP.ingredientsQuantity[index] = quantityAct + quantityNum;
             }
         }
     };
 
 
-    $scope.removeRowPMIX = function(ingredient){
+    $scope.removeRowPMIX = function (ingredient) {
 
 
         var index = _.indexOf($scope.platesPMIXTEMP.ingredients, String(ingredient))
 
-        if( index == -1){
+        if (index == -1) {
             alert("ERROR: No se encuentra el ingrediente");
         }
-        else{
-            $scope.platesPMIXTEMP.ingredients.splice(index,1);
-            $scope.platesPMIXTEMP.ingredientsQuantity.splice(index,1);
-            $scope.platesPMIXTEMP.ingredientsUnit.splice(index,1);
+        else {
+            $scope.platesPMIXTEMP.ingredients.splice(index, 1);
+            $scope.platesPMIXTEMP.ingredientsQuantity.splice(index, 1);
+            $scope.platesPMIXTEMP.ingredientsUnit.splice(index, 1);
         }
     };
 
     var resourceTransaction = Restangular.all('transactions');
-    resourceTransaction.getList().then(function(transactions){
+    resourceTransaction.getList().then(function (transactions) {
         $scope.transactions = transactions;
     });
 
     $scope.transaction = {};
 
-    $scope.addTransactionPmix = function(){
+    $scope.addTransactionPmix = function () {
 
-        if(_.contains(_.pluck($scope.responseData,'exists'),false)){
-            $scope.err=true;
+        if (_.contains(_.pluck($scope.responseData, 'exists'), false)) {
+            $scope.err = true;
         }
-        else{
-            $scope.err=false;
+        else {
+            $scope.err = false;
         }
-        if($scope.err==false){
-            var map = _.each($scope.responseData, function(pmixItem){delete pmixItem.exists});
-            Restangular.one("inventory/platesToItems").customPUT(map).then(function(data){
-                $scope.itemsPmix =  data;
+        if ($scope.err == false) {
+            var map = _.each($scope.responseData, function (pmixItem) {
+                delete pmixItem.exists
+            });
+            Restangular.one("inventory/platesToItems").customPUT(map).then(function (data) {
+                $scope.itemsPmix = data;
             });
         }
 
     };
 
-    $scope.aceptarTransaccionPmix = function(){
+    $scope.aceptarTransaccionPmix = function () {
 
 
-        $scope.itemsPmix.forEach(function(itemAct){
+        $scope.itemsPmix.forEach(function (itemAct) {
 
             $scope.transaction = {};
             $scope.transaction.item = itemAct.itemID;
-            $scope.transaction.quantity = itemAct.quantity*-1;
-            $scope.transaction.description = "***VENTA PMIX  "+new Date().toISOString().slice(0, 10);
+            $scope.transaction.quantity = itemAct.quantity * -1;
+            $scope.transaction.description = "***VENTA PMIX  " + new Date().toISOString().slice(0, 10);
             $scope.transaction.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            Restangular.all('transactions').post($scope.transaction).then(function(data){
+            Restangular.all('transactions').post($scope.transaction).then(function (data) {
                 //alert(data);
             });
 
         });
 
 
-        alert("Se realizaron las "+$scope.itemsPmix.length+" transacciones correctamente");
-        localStorage.setItem('activeTab','11');
+        alert("Se realizaron las " + $scope.itemsPmix.length + " transacciones correctamente");
+        localStorage.setItem('activeTab', '11');
         reloadPage();
 
     };
 
-}]);
+}
 
 
 //Function used to reload the page in order to reload controllers calls
