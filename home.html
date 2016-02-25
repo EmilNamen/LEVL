@@ -254,10 +254,6 @@ MAIN CONTENT
                     </div>
                 </div>
 
-
-
-
-
                 <table class="table table-bordered table-striped table-condensed" id="tableSubmitPMIX">
                     <thead>
                     <tr>
@@ -276,8 +272,6 @@ MAIN CONTENT
                         <td ng-show="pmixPivot.exists == falsee" class="text"> {{pmixPivot.exists}}</td>
                         <td ng-show="pmixPivot.exists == false"><button class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalProducto" ng-click="addPlate(pmixPivot.plateName)"><i class="fa fa-check"></i></button></td>
                     </tr>
-
-
 
                     </tbody>
 
@@ -302,14 +296,14 @@ MAIN CONTENT
                                     <div class="col-md-6 ">
                                         <div class="input-group">
                                             <div class="input-group-addon">Nombre Producto:</div>
-                                            <input type="text" class="form-control" ng-model="plate.name"/>
+                                            <input type="text" class="form-control" ng-click="getTypeByItemId(plate.ingredients[iterator])"ng-model="platePMIX.name"/>
                                         </div>
 
                                     </div>
                                     <div class="col-md-12 ">
                                         <div class="input-group">
                                             <div class="input-group-addon">Descripción Producto:</div>
-                                            <input type="text" class="form-control"  ng-model="plate.description"/>
+                                            <input type="text" class="form-control"  ng-model="platePMIX.description"/>
                                         </div>
                                     </div>
 
@@ -331,18 +325,20 @@ MAIN CONTENT
                                                             <div class="input-group">
                                                                 <div class="input-group-addon">Nombre insumo:</div>
                                                                 <div class="dropdown">
-                                                                    <select class="form-control" ng-model="plate.ingredients[iterator]" ng-value="item._id"
+                                                                    <select class="form-control" ng-model="platePMIX.ingredients[iteratorPMIX]" ng-click="getTypeByItemIdPMIX(platePMIX.ingredients[iteratorPMIX])" ng-value="item._id"
                                                                             ng-options="item._id as item.name for item in items">
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                         </div>
+
+
                                                         <div class="col-md-6">
 
                                                             <div class="input-group">
                                                                 <div class="input-group-addon">Cantidad:</div>
-                                                                <input type="text" class="form-control" ng-model="plate.ingredientsQuantity[iterator]"/>
-                                                                <div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>
+                                                                <input type="text" class="form-control" ng-model="platePMIX.ingredientsQuantity[iteratorPMIX]"/>
+                                                                <!--<div class="input-group-addon">{{getUnitsByID(plate.ingredients[iterator])}}</div>-->
 
                                                             </div>
                                                         </div>
@@ -356,8 +352,8 @@ MAIN CONTENT
 
                                                             <div class="col-md-6">
                                                                 <div class="dropdown">
-                                                                    <select class="form-control" ng-model="itemTemp.units">
-                                                                        <option ng-repeat="unit in units">{{unit}}</option>
+                                                                    <select class="form-control" ng-model="platePMIX.ingredientsUnit[iteratorPMIX]">
+                                                                        <option ng-repeat="unitPMIX in unitsPMIX">{{unitPMIX}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -366,11 +362,9 @@ MAIN CONTENT
                                                         <div class="col-md-12">
 
                                                             <div class="text-center">
-                                                                <button type="submit" class="btn btn-info btn-sm" ng-click="addRow(plate.ingredients[iterator],plate.ingredientsQuantity[iterator] )">(+) AGREGAR INGREDIENTE</button>
+                                                                <button type="submit" class="btn btn-info btn-sm" ng-click="addRowPMIX(platePMIX.ingredients[iteratorPMIX],platePMIX.ingredientsQuantity[iteratorPMIX],platePMIX.ingredientsUnit[iteratorPMIX] )">(+) AGREGAR INGREDIENTE</button>
                                                             </div>
                                                         </div>
-
-
 
                                                     </div>
 
@@ -383,15 +377,17 @@ MAIN CONTENT
                                                             <tr>
                                                                 <th>NOMBRE INSUMO</th>
                                                                 <th>CANTIDAD</th>
+                                                                <th>UNIDAD</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
 
-                                                            <tr ng-repeat="temp in platesTEMP.ingredients">
-                                                                <td class="text">{{getNameByID(platesTEMP.ingredients[$index])}}</td>
-                                                                <td class="numeric">{{platesTEMP.ingredientsQuantity[$index]}}</td>
-                                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRow(platesTEMP.ingredients[$index])"><i class="fa fa-trash-o "></i></button></td>
+                                                            <tr ng-repeat="temp in platesPMIXTEMP.ingredients">
+                                                                <td class="text">{{getNameByID(platesPMIXTEMP.ingredients[$index])}}</td>
+                                                                <td class="numeric">{{platesPMIXTEMP.ingredientsQuantity[$index]}}</td>
+                                                                <td class="numeric">{{platesPMIXTEMP.ingredientsUnit[$index]}}</td>
+                                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRowPMIX(platesPMIXTEMP.ingredients[$index])"><i class="fa fa-trash-o "></i></button></td>
                                                             </tr>
 
 

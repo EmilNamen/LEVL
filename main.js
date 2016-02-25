@@ -138,8 +138,6 @@ function retrieve0(Restangular,$scope,$http){
 
 }
 
-
-
 function retrieveUsername(Restangular, $scope){
 
     $scope.user = {}
@@ -517,7 +515,7 @@ function put3(Restangular, $scope){
         }
         else{
 
-            var index = _.indexOf($scope.platesTEMP.ingredients, String(ingredient))
+            var index = _.indexOf($scope.platesTEMP.ingredients, String(ingredient));
 
             if( index == -1){
                 $scope.platesTEMP.ingredients.push(ingredient);
@@ -540,7 +538,7 @@ function put3(Restangular, $scope){
     $scope.removeRow = function(ingredient){
 
 
-        var index = _.indexOf($scope.platesTEMP.ingredients, String(ingredient))
+        var index = _.indexOf($scope.platesTEMP.ingredients, String(ingredient));
 
         if( index == -1){
             alert("ERROR: No se encuentra el ingrediente");
@@ -1218,7 +1216,6 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
                     file.result = response.data;
                 });
             }, function (response) {
-                console.log(JSON.stringify(response));
                 $scope.responseData = JSON.stringify(response.data);
 
             }, function (evt) {
@@ -1233,39 +1230,47 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
         $scope.items = items;
     });
 
-    $scope.platesTEMP = {};
-    $scope.platesTEMP.ingredients = [];
-    $scope.platesTEMP.ingredientsQuantity = [];
+    $scope.platesPMIXTEMP = {};
+    $scope.platesPMIXTEMP.ingredients = [];
+    $scope.platesPMIXTEMP.ingredientsQuantity = [];
+    $scope.platesPMIXTEMP.ingredientsUnit = [];
 
-    $scope.plate = {};
+    $scope.platePMIX = {};
     $scope.addPlate = function(plateName){
-        $scope.plate.name = plateName;
+        $scope.platePMIX.name = plateName;
     }
 
-    $scope.plate.ingredients=[];
-    $scope.plate.ingredientsQuantity=[];
-    $scope.iterator = 0;
+    $scope.platePMIX.ingredients=[];
+    $scope.platePMIX.ingredientsQuantity=[];
+    $scope.platePMIX.ingredientsUnit = [];
+    $scope.iteratorPMIX = 0;
 
 
     $scope.sendFormModalWindow = function() {
 
         console.log('want to send');
 
-        $scope.plate.ingredients = $scope.platesTEMP.ingredients;
-        $scope.plate.ingredientsQuantity = $scope.platesTEMP.ingredientsQuantity;
+        $scope.platePMIX.ingredients = $scope.platesPMIXTEMP.ingredients;
+        $scope.platePMIX.ingredientsQuantity = $scope.platesPMIXTEMP.ingredientsQuantity;
+        $scope.platePMIX.ingredientsUnit = $scope.platesPMIXTEMP.ingredientsUnit;
 
-        Restangular.all('plates').post($scope.plate).then(function(data) {
+        delete $scope.platePMIX.ingredientsUnit;
+
+
+
+        Restangular.all('plates').post($scope.platePMIX).then(function(data) {
             //interprete save result
-            _.find($scope.responseData, function(act){return act.plateName == $scope.plate.name}).exists = true;
+            _.find($scope.responseData, function(act){return act.plateName == $scope.platePMIX.name}).exists = true;
             if(_.contains(_.pluck($scope.responseData,'exists'),false)){
                 $scope.err=true;
             }
             else{
                 $scope.err=false;
             }
-            $scope.platesTEMP = {};
-            $scope.platesTEMP.ingredients = [];
-            $scope.platesTEMP.ingredientsQuantity = [];
+            $scope.platesPMIXTEMP = {};
+            $scope.platesPMIXTEMP.ingredients = [];
+            $scope.platesPMIXTEMP.ingredientsQuantity = [];
+            $scope.platesPMIXTEMP.ingredientsUnit = [];
 
 
         });
@@ -1273,9 +1278,10 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
     };
 
     $scope.closeModalPmix = function(){
-        $scope.platesTEMP = {};
-        $scope.platesTEMP.ingredients = [];
-        $scope.platesTEMP.ingredientsQuantity = [];
+        $scope.platesPMIXTEMP = {};
+        $scope.platesPMIXTEMP.ingredients = [];
+        $scope.platesPMIXTEMP.ingredientsQuantity = [];
+        $scope.platesPMIXTEMP.ingredientsUnit = [];
 
     };
 
@@ -1289,7 +1295,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
         }
     };
 
-    $scope.getUnitsByID= function(element){
+    /*$scope.getUnitsByID= function(element){
         if (element) {
             for (var k = 0; k < $scope.items.length; ++k) {
                 if ($scope.items[k]._id == element) {
@@ -1297,47 +1303,62 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
                 }
             }
         }
+    };*/
+
+    $scope.getTypeByItemIdPMIX = function(itemPMIXID){
+        if(itemPMIXID){
+            $scope.itemPMIXType = _.find($scope.items, function(act){ return act._id== itemPMIXID; }).unitsType;
+            $scope.itemPMIXOriginalType = _.find($scope.items, function(act){ return act._id== itemPMIXID; }).units;
+            if($scope.itemPMIXType){
+                Restangular.all('convert/possibilities?measure='+$scope.itemPMIXType).getList().then(function(measures){
+                    $scope.unitsPMIX = measures;
+                });
+            }
+        }
     };
 
 
-    $scope.addRow = function(ingredient,quantity){
+    $scope.addRowPMIX = function(ingredient,quantity,unit){
 
-        if($scope.iterator === 0){
-            $scope.platesTEMP.ingredients.push(ingredient);
-            $scope.platesTEMP.ingredientsQuantity.push(quantity);
-            $scope.iterator++;
+        if($scope.iteratorPMIX === 0){
+            $scope.platesPMIXTEMP.ingredients.push(ingredient);
+            $scope.platesPMIXTEMP.ingredientsQuantity.push(quantity);
+            $scope.platesPMIXTEMP.ingredientsUnit.push(unit);
+            $scope.iteratorPMIX++;
         }
         else{
 
-            var index = _.indexOf($scope.platesTEMP.ingredients, String(ingredient))
+            var index = _.indexOf($scope.platesPMIXTEMP.ingredients, String(ingredient))
 
             if( index == -1){
-                $scope.platesTEMP.ingredients.push(ingredient);
-                $scope.platesTEMP.ingredientsQuantity.push(quantity);
-                $scope.iterator++;
+                $scope.platesPMIXTEMP.ingredients.push(ingredient);
+                $scope.platesPMIXTEMP.ingredientsQuantity.push(quantity);
+                $scope.platesPMIXTEMP.ingredientsUnit.push(unit);
+                $scope.iteratorPMIX++;
 
 
             }
             else{
-                var quantityAct = parseInt($scope.platesTEMP.ingredientsQuantity[index]);
+                var quantityAct = parseInt($scope.platesPMIXTEMP.ingredientsQuantity[index]);
                 var quantityNum = parseInt(quantity);
-                $scope.platesTEMP.ingredientsQuantity[index] = quantityAct+quantityNum;
+                $scope.platesPMIXTEMP.ingredientsQuantity[index] = quantityAct+quantityNum;
             }
         }
     };
 
 
-    $scope.removeRow = function(ingredient){
+    $scope.removeRowPMIX = function(ingredient){
 
 
-        var index = _.indexOf($scope.platesTEMP.ingredients, String(ingredient))
+        var index = _.indexOf($scope.platesPMIXTEMP.ingredients, String(ingredient))
 
         if( index == -1){
             alert("ERROR: No se encuentra el ingrediente");
         }
         else{
-            $scope.platesTEMP.ingredients.splice(index,1);
-            $scope.platesTEMP.ingredientsQuantity.splice(index,1);
+            $scope.platesPMIXTEMP.ingredients.splice(index,1);
+            $scope.platesPMIXTEMP.ingredientsQuantity.splice(index,1);
+            $scope.platesPMIXTEMP.ingredientsUnit.splice(index,1);
         }
     };
 
