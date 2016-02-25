@@ -64,6 +64,7 @@ app.controller('put1',put1);
 app.controller('put2',put2);
 app.controller('put3',put3);
 app.controller('put4',put4);
+app.controller('MyCtrl',MyCtrl);
 // CONTROLLER HEADER
 app.controller('TabController', function($scope){
 
@@ -1189,9 +1190,8 @@ function retrieve8(Restangular, $scope){
 // CONTROLLER SUBIR PMIX
 
 
-app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular','$http', function ($scope, Upload, $timeout, Restangular,$http){
+function MyCtrl (Restangular,$scope, Upload, $timeout){
 
-    Restangular.setDefaultHttpFields({'withCredentials':'true'});
 
     $scope.err=true;
 
