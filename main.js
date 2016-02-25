@@ -1273,6 +1273,7 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
             $scope.platesPMIXTEMP.ingredientsUnit = [];
 
 
+
         });
 
     };
@@ -1395,7 +1396,6 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
 
     $scope.aceptarTransaccionPmix = function(){
 
-        console.log(JSON.stringify($scope.itemsPmix));
 
         $scope.itemsPmix.forEach(function(itemAct){
             $scope.transaction = {};
@@ -1405,13 +1405,13 @@ app.controller('MyCtrl', ['$scope', 'Upload', '$timeout','Restangular', function
             $scope.transaction.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            resourceTransactionsPMIX.post($scope.transaction).then(function(data){
+            resourceTransactionsPMIX.customPOST($scope.transaction).then(function(data){
                 //alert(data);
             });
 
 
         });
-        alert("Se realizaron las transacciones correctamente");
+        alert("Se realizaron las "+$scope.itemsPmix.length+" transacciones correctamente");
         localStorage.setItem('activeTab','11');
         reloadPage();
 
