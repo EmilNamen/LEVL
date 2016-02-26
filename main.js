@@ -1391,17 +1391,23 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
     };
 
+    var resourceTransactions = Restangular.all('transactions');
+    resourceTransactions.getList().then(function(transactions){
+        $scope.transactions = transactions;
+    });
+
     $scope.acceptTransactionPMIX = function () {
 
         _.each($scope.itemsPmix, function(itemAct){
             $scope.transactionPMIX = {};
             $scope.transactionPMIX.item = itemAct.itemID;
+            $scope.transactionPMIX.type = "PMIX";
             $scope.transactionPMIX.quantity = itemAct.quantity * -1;
             $scope.transactionPMIX.description = "***VENTA PMIX  " + new Date().toISOString().slice(0, 10);
             $scope.transactionPMIX.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            Restangular.all('transactions').post($scope.transactionPMIX).then(function(data){
+            resourceTransactions.post($scope.transactionPMIX).then(function(data){
                 alert(JSON.stringify(data));
             });
         });
