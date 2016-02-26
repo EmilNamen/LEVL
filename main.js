@@ -1185,10 +1185,7 @@ function retrieve8(Restangular, $scope){
 }
 
 
-
-
 // CONTROLLER SUBIR PMIX
-
 
 function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
@@ -1374,7 +1371,6 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
         $scope.transactions = transactions;
     });
 
-    $scope.transaction = {};
 
     $scope.addTransactionPmix = function () {
 
@@ -1395,11 +1391,9 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
     };
 
-    $scope.aceptarTransaccionPmix = function () {
+    $scope.acceptTransactionPMIX = function () {
 
-        $scope.itemsPmix.forEach(function (itemAct) {
-
-
+        _.each($scope.itemsPmix, function(itemAct){
             $scope.transactionPMIX = {};
             $scope.transactionPMIX.item = itemAct.itemID;
             $scope.transactionPMIX.quantity = itemAct.quantity * -1;
@@ -1410,7 +1404,6 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
             Restangular.all('transactions').post($scope.transactionPMIX).then(function(data){
                 alert(JSON.stringify(data));
             });
-
         });
 
 
