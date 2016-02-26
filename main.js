@@ -1391,8 +1391,8 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
     };
 
-    var resourceTransactions = Restangular.all('transactions');
-    resourceTransactions.getList().then(function(transactions){
+    var resourceTransactionsPMIX = Restangular.all('transactions');
+    resourceTransactionsPMIX.getList().then(function(transactions){
         $scope.transactions = transactions;
     });
 
@@ -1407,7 +1407,7 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
             $scope.transactionPMIX.date = new Date();
 
             //alert(JSON.stringify($scope.transaction));
-            resourceTransactions.post($scope.transactionPMIX).then(function(data){
+            resourceTransactionsPMIX.post($scope.transactionPMIX).then(function(data){
                 alert(JSON.stringify(data));
             });
         });
