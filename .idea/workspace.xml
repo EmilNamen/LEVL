@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="de38e232-e71b-4ca4-99c3-03cf2b9dbd8e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/style.css" afterPath="$PROJECT_DIR$/assets/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home.html" afterPath="$PROJECT_DIR$/home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
     </list>
@@ -29,27 +28,28 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.66101694">
-              <caret line="123" column="36" selection-start-line="123" selection-start-column="36" selection-end-line="123" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.6694915">
+              <caret line="1029" column="0" selection-start-line="1029" selection-start-column="0" selection-end-line="1029" selection-end-column="0" />
               <folding>
                 <element signature="e#460#1628#0" expanded="false" />
+                <element signature="n#!!block;n#retrieve0#0" expanded="false" />
                 <element signature="n#!!block;n#retrieveUsername#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve1#0" expanded="false" />
                 <element signature="e#6533#6761#0" expanded="false" />
                 <element signature="n#!!block;n#createChart#0" expanded="false" />
                 <element signature="n#!!block;n#put1#0" expanded="false" />
                 <element signature="n#!!block;n#put2#0" expanded="false" />
+                <element signature="n#!!block;n#retrieve2#0" expanded="false" />
                 <element signature="n#!!block;n#put3#0" expanded="false" />
                 <element signature="n#!!block;n#put4#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve3#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve4#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve5#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve6#0" expanded="false" />
-                <element signature="n#!!block;n#retrieve7#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve8#0" expanded="false" />
                 <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-                <element signature="e#38359#39334#0" expanded="false" />
-                <element signature="e#39387#39808#0" expanded="false" />
+                <element signature="e#38651#39626#0" expanded="false" />
+                <element signature="e#39679#40100#0" expanded="false" />
                 <element signature="n#!!block;n#reloadPage#0" expanded="false" />
               </folding>
             </state>
@@ -59,8 +59,8 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.625">
-              <caret line="79" column="38" selection-start-line="79" selection-start-column="38" selection-end-line="79" selection-end-column="38" />
+            <state vertical-scroll-proportion="-17.833334">
+              <caret line="1746" column="132" selection-start-line="1746" selection-start-column="132" selection-end-line="1746" selection-end-column="132" />
               <folding>
                 <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#section#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -75,7 +75,6 @@
                 <element signature="n#section#8;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#section#9;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#section#10;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#section#12;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
               </folding>
@@ -133,8 +132,8 @@
         <option value="$PROJECT_DIR$/assets/validate/validate.js" />
         <option value="$PROJECT_DIR$/signup.html" />
         <option value="$PROJECT_DIR$/assets/css/style.css" />
-        <option value="$PROJECT_DIR$/home.html" />
         <option value="$PROJECT_DIR$/main.js" />
+        <option value="$PROJECT_DIR$/home.html" />
       </list>
     </option>
   </component>
@@ -348,23 +347,24 @@
           <caret line="503" column="0" selection-start-line="503" selection-start-column="0" selection-end-line="503" selection-end-column="0" />
           <folding>
             <element signature="e#460#1628#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve0#0" expanded="false" />
             <element signature="n#!!block;n#retrieveUsername#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
             <element signature="e#6533#6761#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve2#0" expanded="false" />
             <element signature="n#!!block;n#put3#0" expanded="false" />
             <element signature="n#!!block;n#put4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve3#0" expanded="false" />
             <element signature="n#!!block;n#retrieve4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve7#0" expanded="false" />
             <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#38359#39334#0" expanded="false" />
-            <element signature="e#39387#39808#0" expanded="false" />
+            <element signature="e#38651#39626#0" expanded="false" />
+            <element signature="e#39679#40100#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
           </folding>
         </state>
@@ -388,7 +388,6 @@
             <element signature="n#section#8;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#9;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#10;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#12;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
@@ -401,23 +400,24 @@
           <caret line="503" column="0" selection-start-line="503" selection-start-column="0" selection-end-line="503" selection-end-column="0" />
           <folding>
             <element signature="e#460#1628#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve0#0" expanded="false" />
             <element signature="n#!!block;n#retrieveUsername#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
             <element signature="e#6533#6761#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve2#0" expanded="false" />
             <element signature="n#!!block;n#put3#0" expanded="false" />
             <element signature="n#!!block;n#put4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve3#0" expanded="false" />
             <element signature="n#!!block;n#retrieve4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve7#0" expanded="false" />
             <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#38359#39334#0" expanded="false" />
-            <element signature="e#39387#39808#0" expanded="false" />
+            <element signature="e#38651#39626#0" expanded="false" />
+            <element signature="e#39679#40100#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
           </folding>
         </state>
@@ -441,7 +441,6 @@
             <element signature="n#section#8;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#9;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#10;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#12;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
@@ -454,23 +453,24 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#460#1628#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve0#0" expanded="false" />
             <element signature="n#!!block;n#retrieveUsername#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
             <element signature="e#6533#6761#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve2#0" expanded="false" />
             <element signature="n#!!block;n#put3#0" expanded="false" />
             <element signature="n#!!block;n#put4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve3#0" expanded="false" />
             <element signature="n#!!block;n#retrieve4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve7#0" expanded="false" />
             <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#38359#39334#0" expanded="false" />
-            <element signature="e#39387#39808#0" expanded="false" />
+            <element signature="e#38651#39626#0" expanded="false" />
+            <element signature="e#39679#40100#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
           </folding>
         </state>
@@ -494,7 +494,6 @@
             <element signature="n#section#8;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#9;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#10;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#12;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
@@ -507,23 +506,24 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#460#1628#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve0#0" expanded="false" />
             <element signature="n#!!block;n#retrieveUsername#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
             <element signature="e#6533#6761#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve2#0" expanded="false" />
             <element signature="n#!!block;n#put3#0" expanded="false" />
             <element signature="n#!!block;n#put4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve3#0" expanded="false" />
             <element signature="n#!!block;n#retrieve4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve7#0" expanded="false" />
             <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#38359#39334#0" expanded="false" />
-            <element signature="e#39387#39808#0" expanded="false" />
+            <element signature="e#38651#39626#0" expanded="false" />
+            <element signature="e#39679#40100#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
           </folding>
         </state>
@@ -547,7 +547,6 @@
             <element signature="n#section#8;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#9;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#10;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#12;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
@@ -560,23 +559,24 @@
           <caret line="377" column="6" selection-start-line="377" selection-start-column="6" selection-end-line="377" selection-end-column="6" />
           <folding>
             <element signature="e#460#1628#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve0#0" expanded="false" />
             <element signature="n#!!block;n#retrieveUsername#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
             <element signature="e#6533#6761#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve2#0" expanded="false" />
             <element signature="n#!!block;n#put3#0" expanded="false" />
             <element signature="n#!!block;n#put4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve3#0" expanded="false" />
             <element signature="n#!!block;n#retrieve4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve7#0" expanded="false" />
             <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#38359#39334#0" expanded="false" />
-            <element signature="e#39387#39808#0" expanded="false" />
+            <element signature="e#38651#39626#0" expanded="false" />
+            <element signature="e#39679#40100#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
           </folding>
         </state>
@@ -855,8 +855,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.625">
-          <caret line="79" column="38" selection-start-line="79" selection-start-column="38" selection-end-line="79" selection-end-column="38" />
+        <state vertical-scroll-proportion="-17.833334">
+          <caret line="1746" column="132" selection-start-line="1746" selection-start-column="132" selection-end-line="1746" selection-end-column="132" />
           <folding>
             <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#0;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -871,7 +871,6 @@
             <element signature="n#section#8;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#9;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#10;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#section#11;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#section#12;n#section#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
@@ -880,27 +879,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66101694">
-          <caret line="123" column="36" selection-start-line="123" selection-start-column="36" selection-end-line="123" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.6694915">
+          <caret line="1029" column="0" selection-start-line="1029" selection-start-column="0" selection-end-line="1029" selection-end-column="0" />
           <folding>
             <element signature="e#460#1628#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve0#0" expanded="false" />
             <element signature="n#!!block;n#retrieveUsername#0" expanded="false" />
             <element signature="n#!!block;n#retrieve1#0" expanded="false" />
             <element signature="e#6533#6761#0" expanded="false" />
             <element signature="n#!!block;n#createChart#0" expanded="false" />
             <element signature="n#!!block;n#put1#0" expanded="false" />
             <element signature="n#!!block;n#put2#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve2#0" expanded="false" />
             <element signature="n#!!block;n#put3#0" expanded="false" />
             <element signature="n#!!block;n#put4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve3#0" expanded="false" />
             <element signature="n#!!block;n#retrieve4#0" expanded="false" />
             <element signature="n#!!block;n#retrieve5#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
-            <element signature="n#!!block;n#retrieve7#0" expanded="false" />
             <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#38359#39334#0" expanded="false" />
-            <element signature="e#39387#39808#0" expanded="false" />
+            <element signature="e#38651#39626#0" expanded="false" />
+            <element signature="e#39679#40100#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
           </folding>
         </state>

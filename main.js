@@ -1021,6 +1021,15 @@ function retrieve7(Restangular, $scope){
             }
         }
     };
+
+    $scope.removeRowTransaction = function(element){
+        Restangular.one("/transactions/delete", element._id).remove().then(function () {
+
+            var index = $scope.transactions.indexOf(element);
+            if (index > -1) $scope.transactions.splice(index, 1);
+
+        });
+    };
 }
 
 

@@ -1733,6 +1733,7 @@ MAIN CONTENT
                                                 <th>ITEM</th>
                                                 <th>DESCRIPCIÓN</th>
                                                 <th>UNIDADES</th>
+                                                <th>BORRAR</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -1743,6 +1744,9 @@ MAIN CONTENT
                                                 <td class="number">{{getNameItemByID(transaction.item)}}</td>
                                                 <td class="number">{{transaction.description}}</td>
                                                 <td>{{getUnitsByID(transaction.item)}}</td>
+                                                <td><button class="btn btn-danger btn-xs" ng-click="removeRowTransaction(transaction)"><i class="fa fa-trash-o "></i></button></td>
+
+
                                             </tr>
 
 
