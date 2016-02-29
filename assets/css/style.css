@@ -2242,14 +2242,11 @@ label {
 
 
 .actividades{
+    height:100vh;
     overflow-y: auto;
-    height: 200px;
+
 }
 
-.alertas{
-    overflow-y: auto;
-    height: 350px;
-}
 
 .red{
     color:red;

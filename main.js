@@ -85,6 +85,7 @@ app.controller('TabController', function($scope){
 });
 
 
+
 //CONTROLLER LOGIN
 function retrieve0(Restangular,$scope,$http){
 
@@ -114,13 +115,13 @@ function retrieve0(Restangular,$scope,$http){
             username: $scope.user.username,
             password: $scope.user.password,
         }).then(function(data){
-            if(String(data) == "true"){
-                alert("Autenticado");
-                window.location = "/home.html";
-            }
-            else{
+            if(String(data) == "false"){
                 alert("Contraseña Incorrecta");
                 window.location = "/index.html";
+            }
+            else{
+                alert("Autenticado");
+                window.location = "/home.html";
             }
         });
     };
@@ -135,6 +136,11 @@ function retrieve0(Restangular,$scope,$http){
             secondName: $scope.user.secondName
 
         });
+    };
+
+    $scope.logout =  function(){
+        Restangular.oneUrl('signout','http://masa.stratigeek.com:3000/signout').get();
+        window.location = "/index.html";
     };
 
 }
@@ -395,12 +401,22 @@ function retrieve2(Restangular, $scope){
 
     $scope.removeRowItem = function(element){
 
-        Restangular.one("/items/delete",element._id).remove().then(function(){
+        Restangular.all('inventory/isItemOnRecipe/'+element._id).getList().then(function(data){
 
-            var index = $scope.items.indexOf(element);
-            if (index > -1) $scope.items.splice(index, 1);
+            if(String(data) == "true"){
+                alert("No se puede eliminar: Este insumo está asociado un producto");
+            }
+            else {
+                Restangular.one("/items/delete", element._id).remove().then(function () {
+
+                    var index = $scope.items.indexOf(element);
+                    if (index > -1) $scope.items.splice(index, 1);
+
+                });
+            }
 
         });
+
 
     };
 
