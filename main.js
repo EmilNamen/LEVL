@@ -333,7 +333,7 @@ function put2(Restangular, $scope){
         // calling our submit function
         // CREO $scope.transactionPOST para agregarle a este objeto temporal la cantidad convertida.
         $scope.transactionPOST = $scope.transaction;
-        $scope.transactionPOST.type = "MANUAL";
+        $scope.transactionPOST.type = "***COMPRA";
         $scope.transactionPOST.date = new Date();
 
         Restangular.one('convert?quantity='+$scope.transaction.quantity+'&from='+$scope.itemTemp.units+'&to='+$scope.itemOriginalType).getList().then(
@@ -887,7 +887,7 @@ function retrieve6(Restangular, $scope){
             if(dif!=0){
                 $scope.transaction.item = row[1];
                 $scope.transaction.quantity = dif*-1;
-                $scope.transaction.type = "AJUSTE";
+                $scope.transaction.type = "***AJUSTE";
                 $scope.transaction.description = "***AJUSTE INVENTARIO  "+new Date().toISOString().slice(0, 10);
                 $scope.transaction.date = new Date();
                 resourceTransaction.post($scope.transaction).then(function(data){
@@ -1425,7 +1425,7 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
 
             $scope.transactionPMIX = {};
             $scope.transactionPMIX.item = itemAct.itemID;
-            $scope.transactionPMIX.type = "PMIX";
+            $scope.transactionPMIX.type = "***PMIX";
             $scope.transactionPMIX.quantity = itemAct.quantity * -1;
             $scope.transactionPMIX.description = "***VENTA PMIX  " + new Date().toISOString().slice(0, 10);
             $scope.transactionPMIX.date = new Date();
