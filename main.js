@@ -120,7 +120,7 @@ function retrieve0(Restangular,$scope,$http){
                 window.location = "/index.html";
             }
             else{
-                alert("Autenticado");
+                //alert("Autenticado");
                 window.location = "/home.html";
             }
         });
