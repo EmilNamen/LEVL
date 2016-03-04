@@ -60,6 +60,7 @@ app.controller('retrieve5', retrieve5);
 app.controller('retrieve6', retrieve6);
 app.controller('retrieve7', retrieve7);
 app.controller('retrieve8', retrieve8);
+app.controller('retrieve9', retrieve9);
 app.controller('put1',put1);
 app.controller('put2',put2);
 app.controller('put3',put3);
@@ -345,7 +346,6 @@ function put2(Restangular, $scope){
                     reloadPage();
                 });
             });
-
 
     };
 
@@ -1460,4 +1460,21 @@ function isAuthenticated(response){
         return true;
     }
 
+}
+
+
+// CONTROLLER COSTOS RECETAS
+function retrieve9(Restangular, $scope){
+
+    $scope.platesCostos = [];
+
+    var resourcePlatesCostos = Restangular.all('cost/platesaverage');
+    resourcePlatesCostos.getList().then(function(platesCostos){
+        if (platesCostos) {
+            if(isAuthenticated(platesCostos) == true){
+                $scope.platesCostos = platesCostos;
+            }
+        }
+
+    });
 }
