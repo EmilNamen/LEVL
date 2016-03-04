@@ -49,9 +49,8 @@ app.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 
-
-app.controller('retrieveUsername',retrieveUsername);
 app.controller('retrieve0', retrieve0);
+app.controller('retrieveUsername',retrieveUsername);
 app.controller('retrieve1', retrieve1);
 app.controller('retrieve2', retrieve2);
 app.controller('retrieve3', retrieve3);
@@ -62,6 +61,7 @@ app.controller('retrieve7', retrieve7);
 app.controller('retrieve8', retrieve8);
 app.controller('retrieve9', retrieve9);
 app.controller('retrieve10', retrieve10);
+app.controller('retrieve11',retrieve11);
 app.controller('put1',put1);
 app.controller('put2',put2);
 app.controller('put3',put3);
@@ -139,12 +139,14 @@ function retrieve0(Restangular,$scope,$http){
 
         });
     };
+}
 
+//CONTROLLER LOGOUT
+function retrieve11(Restangular,$scope){
     $scope.logout =  function(){
         Restangular.oneUrl('signout','http://masa.stratigeek.com:3000/signout').get();
         window.location = "/index.html";
     };
-
 }
 
 function retrieveUsername(Restangular, $scope){
@@ -1467,25 +1469,65 @@ function isAuthenticated(response){
 // CONTROLLER COSTOS RECETAS
 function retrieve9(Restangular, $scope){
 
-    $scope.platesCostos = [];
+
+    $scope.sendDatesPlateCosto = function(){
+        if(startDatePlateCostoAsObject) var start = startDatePlateCostoAsObject;
+        if(endDatePlateCostoAsObject){
+            var end = endDatePlateCostoAsObject;
+        }
+        else{
+            var end = new Date();
+        }
+
+        alert(start + end);
+    };
+
+    $scope.platesCostosAverage = [];
 
     var resourcePlatesCostos = Restangular.all('cost/platesaverage');
-    resourcePlatesCostos.getList().then(function(platesCostos){
-        if (platesCostos) {
-            if(isAuthenticated(platesCostos) == true){
-                $scope.platesCostos = platesCostos;
+    resourcePlatesCostos.getList().then(function(platesCostosAverage){
+        if (platesCostosAverage) {
+            if(isAuthenticated(platesCostosAverage) == true){
+                $scope.platesCostosAverage = platesCostosAverage;
             }
         }
 
     });
+
+    $scope.platesCostosLast = [];
+
+    var resourcePlatesCostos = Restangular.all('cost/plateslast');
+    resourcePlatesCostos.getList().then(function(platesCostosLast){
+        if (platesCostosLast) {
+            if(isAuthenticated(platesCostosLast) == true){
+                $scope.platesCostosLast = platesCostosLast;
+            }
+        }
+
+    });
+
+
+
 }
 
 // CONTROLLER COSTOS INSUMOS
 function retrieve10(Restangular, $scope){
 
+    $scope.sendDatesItemCosto = function(){
+        if(startDateItemCostoAsObject) var start = startDateItemCostoAsObject;
+        if(endDateItemCostoAsObject){
+            var end = endDateItemCostoAsObject;
+        }
+        else{
+            var end = new Date();
+        }
+
+        alert(start + end);
+    };
+
     $scope.itemsCostos = [];
 
-    var resourceItemsCostos = Restangular.all('cost/platesaverage');
+    var resourceItemsCostos = Restangular.all('cost/itemsaverage');
     resourceItemsCostos.getList().then(function(itemsCostos){
         if (itemsCostos) {
             if(isAuthenticated(itemsCostos) == true){

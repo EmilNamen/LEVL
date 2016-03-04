@@ -76,8 +76,8 @@ MAIN CONTENT
         <a href="home.html" class="logo"><b>LEVL</b></a>
         <!--logo end-->
         <div class="top-menu" >
-            <ul class="nav pull-right top-menu">
-                <li><a class="logout" ng-controller="retrieve0" onclick="logout()">CERRAR SESIÓN</a></li>
+            <ul class="nav pull-right top-menu" ng-controller="retrieve11">
+                <li><a class="logout"  onclick="logout()">CERRAR SESIÓN</a></li>
             </ul>
         </div>
     </header>
@@ -140,6 +140,19 @@ MAIN CONTENT
                         <li><a  ng-click="setTab(15)" onclick="setRefreshTab(15)">REVISAR COSTOS INSUMOS</a></li>
                     </ul>
                 </li>
+
+
+                <li class="sub-menu" ng-class="{ active:isSet(14)|| isSet(15)}">
+                    <a href="javascript:;" >
+                        <i class="fa fa-money"></i>
+                        <span>COSTOS</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a  ng-click="setTab(14)" onclick="setRefreshTab(14)">REVISAR COSTOS RECETAS</a></li>
+                        <li><a  ng-click="setTab(15)" onclick="setRefreshTab(15)">REVISAR COSTOS INSUMOS</a></li>
+                    </ul>
+                </li>
+
 
                 <li class="sub-menu" ng-class="{ active:isSet(10) }">
                     <a  ng-click="setTab(10)" onclick="setRefreshTab(10)">
@@ -1926,6 +1939,22 @@ MAIN CONTENT
             <div ng-controller="retrieve9">
                 <h3><i class="fa fa-angle-right"></i> REVISAR COSTOS PLATOS:</h3>
 
+                <div class="col-md-6">
+
+                    <div class="input-group input-daterange">
+                        <input id="startDatePlateCosto" type="text" class="form-control" placeholder='Fecha Inicio'/>
+                        <span class="input-group-addon">to</span>
+                        <input id="endDatePlateCosto"  type="text" class="form-control" placeholder='Fecha Fin'/>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <button id="sendDatesPlateCosto" type="submit" class="btn btn-success" ng-click="sendDatesPlateCosto(startDatePlateCostoAsObject,endDatePlateCostoAsObject)">ENVIAR</button>
+                </div>
+
+                <br></br>
+                <br></br>
+
                 <div class="col-md-12">
                     <div class="panel-heading">
                         <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
@@ -1937,13 +1966,15 @@ MAIN CONTENT
                                 <thead>
                                 <tr>
                                     <th>PLATO</th>
-                                    <th class="numeric">COSTO</th>
+                                    <th class="numeric">COSTO PROMEDIO</th>
+                                    <th class="numeric">COSTO LAST</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="plateCosto in platesCostos">
+                                <tr ng-repeat="plateCosto in platesCostosAverage">
                                     <td>{{plateCosto.plate}}</td>
                                     <td class="numeric">{{plateCosto.cost | currency}}</td>
+                                    <td class="numeric">{{platesCostosLast[$index].cost | currency}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -1964,6 +1995,23 @@ MAIN CONTENT
             <div ng-controller="retrieve10">
                 <h3><i class="fa fa-angle-right"></i> REVISAR COSTOS INSUMOS:</h3>
 
+
+                <div class="col-md-6">
+
+                    <div class="input-group input-daterange">
+                        <input id="startDateItemCosto" type="text" class="form-control" placeholder='Fecha Inicio'/>
+                        <span class="input-group-addon">to</span>
+                        <input id="endDateItemCosto"  type="text" class="form-control" placeholder='Fecha Fin'/>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <button id="sendDatesItemCosto" type="submit" class="btn btn-success" ng-click="sendDatesItemCosto(startDateItemCostoAsObject,endDateItemCostoAsObject)">ENVIAR</button>
+                </div>
+
+                <br></br>
+                <br></br>
+
                 <div class="col-md-12">
                     <div class="panel-heading">
                         <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
@@ -1979,8 +2027,8 @@ MAIN CONTENT
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="itemCosto in itemsCostos">
-                                    <td>{{itemCosto.plate}}</td>
+                                <tr ng-repeat="itemCosto in itemsCostos" ng-class='{red: itemCosto.cost == null}'>
+                                    <td>{{itemCosto.item}}</td>
                                     <td class="numeric">{{itemCosto.cost | currency}}</td>
                                 </tr>
                                 </tbody>
@@ -2053,6 +2101,39 @@ MAIN CONTENT
         endDateFiltroAsObject = $("#endDateInputFiltro").datepicker('getDate');
 
     });
+
+
+    //DATES COSTOS INSUMOS
+    $("#startDateItemCosto").datepicker();
+    $("#endDateItemCosto").datepicker();
+
+    var startDateItemCostoAsObject = "";
+    var endDateItemCostoAsObject = "";
+
+
+    $("#sendDatesItemCosto").click(function(){
+
+        startDateItemCostoAsObject = $("#startDateItemCosto").datepicker('getDate');
+        endDateItemCostoAsObject = $("#endDateItemCosto").datepicker('getDate');
+
+    });
+
+    // DATES COSTOS PLATOS
+    $("#startDatePlateCosto").datepicker();
+    $("#endDatePlateCosto").datepicker();
+
+    var startDatePlateCostoAsObject = "";
+    var endDatePlateCostoAsObject = "";
+
+
+    $("#sendDatesPlateCosto").click(function(){
+
+        startDatePlateCostoAsObject = $("#startDatePlateCosto").datepicker('getDate');
+        endDatePlateCostoAsObject = $("#endDatePlateCosto").datepicker('getDate');
+
+    });
+
+
 </script>
 
 
