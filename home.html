@@ -137,6 +137,7 @@ MAIN CONTENT
                         <li><a  ng-click="setTab(8)" onclick="setRefreshTab(8)">REVISAR RECETAS</a></li>
                         <li><a  ng-click="setTab(9)" onclick="setRefreshTab(9)">REVISAR PROVEEDORES</a></li>
                         <li><a  ng-click="setTab(14)" onclick="setRefreshTab(14)">REVISAR COSTOS RECETAS</a></li>
+                        <li><a  ng-click="setTab(15)" onclick="setRefreshTab(15)">REVISAR COSTOS INSUMOS</a></li>
                     </ul>
                 </li>
 
@@ -1957,6 +1958,44 @@ MAIN CONTENT
 
 
         </section><! --/wrapper  REVISAR COSTOS PLATOS-->
+
+
+        <section class="wrapper"  ng-show="isSet(15)">
+            <div ng-controller="retrieve10">
+                <h3><i class="fa fa-angle-right"></i> REVISAR COSTOS INSUMOS:</h3>
+
+                <div class="col-md-12">
+                    <div class="panel-heading">
+                        <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="task-content">
+
+                            <table class="table table-bordered table-striped table-condensed" id="revisarCostosInsumosTable">
+                                <thead>
+                                <tr>
+                                    <th>PLATO</th>
+                                    <th class="numeric">COSTO</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="itemCosto in itemsCostos">
+                                    <td>{{itemCosto.plate}}</td>
+                                    <td class="numeric">{{itemCosto.cost | currency}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div><!-- /col-lg-4 -->
+
+
+            </div>
+
+
+        </section><! --/wrapper  REVISAR COSTOS INSUMOS-->
 
 
     </section>

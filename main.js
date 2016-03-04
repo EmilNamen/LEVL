@@ -61,6 +61,7 @@ app.controller('retrieve6', retrieve6);
 app.controller('retrieve7', retrieve7);
 app.controller('retrieve8', retrieve8);
 app.controller('retrieve9', retrieve9);
+app.controller('retrieve10', retrieve10);
 app.controller('put1',put1);
 app.controller('put2',put2);
 app.controller('put3',put3);
@@ -1473,6 +1474,22 @@ function retrieve9(Restangular, $scope){
         if (platesCostos) {
             if(isAuthenticated(platesCostos) == true){
                 $scope.platesCostos = platesCostos;
+            }
+        }
+
+    });
+}
+
+// CONTROLLER COSTOS INSUMOS
+function retrieve10(Restangular, $scope){
+
+    $scope.itemsCostos = [];
+
+    var resourceItemsCostos = Restangular.all('cost/platesaverage');
+    resourceItemsCostos.getList().then(function(itemsCostos){
+        if (itemsCostos) {
+            if(isAuthenticated(itemsCostos) == true){
+                $scope.itemsCostos = itemsCostos;
             }
         }
 
