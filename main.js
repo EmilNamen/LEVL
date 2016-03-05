@@ -1036,7 +1036,6 @@ function retrieve7(Restangular, $scope){
 }
 
 
-
 // CONTROLLER ORDENES DE COMPRA
 function retrieve8(Restangular, $scope){
 
@@ -1469,19 +1468,6 @@ function isAuthenticated(response){
 // CONTROLLER COSTOS RECETAS
 function retrieve9(Restangular, $scope){
 
-
-    $scope.sendDatesPlateCosto = function(){
-        if(startDatePlateCostoAsObject) var start = startDatePlateCostoAsObject;
-        if(endDatePlateCostoAsObject){
-            var end = endDatePlateCostoAsObject;
-        }
-        else{
-            var end = new Date();
-        }
-
-        alert(start + end);
-    };
-
     $scope.platesCostosAverage = [];
 
     var resourcePlatesCostos = Restangular.all('cost/platesaverage');
@@ -1494,19 +1480,54 @@ function retrieve9(Restangular, $scope){
 
     });
 
-    $scope.platesCostosLast = [];
+    /*$scope.platesCostosLast = [];
 
     var resourcePlatesCostos = Restangular.all('cost/plateslast');
     resourcePlatesCostos.getList().then(function(platesCostosLast){
         if (platesCostosLast) {
             if(isAuthenticated(platesCostosLast) == true){
-                $scope.platesCostosLast = platesCostosLast;
+                $scope.platesCostosAverage.concat($scope.platesCostosLast);
+                alert(JSON.stringify($scope.platesCostosAverage));
             }
         }
 
-    });
+    });*/
+
+    /*$scope.sendDatesPlateCosto = function(){
+        if(startDatePlateCostoAsObject) var start = startDatePlateCostoAsObject;
+        if(endDatePlateCostoAsObject){
+            var end = endDatePlateCostoAsObject;
+        }
+        else{
+            var end = new Date();
+        }
+
+        alert(start + end);
+    };*/
 
 
+    $scope.sendDatesPlateCosto = function() {
+
+
+        var uri = "platesaverage?type=***COMPRA";
+        var args = '';
+
+
+        if (startDatePlateCostoAsObject) {
+            args += (args == '' ? '' : '&') + 'startDate=' + startDatePlateCostoAsObject;
+
+        }
+
+        if (endDatePlateCostoAsObject) {
+            args += (args == '' ? '' : '&') + 'endDate=' + endDatePlateCostoAsObject;
+        }
+
+        Restangular.all(uri + args).getList().then(function (platesCostosAverage) {
+            $scope.platesCostosAverage = platesCostosAverage;
+        });
+
+
+    };
 
 }
 

@@ -127,7 +127,7 @@ MAIN CONTENT
 
 
 
-                <li class="sub-menu" ng-class="{ active:isSet(7) || isSet(8) || isSet(9) || isSet(14) }">
+                <li class="sub-menu" ng-class="{ active:isSet(7) || isSet(8) || isSet(9)}">
                     <a href="javascript:;" >
                         <i class="fa fa-tasks"></i>
                         <span>VER REPORTES</span>
@@ -136,8 +136,6 @@ MAIN CONTENT
                         <li><a  ng-click="setTab(7)" onclick="setRefreshTab(7)">REVISAR INSUMOS</a></li>
                         <li><a  ng-click="setTab(8)" onclick="setRefreshTab(8)">REVISAR RECETAS</a></li>
                         <li><a  ng-click="setTab(9)" onclick="setRefreshTab(9)">REVISAR PROVEEDORES</a></li>
-                        <li><a  ng-click="setTab(14)" onclick="setRefreshTab(14)">REVISAR COSTOS RECETAS</a></li>
-                        <li><a  ng-click="setTab(15)" onclick="setRefreshTab(15)">REVISAR COSTOS INSUMOS</a></li>
                     </ul>
                 </li>
 
@@ -1967,14 +1965,12 @@ MAIN CONTENT
                                 <tr>
                                     <th>PLATO</th>
                                     <th class="numeric">COSTO PROMEDIO</th>
-                                    <th class="numeric">COSTO LAST</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="plateCosto in platesCostosAverage">
                                     <td>{{plateCosto.plate}}</td>
                                     <td class="numeric">{{plateCosto.cost | currency}}</td>
-                                    <td class="numeric">{{platesCostosLast[$index].cost | currency}}</td>
                                 </tr>
                                 </tbody>
                             </table>
