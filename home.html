@@ -46,6 +46,7 @@
     <script src="assets/js/pdf-make/pdfmake.js"></script>
     <script src="assets/js/pdf-make/vfs_fonts.js"></script>
 
+
     <!-- SET REFRESH TAB LOCAL STORAGE-->
     <script>
         function setRefreshTab(activeTab){
@@ -1449,6 +1450,9 @@ MAIN CONTENT
 
                 <h3><i class="fa fa-angle-right"></i>REVISAR TABLA DE INVENTARIO:</h3>
 
+                <button class="pull-right btn btn-success" type="submit" ng-click="descargarPDFTablaInventario()">DESCARGAR REPORTE PDF</button>
+                <br>
+
                 <!-- BASIC FORM ELEMENTS -->
                 <div class="row">
 
@@ -1964,13 +1968,15 @@ MAIN CONTENT
                                 <thead>
                                 <tr>
                                     <th>PLATO</th>
-                                    <th class="numeric">COSTO PROMEDIO</th>
+                                    <th class="numeric">ÚLTIMO COSTO</th>
+                                    <!--<th class="numeric">COSTO PROMEDIO</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="plateCosto in platesCostosAverage">
                                     <td>{{plateCosto.plate}}</td>
                                     <td class="numeric">{{plateCosto.cost | currency}}</td>
+                                    <!--<td class="numeric">{{plateCosto.costAverage | currency}}</td>-->
                                 </tr>
                                 </tbody>
                             </table>

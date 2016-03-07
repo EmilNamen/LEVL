@@ -808,6 +808,7 @@ function retrieve5(Restangular, $scope){
             $scope.rowsInventoryTable = rowsInventoryTable;
 
             rowsInventoryTable.forEach( function( item ) {
+
                 query2 = 'inventory/currentStock'+'?item='+item[1]+'&date='+end;
                 var resource3 = Restangular.all(query2);
                 resource3.getList().then(function(currents){
@@ -849,6 +850,92 @@ function retrieve5(Restangular, $scope){
     //    });
     //
     //};
+
+    sendArrayToMethod = function(array){
+        return $scope.rowsInventoryTable;
+    };
+
+
+    $scope.descargarPDFTablaInventario = function(){
+
+        var arrayPDF = $scope.rowsInventoryTable;
+
+        var value = [];
+        var valuesArray = [];
+        var column = [];
+
+        column.push({ text: 'INSUMO', alignment: 'center'});
+        column.push({ text: 'MIN STOCK',alignment: 'center'});
+        column.push({ text: 'OPT STOCK', alignment: 'center'});
+        column.push({ text: 'UNIDADES', alignment: 'center'});
+
+        valuesArray.push(column);
+
+        arrayPDF.forEach(function(row){
+
+            value.push({ text: row[0]});
+            value.push({ text: ""+row[2]});
+            value.push({ text: ""+row[3]});
+            value.push({ text: $scope.getUnitsByID(row[1])});
+            valuesArray.push(value);
+            value = [];
+
+
+        });
+
+        var docDefinition = {
+            content: [
+
+                /*{
+                 image: 'data:http://localhost:63342/LEVL/levlHeader.png/jpg',
+                 fit: [100, 100]
+                 },*/
+
+                // if you don't need styles, you can use a simple string to define a paragraph
+                {
+                    text: 'REPORTE TABLA DE INVENTARIO',
+                    fontSize: 25
+                },
+
+
+                {
+                    text: ' ',
+                    fontSize: 20
+                },
+
+                // using a { text: '...' } object lets you set styling properties
+                { text: 'A continuación se muestra un reporte con los cantidades de insumos guardados en LEVL:', fontSize: 10 },
+
+                {text: ' ', fontSize:  20 },
+
+                {table: {
+                    headerRows: 1,
+                    widths: [ '*', 'auto', 'auto', 100],
+                    body: valuesArray
+                }},
+
+
+
+                /*{ text: 'headerLineOnly:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
+                 {
+                 style: 'tableExample',
+                 table: {
+                 headerRows: 1,
+                 body: valuesArray
+                 },
+                 layout: 'headerLineOnly'
+                 },*/
+
+
+
+                {text: ' ', fontSize:  20 }
+            ]
+        };
+        // open the PDF in a new window
+        pdfMake.createPdf(docDefinition).open();
+
+    };
+
 }
 
 
@@ -1107,16 +1194,26 @@ function retrieve8(Restangular, $scope){
             if(dif<=0){
                 order.item = row[1];
                 order.quantity = dif*-1;
-                order.provider = row[8];
+                if(row[8]){
+                    order.provider = row[8]
+                }
+                else{
+                    order.provider = "No ingresado";
+                };
                 order.type = "ORDEN";
                 order.description = "***ORDEN DE COMPRA"  +new Date().toISOString().slice(0, 10);
                 ordersArray.push(order);
 
 
-                value.push({ text: row[0], style: 'tableHeader'});
-                value.push({ text: ''+dif*-1, style: 'tableHeader'});
-                value.push({ text: ''+$scope.getUnitsByID(row[1]), style: 'tableHeader'});
-                value.push({ text: row[8], style: 'tableHeader'});
+                value.push({ text: row[0]});
+                value.push({ text: ''+dif*-1});
+                value.push({ text: ''+$scope.getUnitsByID(row[1])});
+                if(row[8]){
+                    value.push({ text: row[8]});
+                }
+                else{
+                    value.push({ text: "No ingresado"});
+                }
                 valuesArray.push(value);
                 value = [];
 
@@ -1477,7 +1574,6 @@ function retrieve9(Restangular, $scope){
                 $scope.platesCostosAverage = platesCostosAverage;
             }
         }
-
     });
 
     /*$scope.platesCostosLast = [];
@@ -1487,23 +1583,23 @@ function retrieve9(Restangular, $scope){
         if (platesCostosLast) {
             if(isAuthenticated(platesCostosLast) == true){
                 $scope.platesCostosAverage.concat($scope.platesCostosLast);
-                alert(JSON.stringify($scope.platesCostosAverage));
+                //alert(JSON.stringify($scope.platesCostosAverage));
             }
         }
 
     });*/
 
     /*$scope.sendDatesPlateCosto = function(){
-        if(startDatePlateCostoAsObject) var start = startDatePlateCostoAsObject;
-        if(endDatePlateCostoAsObject){
-            var end = endDatePlateCostoAsObject;
-        }
-        else{
-            var end = new Date();
-        }
+     if(startDatePlateCostoAsObject) var start = startDatePlateCostoAsObject;
+     if(endDatePlateCostoAsObject){
+     var end = endDatePlateCostoAsObject;
+     }
+     else{
+     var end = new Date();
+     }
 
-        alert(start + end);
-    };*/
+     alert(start + end);
+     };*/
 
 
     $scope.sendDatesPlateCosto = function() {
