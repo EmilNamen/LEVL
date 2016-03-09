@@ -273,7 +273,7 @@ function put1(Restangular, $scope){
         });
     };
 
-    $scope.unitsTypes = [{type:'mass', label:'MASA'},{type:'volume', label:'VOLUMEN'},{type:'length', label:'LONGITUD'}];
+    $scope.unitsTypes = [{type:'mass', label:'MASA'},{type:'volume', label:'VOLUMEN'},{type:'length', label:'LONGITUD'},{type:'each',label: 'UNIDAD'}];
 
     $scope.getUnitsByType = function(){
         if($scope.item.unitsType){
@@ -282,15 +282,6 @@ function put1(Restangular, $scope){
             });
         }
     };
-
-    var resource2 = Restangular.all('providers');
-    resource2.getList().then(function(providers){
-        if(isAuthenticated(providers) == true){
-            $scope.providers = providers;
-        }
-    });
-
-
 }
 
 // CONTROLLER INGRESAR COMPRA
@@ -858,24 +849,25 @@ function retrieve5(Restangular, $scope){
 
     $scope.descargarPDFTablaInventario = function(){
 
-        var arrayPDF = $scope.rowsInventoryTable;
 
         var value = [];
         var valuesArray = [];
         var column = [];
 
         column.push({ text: 'INSUMO', alignment: 'center'});
-        column.push({ text: 'MIN STOCK',alignment: 'center'});
-        column.push({ text: 'OPT STOCK', alignment: 'center'});
+        column.push({ text: 'CANTIDAD QUE ENTRÓ',alignment: 'center'});
+        column.push({ text: 'CANTIDAD QUE SALIÓ', alignment: 'center'});
+        column.push({ text: 'CANTIDAD ACTUAL', alignment: 'center'});
         column.push({ text: 'UNIDADES', alignment: 'center'});
 
         valuesArray.push(column);
 
-        arrayPDF.forEach(function(row){
+        $scope.rowsInventoryTable.forEach(function(row){
 
             value.push({ text: row[0]});
-            value.push({ text: ""+row[2]});
-            value.push({ text: ""+row[3]});
+            value.push({ text: ""+row[4]});
+            value.push({ text: ""+row[5]});
+            value.push({ text: ""+row[6]});
             value.push({ text: $scope.getUnitsByID(row[1])});
             valuesArray.push(value);
             value = [];
@@ -1369,7 +1361,61 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
     $scope.iteratorPMIX = 0;
 
 
+
+    //PRODUCTO UNICO
+
+    $scope.itemUniq = {};
+    $scope.unitsitemUniqTypes = [{type:'mass', label:'MASA'},{type:'volume', label:'VOLUMEN'},{type:'length', label:'LONGITUD'},{type:'each',label: 'UNIDAD'}];
+
+    $scope.getUnitsByTypeUniqItem = function(){
+        if($scope.itemUniq.unitType){
+            Restangular.all('convert/possibilities?measure='+$scope.itemUniq.unitType).getList().then(function(measures){
+                $scope.measuresItemUniq = measures;
+            });
+        }
+    };
+
+
+    $scope.addUniqProduct = function( ){
+
+        var resourceInsumoUniq = Restangular.all('items');
+
+        $scope.itemUniq.name = $scope.platePMIX.name;
+        $scope.itemUniq.description = $scope.platePMIX.description;
+
+        resourceInsumoUniq.post($scope.itemUniq).then(function(data) {
+         //interprete save result
+         });
+
+        Restangular.all('items').getList().then(function (items) {
+            _.each(items, function(item)
+            {
+                if(item.name == $scope.itemUniq.name){
+                    $scope.idIngredientUniqProduct = item._id;
+                }
+            });
+            alert($scope.idIngredientUniqProduct);
+            $scope.plateUniq = {};
+            $scope.plateUniq.name = $scope.platePMIX.name;
+            $scope.plateUniq.description = $scope.platePMIX.description;
+            $scope.plateUniq.price = $scope.platePMIX.price;
+            $scope.plateUniq.ingredients = [$scope.idIngredientUniqProduct];
+            $scope.plateUniq.ingredientsQuantity = [1];
+
+            Restangular.all('plates').post($scope.plateUniq).then(function(data){
+                alert(JSON.stringify(data));
+                reloadPage();
+            });
+        });
+
+
+
+    };
+
+
     $scope.sendFormModalWindow = function () {
+
+        alert($scope.uniqProduct);
 
         console.log('want to send');
 
@@ -1576,18 +1622,17 @@ function retrieve9(Restangular, $scope){
         }
     });
 
-    /*$scope.platesCostosLast = [];
+    $scope.platesCostosLast = [];
 
     var resourcePlatesCostos = Restangular.all('cost/plateslast');
     resourcePlatesCostos.getList().then(function(platesCostosLast){
         if (platesCostosLast) {
             if(isAuthenticated(platesCostosLast) == true){
-                $scope.platesCostosAverage.concat($scope.platesCostosLast);
-                //alert(JSON.stringify($scope.platesCostosAverage));
+                $scope.platesCostosLast = platesCostosLast;
             }
         }
 
-    });*/
+    });
 
     /*$scope.sendDatesPlateCosto = function(){
      if(startDatePlateCostoAsObject) var start = startDatePlateCostoAsObject;

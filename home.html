@@ -306,7 +306,6 @@ MAIN CONTENT
 
                                 <div class="row">
 
-
                                     <div class="col-md-6 ">
                                         <div class="input-group">
                                             <div class="input-group-addon">Nombre Producto:</div>
@@ -321,10 +320,96 @@ MAIN CONTENT
                                         </div>
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">($) Precio Producto: </div>
+                                            <input type="text" class="form-control" ng-model="platePMIX.price" placeholder='($)Precio '>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 ">
+                                        <div class="input-group">
+                                            <label><input type="checkbox" ng-model="uniqProduct" aria-label="Toggle ngHide">¿Es un producto único?:</label>
+                                        </div>
+                                    </div>
 
 
-                                    <!-- COMPLEX TO DO LIST -->
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" ng-show="uniqProduct">
+
+                                        <!--El nombre del insumo es el mismo nombre del producto-->
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Minimo de stock requerido: </div>
+                                                    <input type="text" class="form-control" ng-model="itemUniq.minStockReq" placeholder='Min '>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Stock Óptimo: </div>
+                                                    <input type="text" class="form-control" ng-model="itemUniq.optStockReq" placeholder='Stock Opt '>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Categoría: </div>
+                                                    <input type="text" class="form-control" ng-model="itemUniq.category" placeholder='Ingresar Categoría'>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Unidades Insumo: </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">Seleccionar Tipo:</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="dropdown">
+                                                        <select class="form-control" ng-model="itemUniq.unitType" ng-value="type.type"
+                                                                ng-options="type.type as type.label for type in unitsitemUniqTypes" ng-click="getUnitsByTypeUniqItem()">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div ng-if="itemUniq.unitType"  class="col-md-12">
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">Seleccionar Unidad:</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="dropdown">
+                                                        <select class="form-control" ng-model="itemUniq.units">
+                                                            <option ng-repeat="unit in measuresItemUniq">{{unit}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-4 col-md-offset-3">
+                                                <button type="submit" class="btn btn-success" ng-click="addUniqProduct()">INGRESAR INSUMO</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- NO ES UNIQ PRODUCTO -->
+                                    <div class="col-md-12"  ng-hide="uniqProduct">
                                         <div class="panel-heading">
                                             <div class="pull-left"><h5><i class="fa fa-tasks"></i> Lista de Ingredientes:</h5></div>
                                             <br>
@@ -414,7 +499,9 @@ MAIN CONTENT
                                             </div>
                                         </div><!-- /col-md-12-->
 
+
                                     </div>
+
 
                                 </div><!-- /row -->
 
@@ -799,12 +886,6 @@ MAIN CONTENT
                                     <div class="input-group">
                                         <div class="input-group-addon">Precio ($):</div>
                                         <input type="number" class="form-control" ng-model="plate.price" placeholder='$ Precio'/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <div class="input-group-addon"># Factura:</div>
-                                        <input type="number" class="form-control" ng-model="plate.invoiceNumber" placeholder='# Factura'/>
                                     </div>
                                 </div>
                             </div>
@@ -1969,14 +2050,14 @@ MAIN CONTENT
                                 <tr>
                                     <th>PLATO</th>
                                     <th class="numeric">ÚLTIMO COSTO</th>
-                                    <!--<th class="numeric">COSTO PROMEDIO</th>-->
+                                    <th class="numeric">COSTO PROMEDIO</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="plateCosto in platesCostosAverage">
                                     <td>{{plateCosto.plate}}</td>
-                                    <td class="numeric">{{plateCosto.cost | currency}}</td>
-                                    <!--<td class="numeric">{{plateCosto.costAverage | currency}}</td>-->
+                                    <td class="numeric">{{platesCostosLast[$index].costLast | currency}}</td>
+                                    <td class="numeric">{{plateCosto.costAverage | currency}}</td>
                                 </tr>
                                 </tbody>
                             </table>
