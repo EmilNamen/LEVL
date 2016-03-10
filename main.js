@@ -857,7 +857,7 @@ function retrieve5(Restangular, $scope){
         column.push({ text: 'INSUMO', alignment: 'center'});
         column.push({ text: 'CANTIDAD QUE ENTRÓ',alignment: 'center'});
         column.push({ text: 'CANTIDAD QUE SALIÓ', alignment: 'center'});
-        column.push({ text: 'CANTIDAD ACTUAL', alignment: 'center'});
+        //column.push({ text: 'CANTIDAD ACTUAL', alignment: 'center'});
         column.push({ text: 'UNIDADES', alignment: 'center'});
 
         valuesArray.push(column);
@@ -867,7 +867,7 @@ function retrieve5(Restangular, $scope){
             value.push({ text: row[0]});
             value.push({ text: ""+row[4]});
             value.push({ text: ""+row[5]});
-            value.push({ text: ""+row[6]});
+            //value.push({ text: ""+row[6]});
             value.push({ text: $scope.getUnitsByID(row[1])});
             valuesArray.push(value);
             value = [];
