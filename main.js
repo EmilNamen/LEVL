@@ -1134,7 +1134,12 @@ function retrieve8(Restangular, $scope){
             Restangular.all('inventory/currentStock?item='+item[1]+'&date='+new Date()).getList().then(function(currentStock){
 
                 item[6] = currentStock;
-                item[7] = currentStock;
+                if(item[6]<item[3]){
+                    item[7] = item[3]-item[6];
+                }
+                else{
+                    item[7] = 0;
+                }
             });
 
 
@@ -1181,45 +1186,42 @@ function retrieve8(Restangular, $scope){
 
         $scope.rowsiInventoryTable.forEach(function(row){
 
-            var dif =  row[7]-row[2];
-
-            if(dif<=0){
-                order.item = row[1];
-                order.quantity = dif*-1;
-                if(row[8]){
-                    order.provider = row[8]
-                }
-                else{
-                    order.provider = "No ingresado";
-                };
-                order.type = "ORDEN";
-                order.description = "***ORDEN DE COMPRA"  +new Date().toISOString().slice(0, 10);
-                ordersArray.push(order);
-
-
-                value.push({ text: row[0]});
-                value.push({ text: ''+dif*-1});
-                value.push({ text: ''+$scope.getUnitsByID(row[1])});
-                if(row[8]){
-                    value.push({ text: row[8]});
-                }
-                else{
-                    value.push({ text: "No ingresado"});
-                }
-                valuesArray.push(value);
-                value = [];
-
-
-                /*$scope.transaction.item = row[1];
-                 $scope.transaction.quantity = dif*-1;
-                 $scope.transaction.type = "ORDEN";
-                 $scope.transaction.description = "***ORDEN DE COMPRA  "+new Date().toISOString().slice(0, 10);
-                 $scope.transaction.date = new Date();
-                 resourceTransaction.post($scope.transaction).then(function(data){
-                 alert("ajustado");
-                 reloadPage();
-                 });*/
+            order.item = row[1];
+            order.quantity = row[7];
+            if(row[8]){
+                order.provider = row[8]
             }
+            else{
+                order.provider = "No ingresado";
+            };
+            order.type = "ORDEN";
+            order.description = "***ORDEN DE COMPRA"  +new Date().toISOString().slice(0, 10);
+            ordersArray.push(order);
+
+
+            value.push({ text: row[0]});
+            value.push({ text: ''+row[7]});
+            value.push({ text: ''+$scope.getUnitsByID(row[1])});
+            if(row[8]){
+                value.push({ text: row[8]});
+            }
+            else{
+                value.push({ text: "No ingresado"});
+            }
+            valuesArray.push(value);
+            value = [];
+
+
+            /*$scope.transaction.item = row[1];
+             $scope.transaction.quantity = dif*-1;
+             $scope.transaction.type = "ORDEN";
+             $scope.transaction.description = "***ORDEN DE COMPRA  "+new Date().toISOString().slice(0, 10);
+             $scope.transaction.date = new Date();
+             resourceTransaction.post($scope.transaction).then(function(data){
+             alert("ajustado");
+             reloadPage();
+             });*/
+
 
         });
 
@@ -1384,8 +1386,8 @@ function MyCtrl (Restangular,$scope, Upload, $timeout) {
         $scope.itemUniq.description = $scope.platePMIX.description;
 
         resourceInsumoUniq.post($scope.itemUniq).then(function(data) {
-         //interprete save result
-         });
+            //interprete save result
+        });
 
         Restangular.all('items').getList().then(function (items) {
             _.each(items, function(item)

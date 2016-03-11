@@ -1973,21 +1973,19 @@ MAIN CONTENT
                                                     <th>MIN STOCK</th>
                                                     <th>OPT STOCK</th>
                                                     <th>CANTIDAD ACTUAL</th>
-                                                    <th>CANTIDAD REAL</th>
-                                                    <th>DIFERENCIA</th>
+                                                    <th>ORDEN</th>
                                                     <th>UNIDADES</th>
                                                     <th>PROVEEDOR</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
 
-                                                <tr ng-repeat="rowi in rowsiInventoryTable" ng-class='{red:(rowi[7]-rowi[2])<0}'>
+                                                <tr ng-repeat="rowi in rowsiInventoryTable" ng-class='{red:rowi[7]+rowi[6]<rowi[3]}'>
                                                     <td>{{rowi[0]}}</td>
                                                     <td>{{rowi[2]}}</td>
                                                     <td>{{rowi[3]}}</td>
                                                     <td>{{rowi[6]}}</td>
                                                     <td class="number"><input type="text" ng-model="rowi[7]"/></td>
-                                                    <td class="number">{{rowi[7]-rowi[2]}}</td>
                                                     <td>{{getUnitsByID(rowi[1])}}</td>
                                                     <td>{{rowi[8]}}</td>
                                                 </tr>
