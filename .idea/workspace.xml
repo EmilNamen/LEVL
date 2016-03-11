@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de38e232-e71b-4ca4-99c3-03cf2b9dbd8e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home.html" afterPath="$PROJECT_DIR$/home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
     </list>
@@ -28,8 +27,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.69491524">
-              <caret line="1202" column="41" selection-start-line="1202" selection-start-column="41" selection-end-line="1202" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.14745763">
+              <caret line="933" column="38" selection-start-line="933" selection-start-column="38" selection-end-line="933" selection-end-column="38" />
               <folding>
                 <element signature="e#460#1628#0" expanded="false" />
                 <element signature="e#2388#2719#0" expanded="false" />
@@ -51,9 +50,10 @@
                 <element signature="e#24706#26052#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve6#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve7#0" expanded="false" />
+                <element signature="n#!!block;n#retrieve8#0" expanded="false" />
                 <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-                <element signature="e#43019#43994#0" expanded="false" />
-                <element signature="e#44047#44468#0" expanded="false" />
+                <element signature="e#43034#44009#0" expanded="false" />
+                <element signature="e#44062#44483#0" expanded="false" />
                 <element signature="n#!!block;n#reloadPage#0" expanded="false" />
                 <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
                 <element signature="n#!!block;n#retrieve9#0" expanded="false" />
@@ -66,8 +66,8 @@
       <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.541667">
-              <caret line="1982" column="122" selection-start-line="1982" selection-start-column="122" selection-end-line="1982" selection-end-column="122" />
+            <state vertical-scroll-proportion="-33.416668">
+              <caret line="1989" column="69" selection-start-line="1989" selection-start-column="63" selection-end-line="1989" selection-end-column="69" />
               <folding>
                 <element signature="n#header#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -373,9 +373,10 @@
             <element signature="e#24706#26052#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#43019#43994#0" expanded="false" />
-            <element signature="e#44047#44468#0" expanded="false" />
+            <element signature="e#43034#44009#0" expanded="false" />
+            <element signature="e#44062#44483#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#retrieve9#0" expanded="false" />
@@ -436,9 +437,10 @@
             <element signature="e#24706#26052#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#43019#43994#0" expanded="false" />
-            <element signature="e#44047#44468#0" expanded="false" />
+            <element signature="e#43034#44009#0" expanded="false" />
+            <element signature="e#44062#44483#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#retrieve9#0" expanded="false" />
@@ -499,9 +501,10 @@
             <element signature="e#24706#26052#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#43019#43994#0" expanded="false" />
-            <element signature="e#44047#44468#0" expanded="false" />
+            <element signature="e#43034#44009#0" expanded="false" />
+            <element signature="e#44062#44483#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#retrieve9#0" expanded="false" />
@@ -562,9 +565,10 @@
             <element signature="e#24706#26052#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#43019#43994#0" expanded="false" />
-            <element signature="e#44047#44468#0" expanded="false" />
+            <element signature="e#43034#44009#0" expanded="false" />
+            <element signature="e#44062#44483#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#retrieve9#0" expanded="false" />
@@ -625,9 +629,10 @@
             <element signature="e#24706#26052#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#43019#43994#0" expanded="false" />
-            <element signature="e#44047#44468#0" expanded="false" />
+            <element signature="e#43034#44009#0" expanded="false" />
+            <element signature="e#44062#44483#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#retrieve9#0" expanded="false" />
@@ -889,6 +894,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2844523">
           <caret line="2247" column="1" selection-start-line="2243" selection-start-column="12" selection-end-line="2247" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -909,8 +915,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.541667">
-          <caret line="1982" column="122" selection-start-line="1982" selection-start-column="122" selection-end-line="1982" selection-end-column="122" />
+        <state vertical-scroll-proportion="-33.416668">
+          <caret line="1989" column="69" selection-start-line="1989" selection-start-column="63" selection-end-line="1989" selection-end-column="69" />
           <folding>
             <element signature="n#header#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#aside#0;n#section#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -936,8 +942,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69491524">
-          <caret line="1202" column="41" selection-start-line="1202" selection-start-column="41" selection-end-line="1202" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.14745763">
+          <caret line="933" column="38" selection-start-line="933" selection-start-column="38" selection-end-line="933" selection-end-column="38" />
           <folding>
             <element signature="e#460#1628#0" expanded="false" />
             <element signature="e#2388#2719#0" expanded="false" />
@@ -959,9 +965,10 @@
             <element signature="e#24706#26052#0" expanded="false" />
             <element signature="n#!!block;n#retrieve6#0" expanded="false" />
             <element signature="n#!!block;n#retrieve7#0" expanded="false" />
+            <element signature="n#!!block;n#retrieve8#0" expanded="false" />
             <element signature="n#!!block;n#MyCtrl#0" expanded="false" />
-            <element signature="e#43019#43994#0" expanded="false" />
-            <element signature="e#44047#44468#0" expanded="false" />
+            <element signature="e#43034#44009#0" expanded="false" />
+            <element signature="e#44062#44483#0" expanded="false" />
             <element signature="n#!!block;n#reloadPage#0" expanded="false" />
             <element signature="n#!!block;n#isAuthenticated#0" expanded="false" />
             <element signature="n#!!block;n#retrieve9#0" expanded="false" />

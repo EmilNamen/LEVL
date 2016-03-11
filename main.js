@@ -968,7 +968,7 @@ function retrieve6(Restangular, $scope){
 
             if(dif!=0){
                 $scope.transaction.item = row[1];
-                $scope.transaction.quantity = dif*-1;
+                $scope.transaction.quantity = dif;
                 $scope.transaction.type = "***AJUSTE";
                 $scope.transaction.description = "***AJUSTE INVENTARIO  "+new Date().toISOString().slice(0, 10);
                 $scope.transaction.date = new Date();
@@ -981,7 +981,7 @@ function retrieve6(Restangular, $scope){
 
         alert("Se realizaron las transacciones de ajuste correctamente");
         localStorage.setItem('activeTab','10');
-        reloadPage();
+        //reloadPage();
 
         //alert($scope.rowsiInventoryTable);
 
@@ -1212,15 +1212,15 @@ function retrieve8(Restangular, $scope){
             value = [];
 
 
-            /*$scope.transaction.item = row[1];
-             $scope.transaction.quantity = dif*-1;
-             $scope.transaction.type = "ORDEN";
-             $scope.transaction.description = "***ORDEN DE COMPRA  "+new Date().toISOString().slice(0, 10);
-             $scope.transaction.date = new Date();
-             resourceTransaction.post($scope.transaction).then(function(data){
-             alert("ajustado");
-             reloadPage();
-             });*/
+            $scope.transaction.item = row[1];
+            $scope.transaction.quantity = row[7]*-1;
+            $scope.transaction.type = "***ORDEN";
+            $scope.transaction.price = row[9]*row[7];
+            $scope.transaction.description = "***ORDEN DE COMPRA  "+new Date().toISOString().slice(0, 10);
+            $scope.transaction.date = new Date();
+            resourceTransaction.post($scope.transaction).then(function(data){
+
+            });
 
 
         });
@@ -1279,6 +1279,7 @@ function retrieve8(Restangular, $scope){
         };
         // open the PDF in a new window
         pdfMake.createPdf(docDefinition).open();
+        //reloadPage();
 
     };
 
